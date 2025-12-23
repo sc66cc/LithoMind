@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="../LithoMind.Core/LithoMind.Core.csproj" />
+  <Project Path="../LithoMind.Infrastructure/LithoMind.Infrastructure.csproj" />
+  <Project Path="DeepTime.LithoMind.Desktop.csproj" />
+</Solution>

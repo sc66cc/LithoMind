@@ -1,0 +1,49 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net8.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ApplicationManifest>app.manifest</ApplicationManifest>
+		<AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Folder Include="Models\" />
+		<Folder Include="Styles\" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<AvaloniaResource Include="Assets\**" />
+
+		<AvaloniaResource Remove="Assets\config\ui_layout.json" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Content Include="Assets\config\ui_layout.json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Avalonia" Version="11.2.3" />
+		<PackageReference Include="Avalonia.Desktop" Version="11.2.3" />
+		<PackageReference Include="Avalonia.Themes.Fluent" Version="11.2.3" />
+		<PackageReference Include="Avalonia.Fonts.Inter" Version="11.2.3" />
+		<PackageReference Include="Avalonia.Diagnostics" Version="11.2.3">
+			<IncludeAssets Condition="'$(Configuration)' != 'Debug'">None</IncludeAssets>
+			<PrivateAssets Condition="'$(Configuration)' != 'Debug'">All</PrivateAssets>
+		</PackageReference>
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.1" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.1" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\LithoMind.Core\LithoMind.Core.csproj" />
+		<ProjectReference Include="..\LithoMind.Infrastructure\LithoMind.Infrastructure.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Update="Views\DataManagerView.axaml.cs">
+			<DependentUpon>DataManagerView.axaml</DependentUpon>
+		</Compile>
+	</ItemGroup>
+</Project>
