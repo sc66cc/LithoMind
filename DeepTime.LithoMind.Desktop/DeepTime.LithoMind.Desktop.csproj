@@ -37,7 +37,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\LithoMind.Core\LithoMind.Core.csproj" />
 		<ProjectReference Include="..\LithoMind.Infrastructure\LithoMind.Infrastructure.csproj" />
 	</ItemGroup>
 
