@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "BiA7THCN6IU=",
+  "dgSpecHash": "2dXlofkfjgU=",
   "success": true,
-  "projectFilePath": "C:\\Users\\24846\\source\\repos\\LithoFaceisStudio\\LithoMind.Infrastructure\\LithoMind.Infrastructure.csproj",
+  "projectFilePath": "C:\\Users\\24846\\Desktop\\Work\\项目\\海油\\项目执行\\4 系统开发\\原型V2\\LithoMind\\LithoMind.Infrastructure\\LithoMind.Infrastructure.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\24846\\.nuget\\packages\\communitytoolkit.mvvm\\8.2.1\\communitytoolkit.mvvm.8.2.1.nupkg.sha512",
     "C:\\Users\\24846\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\8.0.0\\microsoft.extensions.dependencyinjection.abstractions.8.0.0.nupkg.sha512"

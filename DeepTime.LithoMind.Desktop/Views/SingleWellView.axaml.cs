@@ -1,8 +1,6 @@
-﻿using Avalonia;
-using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
+﻿using Avalonia.Controls;
 
-namespace DeepTime.LithoMind.Desktop.Views.Pages;
+namespace DeepTime.LithoMind.Desktop.Views;
 
 public partial class SingleWellView : UserControl
 {

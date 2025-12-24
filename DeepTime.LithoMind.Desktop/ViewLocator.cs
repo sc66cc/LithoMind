@@ -19,7 +19,30 @@ namespace DeepTime.LithoMind.Desktop
             if (param is null)
                 return null;
 
-            var name = param.GetType().FullName!.Replace("ViewModel", "View", StringComparison.Ordinal);
+            var fullName = param.GetType().FullName!;
+            
+            // 步骤1：先处理命名空间映射 ViewModels.Pages -> Views
+            // 步骤2：再处理类名后缀 ViewModel -> View
+            string name;
+            
+            if (fullName.Contains(".ViewModels.Pages."))
+            {
+                // ViewModels.Pages.XXXViewModel -> Views.XXXView
+                name = fullName.Replace(".ViewModels.Pages.", ".Views.", StringComparison.Ordinal);
+            }
+            else if (fullName.Contains(".ViewModels."))
+            {
+                // ViewModels.XXXViewModel -> Views.XXXView  
+                name = fullName.Replace(".ViewModels.", ".Views.", StringComparison.Ordinal);
+            }
+            else
+            {
+                name = fullName;
+            }
+            
+            // 最后处理类名后缀
+            name = name.Replace("ViewModel", "View", StringComparison.Ordinal);
+            
             var type = Type.GetType(name);
 
             if (type != null)

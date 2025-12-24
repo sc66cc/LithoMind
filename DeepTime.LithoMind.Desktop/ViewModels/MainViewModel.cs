@@ -47,8 +47,6 @@ namespace DeepTime.LithoMind.Desktop.ViewModels
 		{
 			_factory = new LithoMindDockFactory(this);
 			LoadUiConfig();
-
-			// 默认启动进入"数据管理"
 			SwitchModule("Module_DataMgr");
 		}
 
@@ -62,25 +60,25 @@ namespace DeepTime.LithoMind.Desktop.ViewModels
 					using var stream = AssetLoader.Open(uri);
 					using var reader = new StreamReader(stream);
 					var json = reader.ReadToEnd();
-
+		
 					var options = new JsonSerializerOptions
 					{
-						PropertyNameCaseInsensitive = true // 允许 JSON key 大小写不敏感
+						PropertyNameCaseInsensitive = true,
+						Converters = { new System.Text.Json.Serialization.JsonStringEnumConverter() }
 					};
-
+						
 					_uiConfig = JsonSerializer.Deserialize<UiLayoutConfig>(json, options);
-
+						
 					if (_uiConfig != null)
 					{
-						// [修复] 使用 PascalCase 属性 GlobalMenu
-						GlobalMenus = CleanMenus(_uiConfig.GlobalMenu);
+						GlobalMenus = _uiConfig.GlobalMenu;
 					}
 				}
 			}
-			catch (Exception ex)
+			catch
 			{
-				System.Diagnostics.Debug.WriteLine($"配置加载失败: {ex.Message}");
 				_uiConfig = new UiLayoutConfig();
+				GlobalMenus = new List<MenuItemModel>();
 			}
 		}
 
@@ -88,23 +86,11 @@ namespace DeepTime.LithoMind.Desktop.ViewModels
 		public void SwitchModule(string? moduleJsonId)
 		{
 			if (string.IsNullOrEmpty(moduleJsonId) || _uiConfig == null) return;
-
-			// [修复] 适配 Dictionary 结构的 ContextToolbars
-			// 如果 JSON 里的 ID 是 "Module_DataMgr"，我们需要在字典里查找对应的菜单列表
-			// 注意：这里取决于你的 JSON 结构和 Core 模型是否一致。
-			// 如果 Core 模型定义 ContextToolbars 是 Dictionary，我们尝试用 Key 获取。
-
-			if (_uiConfig.ContextToolbars.TryGetValue(moduleJsonId, out var items))
-			{
-				CurrentModuleMenus = CleanMenus(items);
-			}
-			else
-			{
-				// 如果字典里找不到，或者你其实还在用 List 结构但 Core 没改过来，这里做一个容错
-				// 暂时给个空列表，防止报错
-				CurrentModuleMenus = new List<MenuItemModel>();
-			}
-
+		
+			// 直接使用JSON中的模块ID获取菜单
+			var moduleMenus = _uiConfig.GetModuleMenus(moduleJsonId);
+			CurrentModuleMenus = moduleMenus ?? new List<MenuItemModel>();
+		
 			// 更新 Dock 布局
 			string factoryId = MapJsonIdToFactoryId(moduleJsonId);
 			UpdateDockLayout(factoryId);
@@ -118,7 +104,7 @@ namespace DeepTime.LithoMind.Desktop.ViewModels
 				{
 					Layout.Close.Execute(null);
 				}
-
+		
 				var newLayout = _factory.CreateLayoutForModule(factoryId);
 				if (newLayout != null)
 				{
@@ -126,26 +112,13 @@ namespace DeepTime.LithoMind.Desktop.ViewModels
 					Layout = newLayout;
 				}
 			}
-			catch (Exception ex)
+			catch
 			{
-				System.Diagnostics.Debug.WriteLine($"Dock布局切换错误: {ex.Message}");
+				// 布局切换失败时静默处理
 			}
 		}
 
-		// [修复] 属性名改为 PascalCase (Icon, Children)
-		private List<MenuItemModel> CleanMenus(List<MenuItemModel>? menus)
-		{
-			if (menus == null) return new List<MenuItemModel>();
-			foreach (var item in menus)
-			{
-				item.Icon = null; // 强制清空 Icon
-				if (item.Children != null)
-				{
-					CleanMenus(item.Children); // 递归清理
-				}
-			}
-			return menus;
-		}
+		
 
 		private string MapJsonIdToFactoryId(string jsonId)
 		{
@@ -159,9 +132,10 @@ namespace DeepTime.LithoMind.Desktop.ViewModels
 		}
 
 		[RelayCommand]
-		public void ExecuteMenu(string commandId)
+		public void ExecuteMenu(string? commandId)
 		{
-			System.Diagnostics.Debug.WriteLine($"执行命令: {commandId}");
+			if (string.IsNullOrWhiteSpace(commandId)) return;
+			// TODO: 实现命令执行逻辑
 		}
 	}
 }

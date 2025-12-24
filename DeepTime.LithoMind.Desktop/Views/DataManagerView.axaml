@@ -1,11 +1,73 @@
 ﻿<UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             x:Class="DeepTime.LithoMind.Desktop.Views.Pages.DataManagerView">
+             xmlns:vm="using:DeepTime.LithoMind.Desktop.ViewModels.Pages"
+             x:Class="DeepTime.LithoMind.Desktop.Views.DataManagerView"
+             x:DataType="vm:DataManagerViewModel">
     
-    <Grid Background="White">
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="20">
-            <TextBlock Text="📂" FontSize="60" HorizontalAlignment="Center"/>
-            <TextBlock Text="这里是【数据管理】工作区" FontSize="24" Foreground="Black" HorizontalAlignment="Center"/>
-        </StackPanel>
-    </Grid>
+    <Border Background="#F5F5F5" BorderBrush="#DDDDDD" BorderThickness="1">
+        <Panel>
+            <!-- 本地文件目录面板 -->
+            <Border IsVisible="{Binding Id, Converter={x:Static ObjectConverters.Equal}, ConverterParameter='LocalFiles'}">
+                <StackPanel>
+                    <Border Background="#2C3E50" Padding="10">
+                        <TextBlock Text="📁 本地文件目录" FontSize="14" Foreground="White" FontWeight="Bold"/>
+                    </Border>
+                    <ScrollViewer>
+                        <StackPanel Margin="10" Spacing="5">
+                            <TextBlock Text="C:\\" Foreground="#34495E" Margin="0,10,0,0" FontWeight="Bold"/>
+                            <TextBlock Text="  📂 Users" Foreground="#7F8C8D" Margin="10,2,0,0"/>
+                            <TextBlock Text="  📂 Program Files" Foreground="#7F8C8D" Margin="10,2,0,0"/>
+                            <TextBlock Text="  📂 Windows" Foreground="#7F8C8D" Margin="10,2,0,0"/>
+                            <TextBlock Text="  📄 文件列表待实现..." Foreground="#95A5A6" Margin="10,20,0,0" FontStyle="Italic"/>
+                        </StackPanel>
+                    </ScrollViewer>
+                </StackPanel>
+            </Border>
+
+            <!-- 工程文件目录面板 -->
+            <Border IsVisible="{Binding Id, Converter={x:Static ObjectConverters.Equal}, ConverterParameter='ProjectFiles'}">
+                <StackPanel>
+                    <Border Background="#16A085" Padding="10">
+                        <TextBlock Text="📦 工程文件目录" FontSize="14" Foreground="White" FontWeight="Bold"/>
+                    </Border>
+                    <ScrollViewer>
+                        <StackPanel Margin="10" Spacing="5">
+                            <TextBlock Text="当前工程" Foreground="#1ABC9C" Margin="0,10,0,0" FontWeight="Bold"/>
+                            <TextBlock Text="  📁 数据集" Foreground="#7F8C8D" Margin="10,2,0,0"/>
+                            <TextBlock Text="  📁 模型" Foreground="#7F8C8D" Margin="10,2,0,0"/>
+                            <TextBlock Text="  📁 报告" Foreground="#7F8C8D" Margin="10,2,0,0"/>
+                            <TextBlock Text="  📄 工程结构待实现..." Foreground="#95A5A6" Margin="10,20,0,0" FontStyle="Italic"/>
+                        </StackPanel>
+                    </ScrollViewer>
+                </StackPanel>
+            </Border>
+
+            <!-- 数据预览面板 -->
+            <Border IsVisible="{Binding Id, Converter={x:Static ObjectConverters.Equal}, ConverterParameter='Preview'}">
+                <StackPanel>
+                    <Border Background="#3498DB" Padding="10">
+                        <TextBlock Text="🔍 数据预览" FontSize="14" Foreground="White" FontWeight="Bold"/>
+                    </Border>
+                    <Grid Margin="10">
+                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="15">
+                            <TextBlock Text="📊" FontSize="60" HorizontalAlignment="Center" Foreground="#3498DB"/>
+                            <TextBlock Text="数据预览区域" FontSize="24" Foreground="#2C3E50" HorizontalAlignment="Center" FontWeight="Bold"/>
+                            <TextBlock Text="支持多种数据格式：LAS、SEG-Y、Shapefile等" 
+                                       FontSize="14" Foreground="#7F8C8D" HorizontalAlignment="Center"/>
+                            <TextBlock Text="请从左侧选择文件进行预览" 
+                                       FontSize="12" Foreground="#95A5A6" HorizontalAlignment="Center" FontStyle="Italic"/>
+                        </StackPanel>
+                    </Grid>
+                </StackPanel>
+            </Border>
+
+            <!-- 默认显示（兜底） -->
+            <Border IsVisible="{Binding Id, Converter={x:Static ObjectConverters.IsNull}}">
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="20">
+                    <TextBlock Text="📂" FontSize="60" HorizontalAlignment="Center"/>
+                    <TextBlock Text="数据管理模块" FontSize="24" Foreground="Black" HorizontalAlignment="Center"/>
+                </StackPanel>
+            </Border>
+        </Panel>
+    </Border>
 </UserControl>

@@ -1,19 +1,40 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Serialization;
 
 namespace LithoMind.Core.Models.UI;
 
 public class UiLayoutConfig
 {
+	[JsonPropertyName("version")]
 	public string Version { get; set; } = "1.0";
+	
+	[JsonPropertyName("comment")]
 	public string? Comment { get; set; }
 
+	[JsonPropertyName("globalMenu")]
 	public List<MenuItemModel> GlobalMenu { get; set; } = new();
+	
+	[JsonPropertyName("globalToolbar")]
 	public List<MenuItemModel> GlobalToolbar { get; set; } = new();
+	
+	[JsonPropertyName("contextToolbars")]
 	public Dictionary<string, List<MenuItemModel>> ContextToolbars { get; set; } = new();
 
 	/// <summary>
-	/// 【新增】递归获取整个配置中所有出现过的 CommandId (去重)
+	/// 根据ViewModel类型名获取对应的模块菜单
+	/// </summary>
+	public List<MenuItemModel>? GetModuleMenus(string viewModelTypeName)
+	{
+		if (ContextToolbars.ContainsKey(viewModelTypeName))
+		{
+			return ContextToolbars[viewModelTypeName];
+		}
+		return null;
+	}
+
+	/// <summary>
+	/// 递归获取整个配置中所有出现过的 CommandId (去重)
 	/// </summary>
 	public HashSet<string> GetAllCommandIds()
 	{

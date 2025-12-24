@@ -16,14 +16,6 @@
 
 	<ItemGroup>
 		<AvaloniaResource Include="Assets\**" />
-
-		<AvaloniaResource Remove="Assets\config\ui_layout.json" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<Content Include="Assets\config\ui_layout.json">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="Avalonia" Version="11.3.8" />
@@ -43,9 +35,21 @@
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.1" />
 	</ItemGroup>
 
+	<PropertyGroup Condition="'$(Configuration)'=='Debug'">
+		<Optimize>false</Optimize>
+		<DebugType>portable</DebugType>
+		<DebugSymbols>true</DebugSymbols>
+	</PropertyGroup>
+	
 	<ItemGroup>
 		<ProjectReference Include="..\LithoMind.Core\LithoMind.Core.csproj" />
 		<ProjectReference Include="..\LithoMind.Infrastructure\LithoMind.Infrastructure.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <AvaloniaResource Update="Assets\config\ui_layout.json">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </AvaloniaResource>
 	</ItemGroup>
 
 	<ItemGroup>

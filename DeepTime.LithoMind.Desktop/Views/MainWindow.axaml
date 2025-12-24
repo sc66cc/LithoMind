@@ -7,26 +7,38 @@
         x:DataType="vm:MainViewModel"
         x:Name="RootWindow"
         Icon="/Assets/avalonia-logo.ico"
-        Title="LithoMind"
+        Title="岩相古地理数智化重建系统原型 v2 版"
+        HorizontalAlignment="Center"
+        VerticalAlignment="Center"
         WindowStartupLocation="CenterScreen"
-        Background="#F5F5F5"
-        ExtendClientAreaToDecorationsHint="True">
+        Background="#F5F5F5">
 
     <Window.DataTemplates>
+        <!-- 菜单项数据模板: 支持递归渲染子菜单 -->
         <TreeDataTemplate DataType="models:MenuItemModel" ItemsSource="{Binding Children}">
-            <TextBlock Text="{Binding Header}" VerticalAlignment="Center" Margin="5,0"/>
+            <TextBlock Text="{Binding Header}" VerticalAlignment="Center"/>
         </TreeDataTemplate>
     </Window.DataTemplates>
 
     <Window.Styles>
+        <!-- 菜单项样式: 自动绑定命令 -->
         <Style Selector="MenuItem" x:DataType="models:MenuItemModel">
-            
+            <Setter Property="Header" Value="{Binding Header}" />
+            <Setter Property="ItemsSource" Value="{Binding Children}" />
             <Setter Property="Command" Value="{Binding $parent[Window].((vm:MainViewModel)DataContext).ExecuteMenuCommand}" />
-            
             <Setter Property="CommandParameter" Value="{Binding CommandId}" />
-            
+            <!-- 移除 InputGesture 绑定，避免类型转换错误 -->
         </Style>
-
+        
+        <!-- 分隔符样式 -->
+        <Style Selector="MenuItem[Tag='Separator']">
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <Separator Margin="2,4"/>
+                </ControlTemplate>
+            </Setter>
+        </Style>
+        <!-- 导航按钮样式 -->
         <Style Selector="RadioButton.NavBtn">
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="Foreground" Value="#666666"/>
@@ -62,40 +74,43 @@
     </Window.Styles>
 
     <Grid RowDefinitions="Auto, Auto, *, Auto">
-        
-        <Grid Grid.Row="0" ColumnDefinitions="Auto, Auto, *" Height="35" Background="#FFFFFF">
-            <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="10,0,15,0" IsHitTestVisible="False">
-                <Image Source="/Assets/avalonia-logo.ico" Width="18" Height="18" Margin="0,0,8,0"/>
-                <TextBlock Text="LithoMind" FontWeight="Bold" Foreground="#333"/>
-            </StackPanel>
-
-            <Menu Grid.Column="1" ItemsSource="{Binding GlobalMenus}" VerticalAlignment="Center"/>
-            
-            <Border Grid.Column="2" Background="Transparent" IsHitTestVisible="False"/>
-        </Grid>
-
-        <Border Grid.Row="1" Background="#F9F9F9" BorderBrush="#E0E0E0" BorderThickness="0,1,0,1" Height="38">
-             <Menu ItemsSource="{Binding CurrentModuleMenus}" VerticalAlignment="Center" Margin="5,0"/>
+        <!-- 第一行: 全局菜单栏 -->
+        <Border Grid.Row="0" Height="30" Background="#FFFFFF">
+            <Menu ItemsSource="{Binding GlobalMenus}" 
+                  VerticalAlignment="Stretch"
+                  HorizontalAlignment="Left"
+                  Margin="10,0"
+                  Background="Transparent"/>
         </Border>
 
-        <dock:DockControl Grid.Row="2" Layout="{Binding Layout}" />
+        <!-- 第二行: 场景工具栏菜单 -->
+        <Border Grid.Row="1" Background="#F9F9F9" BorderBrush="#E0E0E0" BorderThickness="0,1" Height="36">
+            <Menu ItemsSource="{Binding CurrentModuleMenus}" 
+                  VerticalAlignment="Center" 
+                  Margin="10,0"
+                  Background="Transparent"/>
+        </Border>
+
+        <dock:DockControl Grid.Row="2" 
+                          Layout="{Binding Layout}" 
+                          IsVisible="{Binding Layout, Converter={x:Static ObjectConverters.IsNotNull}}" />
 
         <Border Grid.Row="3" Background="#EEEEEE" BorderBrush="#D0D0D0" BorderThickness="0,1,0,0" Padding="0,5">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="5">
                 
-                <RadioButton Classes="NavBtn" GroupName="Mods" Content="数据管理" Tag="📂"
+                <RadioButton Classes="NavBtn" GroupName="Mods" Content="数据资源管理" Tag="📂"
                              Command="{Binding SwitchModuleCommand}" CommandParameter="Module_DataMgr" IsChecked="True"/>
                 
-                <RadioButton Classes="NavBtn" GroupName="Mods" Content="井数据" Tag="📊"
+                <RadioButton Classes="NavBtn" GroupName="Mods" Content="井综合分析" Tag="📊"
                              Command="{Binding SwitchModuleCommand}" CommandParameter="Module_SingleWell"/>
                 
-                <RadioButton Classes="NavBtn" GroupName="Mods" Content="地层格架" Tag="🧱"
+                <RadioButton Classes="NavBtn" GroupName="Mods" Content="地层对比" Tag="🧱"
                              Command="{Binding SwitchModuleCommand}" CommandParameter="Module_Strat"/>
                 
-                <RadioButton Classes="NavBtn" GroupName="Mods" Content="地震综合" Tag="🌊"
+                <RadioButton Classes="NavBtn" GroupName="Mods" Content="地震综合分析" Tag="🌊"
                              Command="{Binding SwitchModuleCommand}" CommandParameter="Module_Seismic"/>
                 
-                <RadioButton Classes="NavBtn" GroupName="Mods" Content="井震联合" Tag="🔗"
+                <RadioButton Classes="NavBtn" GroupName="Mods" Content="井震联合分析" Tag="🔗"
                              Command="{Binding SwitchModuleCommand}" CommandParameter="Module_Fusion"/>
                 
                 <RadioButton Classes="NavBtn" GroupName="Mods" Content="编图制图" Tag="🗺️"

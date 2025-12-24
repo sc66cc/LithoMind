@@ -10,7 +10,7 @@
 			"children": [
 				{
 					"id": "File.Open",
-					"header": "打开工程...",
+					"header": "xxx打开工程...",
 					"icon": "📂",
 					"commandId": "Cmd_OpenProject",
 					"inputGesture": "Ctrl+O"
@@ -22,7 +22,6 @@
 					"commandId": "Cmd_SaveProject",
 					"inputGesture": "Ctrl+S"
 				},
-				{ "type": "Separator" },
 				{
 					"id": "File.Exit",
 					"header": "退出",
