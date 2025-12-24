@@ -215,27 +215,6 @@
 			}
 		],
 
-		"Module_Fusion": [
-			{
-				"id": "Fusion.Calib",
-				"header": "井震标定",
-				"icon": "🎯",
-				"commandId": "Cmd_WellSeisCalib"
-			},
-			{
-				"id": "Fusion.Vel",
-				"header": "速度模型构建",
-				"icon": "📈",
-				"commandId": "Cmd_BuildVelModel"
-			},
-			{
-				"id": "Fusion.Inv",
-				"header": "反演参数设置",
-				"icon": "🎛️",
-				"commandId": "Cmd_InversionParams"
-			}
-		],
-
 		"Module_Mapping": [
 			{
 				"id": "Map.Layer",

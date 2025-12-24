@@ -110,9 +110,6 @@
                 <RadioButton Classes="NavBtn" GroupName="Mods" Content="地震综合分析" Tag="🌊"
                              Command="{Binding SwitchModuleCommand}" CommandParameter="Module_Seismic"/>
                 
-                <RadioButton Classes="NavBtn" GroupName="Mods" Content="井震联合分析" Tag="🔗"
-                             Command="{Binding SwitchModuleCommand}" CommandParameter="Module_Fusion"/>
-                
                 <RadioButton Classes="NavBtn" GroupName="Mods" Content="编图制图" Tag="🗺️"
                              Command="{Binding SwitchModuleCommand}" CommandParameter="Module_Mapping"/>
             </StackPanel>

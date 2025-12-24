@@ -126,7 +126,6 @@ namespace DeepTime.LithoMind.Desktop.ViewModels
 			if (jsonId.Contains("SingleWell")) return "SingleWell";
 			if (jsonId.Contains("Seismic")) return "Seismic";
 			if (jsonId.Contains("Strat")) return "Stratigraphy";
-			if (jsonId.Contains("Fusion")) return "Fusion";
 			if (jsonId.Contains("Mapping")) return "Mapping";
 			return "DataManager";
 		}

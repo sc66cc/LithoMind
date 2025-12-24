@@ -43,10 +43,6 @@ namespace DeepTime.LithoMind.Desktop.Layouts
 					mainLayout = CreateSimpleLayout(new SeismicViewModel());
 					break;
 
-				case "Fusion":
-					mainLayout = CreateSimpleLayout(new FusionViewModel());
-					break;
-
 				case "Mapping":
 					mainLayout = CreateSimpleLayout(new MappingViewModel());
 					break;
@@ -62,7 +58,9 @@ namespace DeepTime.LithoMind.Desktop.Layouts
 
 			var root = new RootDock
 			{
+				Id = "Root",
 				Title = moduleId,
+				IsCollapsable = false,
 				ActiveDockable = mainLayout,
 				DefaultDockable = mainLayout,
 				VisibleDockables = CreateList<IDockable>(mainLayout)
@@ -79,27 +77,29 @@ namespace DeepTime.LithoMind.Desktop.Layouts
 			// 左侧：本地文件目录面板
 			var localFileDoc = new DataManagerViewModel { Id = "LocalFiles", Title = "本地文件" };
 
-			var leftDock = new DocumentDock
+			var leftDock = new ToolDock
 			{
 				Id = "LocalFileExplorer",
 				Title = "本地文件目录",
 				Proportion = 0.125,
-				CanCreateDocument = false,
 				ActiveDockable = localFileDoc,
-				VisibleDockables = CreateList<IDockable>(localFileDoc)
+				VisibleDockables = CreateList<IDockable>(localFileDoc),
+				Alignment = Alignment.Left,
+				GripMode = GripMode.Visible
 			};
 
 			// 中间：工程文件目录面板
 			var projectFileDoc = new DataManagerViewModel { Id = "ProjectFiles", Title = "工程文件" };
 
-			var middleDock = new DocumentDock
+			var middleDock = new ToolDock
 			{
 				Id = "ProjectFileExplorer",
 				Title = "工程文件目录",
 				Proportion = 0.125,
-				CanCreateDocument = false,
 				ActiveDockable = projectFileDoc,
-				VisibleDockables = CreateList<IDockable>(projectFileDoc)
+				VisibleDockables = CreateList<IDockable>(projectFileDoc),
+				Alignment = Alignment.Left,
+				GripMode = GripMode.Visible
 			};
 
 			// 右侧：数据预览区域
@@ -115,12 +115,29 @@ namespace DeepTime.LithoMind.Desktop.Layouts
 				VisibleDockables = CreateList<IDockable>(previewDoc)
 			};
 
-			// 水平布局：从左到右排列三个面板，使用ProportionalDock支持调整大小
+			// 创建分隔条（关键！这样才能调整大小）
+			var splitter1 = new ProportionalDockSplitter
+			{
+				Id = "Splitter1"
+			};
+
+			var splitter2 = new ProportionalDockSplitter
+			{
+				Id = "Splitter2"
+			};
+
+			// 水平布局：左侧Dock + 分隔条 + 中间Dock + 分隔条 + 右侧Dock
 			var layout = new ProportionalDock
 			{
 				Id = "DataManagerMainLayout",
 				Orientation = Orientation.Horizontal,
-				VisibleDockables = CreateList<IDockable>(leftDock, middleDock, rightDock)
+				VisibleDockables = CreateList<IDockable>(
+					leftDock, 
+					splitter1, 
+					middleDock, 
+					splitter2, 
+					rightDock
+				)
 			};
 
 			return layout;
@@ -142,6 +159,7 @@ namespace DeepTime.LithoMind.Desktop.Layouts
 
 			var layout = new ProportionalDock
 			{
+				Id = "SimpleLayout",
 				Orientation = Orientation.Horizontal,
 				VisibleDockables = CreateList<IDockable>(documentDock)
 			};
