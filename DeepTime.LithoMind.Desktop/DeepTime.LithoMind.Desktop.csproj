@@ -8,6 +8,9 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<Folder Include="Bootstrappers\" />
+		<Folder Include="Converters\" />
+		<Folder Include="Handlers\" />
 		<Folder Include="Styles\" />
 	</ItemGroup>
 
