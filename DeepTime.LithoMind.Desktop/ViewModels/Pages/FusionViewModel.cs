@@ -4,9 +4,12 @@ namespace DeepTime.LithoMind.Desktop.ViewModels.Pages
 {
 	public class FusionViewModel : PageViewModelBase
 	{
-		public override string Title => "井震融合";
-		public override string IconKey => "🔗"; 
-		public override int Order => 5;
-
+		public FusionViewModel()
+		{
+			Id = "Fusion";
+			Title = "井震联合分析";
+			IconKey = "🔗";
+			Order = 5;
+		}
 	}
 }

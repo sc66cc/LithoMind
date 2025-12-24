@@ -4,8 +4,12 @@ namespace DeepTime.LithoMind.Desktop.ViewModels.Pages
 {
 	public class SingleWellViewModel : PageViewModelBase
 	{
-		public override string Title => "井数据综合";
-		public override string IconKey => "📊";
-		public override int Order => 2;
+		public SingleWellViewModel ()
+		{
+			Id = "Wells";
+			Title = "井数据综合";
+			IconKey = "📊";
+			Order = 2;
+		}
 	}
 }

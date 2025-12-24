@@ -1,107 +1,97 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using System;
+using System.IO;
+using System.Linq; 
+using System.Text.Json;
+using System.Collections.Generic;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using DeepTime.LithoMind.Desktop.Layouts;
+using DeepTime.LithoMind.Desktop.Models;
 using DeepTime.LithoMind.Desktop.ViewModels.Base;
-using DeepTime.LithoMind.Desktop.ViewModels.Pages;
-using LithoMind.Core.Models.UI;
-using LithoMind.Core.Services;
-using LithoMind.Infrastructure.Services;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Threading.Tasks;
+using Avalonia.Platform;
+using Dock.Model.Controls;
+using Dock.Model.Core;
+using Dock.Model.Mvvm;
+using Dock.Model.Mvvm.Controls;
 
-namespace DeepTime.LithoMind.Desktop.ViewModels;
-
-public partial class MainViewModel : ViewModelBase
+namespace DeepTime.LithoMind.Desktop.ViewModels
 {
-	private readonly IUiConfigService _uiConfigService;
-	private readonly CommandRegistry _cmdRegistry;
-	private UiLayoutConfig? _cachedConfig;
-
-	public ObservableCollection<PageViewModelBase> Pages { get; } = new();
-	public ObservableCollection<MenuItemModel> MenuItems { get; } = new();
-	public ObservableCollection<MenuItemModel> ToolbarItems { get; } = new();
-
-	[ObservableProperty]
-	private PageViewModelBase _currentPage;
-
-	public MainViewModel(IUiConfigService uiConfigService, CommandRegistry cmdRegistry)
+	public partial class MainViewModel : ViewModelBase
 	{
-		_uiConfigService = uiConfigService;
-		_cmdRegistry = cmdRegistry;
-
-		InitializePages();
-		_ = LoadUiAsync();
-	}
-
-	private void InitializePages()
-	{
-		Pages.Add(new DataManagerViewModel());
-		Pages.Add(new SingleWellViewModel());
-		Pages.Add(new StratigraphyViewModel());
-		Pages.Add(new SeismicViewModel());
-		Pages.Add(new FusionViewModel());
-		Pages.Add(new MappingViewModel());
-		CurrentPage = Pages.First();
-	}
-
-	private async Task LoadUiAsync()
-	{
-		_cachedConfig = await _uiConfigService.LoadConfigAsync();
-		if (_cachedConfig is null) return;
-
-		MenuItems.Clear();
-		foreach (var item in _cachedConfig.GlobalMenu)
+		private readonly LithoMindDockFactory _factory; // 改为具体类型以便调用自定义方法
+		private UiLayoutConfig _uiConfig;
+		//
+		private List<MenuItemModel>? _globalMenus;
+		public List<MenuItemModel>? GlobalMenus
 		{
-			BindCommandRecursively(item);
-			MenuItems.Add(item);
+			get => _globalMenus;
+			set => SetProperty(ref _globalMenus, value);
 		}
 
-		RefreshToolbar(CurrentPage);
-	}
-
-	partial void OnCurrentPageChanged(PageViewModelBase value)
-	{
-		RefreshToolbar(value);
-	}
-
-	private void RefreshToolbar(PageViewModelBase page)
-	{
-		if (_cachedConfig is null || page is null) return;
-
-		ToolbarItems.Clear();
-
-		// 1. 加载当前页面特有的工具栏
-		if (_cachedConfig.ContextToolbars.TryGetValue(page.GetType().Name, out var contextTools) && contextTools.Any())
+		[ObservableProperty]
+		private IRootDock? _layout;
+		[ObservableProperty]
+		private List<MenuItemModel> _currentModuleMenus;
+		public MainViewModel()
 		{
-			foreach (var item in contextTools) AddToolbarItem(item);
+			_factory = new LithoMindDockFactory(this);
 
-			// 如果有上下文工具，且有全局工具，则加分割线
-			if (_cachedConfig.GlobalToolbar.Any())
+			LoadUiConfig();
+
+			SwitchModule("Module_DataMgr");
+		}
+
+		private void LoadUiConfig()
+		{
+			try
 			{
-				ToolbarItems.Add(new MenuItemModel { Type = MenuItemType.Separator });
+				var uri = new Uri("avares://DeepTime.LithoMind.Desktop/Assets/config/ui_layout.json");
+				if (AssetLoader.Exists(uri))
+				{
+					using (var stream = AssetLoader.Open(uri))
+					using (var reader = new StreamReader(stream))
+					{
+						var json = reader.ReadToEnd();
+						_uiConfig = JsonSerializer.Deserialize<UiLayoutConfig>(json, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+						if (_uiConfig?.globalMenu != null)
+						{
+							GlobalMenus = _uiConfig.globalMenu;
+						}
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				// 如果读不到文件，初始化一个空的防止报错
+				_uiConfig = new UiLayoutConfig { moduleToolbars = new List<ModuleToolbar>() };
+				System.Diagnostics.Debug.WriteLine("Error loading config: " + ex.Message);
 			}
 		}
 
-		// 2. 加载全局工具栏
-		foreach (var item in _cachedConfig.GlobalToolbar) AddToolbarItem(item);
-	}
-
-	private void AddToolbarItem(MenuItemModel item)
-	{
-		BindCommandRecursively(item);
-		ToolbarItems.Add(item);
-	}
-
-	private void BindCommandRecursively(MenuItemModel item)
-	{
-		if (!string.IsNullOrEmpty(item.CommandId))
+		[RelayCommand]
+		public void SwitchModule(string moduleJsonId)
 		{
-			// 从注册表中查找命令并绑定
-			item.Command = _cmdRegistry.Get(item.CommandId);
+			if (_uiConfig == null) return;
+
+			// 1. 查找 JSON 中对应的菜单配置
+			var targetToolbar = _uiConfig.moduleToolbars.FirstOrDefault(t => t.id == moduleJsonId);
+
+			if (targetToolbar != null)
+			{
+				CurrentModuleMenus = targetToolbar.items;
+
+				string simpleId = moduleJsonId.Replace("Module_", "").Replace("DataMgr", "DataManager");
+
+				var newLayout = _factory.CreateLayoutForModule(simpleId);
+				_factory.InitLayout(newLayout);
+				Layout = newLayout;
+			}
 		}
-
-		if (item.Children.Any())
+		[RelayCommand]
+		public void ExecuteMenu(string commandId)
 		{
-			foreach (var child in item.Children) BindCommandRecursively(child);
+			System.Diagnostics.Debug.WriteLine($"触发菜单命令: {commandId}");
+			// 未来这里可以对接 CommandRegistry
 		}
 	}
 }

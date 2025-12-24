@@ -1,8 +1,9 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using Dock.Model.Mvvm.Core;
 
 namespace DeepTime.LithoMind.Desktop.ViewModels.Base
 {
-	public class ViewModelBase : ObservableObject
+	public partial class ViewModelBase : DockableBase
 	{
 	}
 }

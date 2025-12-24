@@ -1,135 +1,141 @@
 ﻿<Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="using:DeepTime.LithoMind.Desktop.ViewModels"
-        xmlns:core="using:LithoMind.Core.Models.UI"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="1280" d:DesignHeight="800"
+        xmlns:dock="clr-namespace:Dock.Avalonia.Controls;assembly=Dock.Avalonia"
+        xmlns:models="using:DeepTime.LithoMind.Desktop.Models"
         x:Class="DeepTime.LithoMind.Desktop.Views.MainWindow"
         x:DataType="vm:MainViewModel"
         Icon="/Assets/avalonia-logo.ico"
-        Title="岩相古地理数智化重建系统 - CNOOC原型V2版"
+        Title="DeepTime.LithoMind"
+        
+        WindowStartupLocation="CenterScreen"
+        MinWidth="1000" MinHeight="700"
         Background="#F3F3F3"
-        xmlns:conv="using:DeepTime.LithoMind.Desktop.Converters" > 
-
+        
+        ExtendClientAreaToDecorationsHint="True"
+        ExtendClientAreaChromeHints="PreferSystemChrome"
+        ExtendClientAreaTitleBarHeightHint="-1">
+    
+    <Window.DataTemplates>
+        <TreeDataTemplate DataType="models:MenuItemModel" ItemsSource="{Binding children}">
+            <StackPanel Orientation="Horizontal" Spacing="8">
+                <TextBlock Text="{Binding icon}" Width="16" TextAlignment="Center" 
+                           IsVisible="{Binding icon, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
+                <TextBlock Text="{Binding header}" VerticalAlignment="Center"/>
+            </StackPanel>
+        </TreeDataTemplate>
+    </Window.DataTemplates>
 
     <Window.Styles>
-        <Style Selector="Menu">
-            <Setter Property="Background" Value="#FFFFFF"/>
-            <Setter Property="Height" Value="28"/>
-        </Style>
         <Style Selector="MenuItem">
-            <Setter Property="FontSize" Value="12"/>
-            <Setter Property="Padding" Value="10,4"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="CornerRadius" Value="4"/>
+            <Setter Property="Command" Value="{Binding #RootWindow.DataContext.ExecuteMenuCommand}" />
+            <Setter Property="CommandParameter" Value="{Binding commandId}" />
         </Style>
-        <Style Selector="MenuItem:pointerover /template/ ContentPresenter#PART_HeaderPresenter">
-            <Setter Property="Background" Value="#EAEAEA"/>
+        
+        <Style Selector="RadioButton.DaVinciTab">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#666666"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Padding" Value="16,6"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="CornerRadius" Value="6"/>
+            <Setter Property="Margin" Value="2,0"/>
+            <Setter Property="Transitions">
+                <Transitions>
+                    <BrushTransition Property="Foreground" Duration="0:0:0.2"/>
+                    <BrushTransition Property="Background" Duration="0:0:0.2"/>
+                </Transitions>
+            </Setter>
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <Border Background="{TemplateBinding Background}" 
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="{TemplateBinding CornerRadius}"
+                            Padding="{TemplateBinding Padding}">
+                        <StackPanel Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
+                            <TextBlock Text="{TemplateBinding Tag}" FontSize="16" VerticalAlignment="Center"/>
+                            <TextBlock Text="{TemplateBinding Content}" FontSize="13" FontWeight="Medium" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Border>
+                </ControlTemplate>
+            </Setter>
+        </Style>
+        <Style Selector="RadioButton.DaVinciTab:pointerover">
             <Setter Property="Foreground" Value="#000000"/>
+            <Setter Property="Background" Value="#E0E0E0"/>
+        </Style>
+        <Style Selector="RadioButton.DaVinciTab:checked">
+            <Setter Property="Foreground" Value="#000000"/>
+            <Setter Property="Background" Value="#FFFFFF"/>
+            <Setter Property="BorderBrush" Value="#D0D0D0"/>
+            <Setter Property="FontWeight" Value="Bold"/>
         </Style>
     </Window.Styles>
 
-    <DockPanel LastChildFill="True">
-
-        <StackPanel DockPanel.Dock="Top" Spacing="0">
+    <Grid RowDefinitions="Auto, Auto, *, Auto" x:Name="RootWindow">
+        
+        <Grid Grid.Row="0" ColumnDefinitions="Auto, Auto, *" Height="35" Background="#FFFFFF">
             
-            <Border BorderBrush="#E0E0E0" BorderThickness="0,0,0,1">
-                <Menu ItemsSource="{Binding MenuItems}">
-                    <Menu.Styles>
-                        <Style Selector="MenuItem" x:DataType="core:MenuItemModel">
-                            <Setter Property="Header" Value="{Binding Header}"/>
-                            <Setter Property="Command" Value="{Binding Command}"/>
-                            <Setter Property="InputGesture" Value="{Binding InputGesture}"/>
-                            <Setter Property="ItemsSource" Value="{Binding Children}"/>
-                            <Setter Property="Icon" Value="{Binding Icon, Converter={StaticResource EmojiIconConverter}}"/>
-                            <Setter Property="Background" Value="Transparent"/>
-                        </Style>
-                    </Menu.Styles>
-                </Menu>
-            </Border>
+            <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="10,0,15,0" IsHitTestVisible="False">
+                <Image Source="/Assets/avalonia-logo.ico" Width="18" Height="18" Margin="0,0,8,0"/>
+                <TextBlock Text="LithoMind" FontWeight="Bold" FontSize="12" Foreground="#333" VerticalAlignment="Center"/>
+            </StackPanel>
 
-            <Border Background="#F9F9F9" BorderBrush="#DDDDDD" BorderThickness="0,0,0,1" Padding="4,2">
-                <Menu ItemsSource="{Binding ToolbarItems}" Background="Transparent">
-                    <Menu.Styles>
-                        <Style Selector="MenuItem" x:DataType="core:MenuItemModel">
-                            <Setter Property="Header" Value="{Binding Header}"/>
-                            <Setter Property="Command" Value="{Binding Command}"/>
-                            <Setter Property="ItemsSource" Value="{Binding Children}"/>
-                            
-                            <Setter Property="Tag" Value="{Binding IsSeparator}"/>
-
-                            <Setter Property="Icon" Value="{Binding Icon, Converter={StaticResource EmojiIconConverter}}"/>
-
-                            <Setter Property="Background" Value="Transparent"/>
-                            <Setter Property="Foreground" Value="#333333"/>
-                            <Setter Property="FontSize" Value="12"/>
-                            <Setter Property="Padding" Value="10,6"/>
-                            <Setter Property="CornerRadius" Value="4"/>
-                            <Setter Property="Margin" Value="2,0"/>
-                            <Setter Property="Cursor" Value="Hand"/>
-                        </Style>
-
-                        <Style Selector="MenuItem[Tag=True]" x:DataType="core:MenuItemModel">
-                            <Setter Property="Template">
-                                <ControlTemplate>
-                                    <Rectangle Width="1" Height="16" Fill="#CCCCCC" Margin="6,0" VerticalAlignment="Center"/>
-                                </ControlTemplate>
-                            </Setter>
-                            <Setter Property="IsEnabled" Value="False"/>
-                            <Setter Property="IsHitTestVisible" Value="False"/>
-                        </Style>
-
-                        <Style Selector="MenuItem[Tag=False]:pointerover /template/ ContentPresenter#PART_HeaderPresenter">
-                            <Setter Property="Background" Value="#EAEAEA"/>
-                            <Setter Property="Foreground" Value="#000000"/>
-                        </Style>
-                    </Menu.Styles>
-                </Menu>
-            </Border>
+            <Menu Grid.Column="1" ItemsSource="{Binding GlobalMenus}" VerticalAlignment="Center" Background="Transparent">
+                <Menu.Styles>
+                    <Style Selector="MenuItem">
+                        <Setter Property="Header" Value="{Binding header}"/>
+                        <Setter Property="ItemsSource" Value="{Binding children}"/>
+                        <Setter Property="FontSize" Value="12"/>
+                        <Setter Property="Padding" Value="8,4"/>
+                    </Style>
+                </Menu.Styles>
+            </Menu>
             
-        </StackPanel>
+            <Border Grid.Column="2" Background="Transparent" IsHitTestVisible="False"/>
+        </Grid>
 
-        <Border DockPanel.Dock="Bottom" Height="50" Background="#FFFFFF" BorderBrush="#E0E0E0" BorderThickness="0,1,0,0">
-            <ListBox ItemsSource="{Binding Pages}" 
-                     SelectedItem="{Binding CurrentPage}"
-                     Background="Transparent"
-                     VerticalAlignment="Stretch">
-                <ListBox.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="0"/>
-                    </ItemsPanelTemplate>
-                </ListBox.ItemsPanel>
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Horizontal" Spacing="6" VerticalAlignment="Center" Margin="12,0">
-                            <TextBlock Text="{Binding IconKey}" FontSize="16" VerticalAlignment="Center"/>
-                            <TextBlock Text="{Binding Title}" FontSize="12" FontWeight="SemiBold" VerticalAlignment="Center"/>
-                        </StackPanel>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-                <ListBox.Styles>
-                    <Style Selector="ListBoxItem">
-                        <Setter Property="Foreground" Value="#666666"/>
-                        <Setter Property="Cursor" Value="Hand"/>
-                        <Setter Property="Padding" Value="12,6"/>
-                        <Setter Property="CornerRadius" Value="4"/>
-                        <Setter Property="Margin" Value="2,4"/>
-                        <Setter Property="VerticalContentAlignment" Value="Center"/>
-                    </Style>
-                    <Style Selector="ListBoxItem:selected /template/ ContentPresenter">
-                        <Setter Property="Foreground" Value="#0078D4"/>
-                        <Setter Property="Background" Value="#E6F2FF"/>
-                    </Style>
-                </ListBox.Styles>
-            </ListBox>
+        <Border Grid.Row="1" Background="#F9F9F9" BorderBrush="#E5E5E5" BorderThickness="0,1,0,1" Height="36">
+             <Menu ItemsSource="{Binding CurrentModuleMenus}" VerticalAlignment="Center" Margin="5,0">
+                 <Menu.Styles>
+                     <Style Selector="MenuItem">
+                         <Setter Property="Header" Value="{Binding header}"/>
+                         <Setter Property="ItemsSource" Value="{Binding children}"/>
+                         <Setter Property="ToolTip.Tip" Value="{Binding header}"/>
+                         <Setter Property="FontSize" Value="12"/>
+                         <Setter Property="Foreground" Value="#444"/>
+                     </Style>
+                 </Menu.Styles>
+             </Menu>
         </Border>
 
-        <TransitioningContentControl Content="{Binding CurrentPage}">
-            <TransitioningContentControl.PageTransition>
-                <CrossFade Duration="0:00:00.200" />
-            </TransitioningContentControl.PageTransition>
-        </TransitioningContentControl>
+        <dock:DockControl Grid.Row="2" Layout="{Binding Layout}" Margin="0"/>
 
-    </DockPanel>
+        <Border Grid.Row="3" Background="#EEEEEE" Padding="10,6" BorderBrush="#DDDDDD" BorderThickness="0,1,0,0">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="8">
+                <RadioButton GroupName="Modules" Content="数据管理" Tag="📂"
+                             Command="{Binding SwitchModuleCommand}" CommandParameter="Module_DataMgr"
+                             Classes="DaVinciTab" IsChecked="True"/>
+                <RadioButton GroupName="Modules" Content="井数据" Tag="📊"
+                             Command="{Binding SwitchModuleCommand}" CommandParameter="Module_SingleWell"
+                             Classes="DaVinciTab"/>
+                <RadioButton GroupName="Modules" Content="地层格架" Tag="🧱"
+                             Command="{Binding SwitchModuleCommand}" CommandParameter="Module_Strat"
+                             Classes="DaVinciTab"/>
+                <RadioButton GroupName="Modules" Content="地震综合" Tag="🌊"
+                             Command="{Binding SwitchModuleCommand}" CommandParameter="Module_Seismic"
+                             Classes="DaVinciTab"/>
+                <RadioButton GroupName="Modules" Content="井震联合" Tag="🔗"
+                             Command="{Binding SwitchModuleCommand}" CommandParameter="Module_Fusion"
+                             Classes="DaVinciTab"/>
+                <RadioButton GroupName="Modules" Content="编图制图" Tag="🗺️"
+                             Command="{Binding SwitchModuleCommand}" CommandParameter="Module_Mapping"
+                             Classes="DaVinciTab"/>
+            </StackPanel>
+        </Border>
+
+    </Grid>
+
 </Window>
