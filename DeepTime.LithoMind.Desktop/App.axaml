@@ -13,5 +13,37 @@
     <Application.Styles>
         <FluentTheme />
         <StyleInclude Source="avares://Dock.Avalonia.Themes.Fluent/DockFluentTheme.axaml" />
+        
+        <!-- 增强 Dock 窗口拖拽视觉反馈 -->
+        <Style Selector="DockPanel">
+            <Setter Property="Transitions">
+                <Transitions>
+                    <DoubleTransition Property="Opacity" Duration="0:0:0.2"/>
+                </Transitions>
+            </Setter>
+        </Style>
+        
+        <!-- 拖拽目标区域高亮样式 -->
+        <Style Selector="Border.DockTarget">
+            <Setter Property="Background" Value="#4000AAFF"/>
+            <Setter Property="BorderBrush" Value="#FF0078D4"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="CornerRadius" Value="4"/>
+            <Setter Property="Opacity" Value="0"/>
+        </Style>
+        
+        <Style Selector="Border.DockTarget:pointerover">
+            <Setter Property="Opacity" Value="1"/>
+        </Style>
+        
+        <!-- 分隔条样式增强 -->
+        <Style Selector="GridSplitter">
+            <Setter Property="Background" Value="#E0E0E0"/>
+            <Setter Property="Cursor" Value="SizeAll"/>
+        </Style>
+        
+        <Style Selector="GridSplitter:pointerover">
+            <Setter Property="Background" Value="#0078D4"/>
+        </Style>
     </Application.Styles>
 </Application>
