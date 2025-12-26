@@ -8,6 +8,15 @@
     </Application.DataTemplates>
   
     <Application.Resources>
+        <!-- Dock右键菜单中文化 -->
+        <x:String x:Key="CloseText">关闭</x:String>
+        <x:String x:Key="CloseOthersText">关闭其他</x:String>
+        <x:String x:Key="CloseAllText">关闭所有</x:String>
+        <x:String x:Key="FloatText">浮动</x:String>
+        <x:String x:Key="DockText">停靠</x:String>
+        <x:String x:Key="AutoHideText">自动隐藏</x:String>
+        <x:String x:Key="PinText">固定</x:String>
+        <x:String x:Key="UnpinText">取消固定</x:String>
     </Application.Resources>
 
     <Application.Styles>

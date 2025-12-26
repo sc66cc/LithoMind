@@ -1,0 +1,244 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:DeepTime.LithoMind.Desktop.ViewModels.Pages"
+             mc:Ignorable="d" d:DesignWidth="350" d:DesignHeight="600"
+             x:Class="DeepTime.LithoMind.Desktop.Views.SeismicPropertyView"
+             x:DataType="vm:SeismicPropertyViewModel">
+
+    <UserControl.Styles>
+        <!-- 属性组标题样式 -->
+        <Style Selector="TextBlock.group-title">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Foreground" Value="#2C3E50"/>
+            <Setter Property="Margin" Value="0,12,0,8"/>
+        </Style>
+        
+        <!-- 属性标签样式 -->
+        <Style Selector="TextBlock.prop-label">
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Foreground" Value="#7F8C8D"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+        
+        <!-- 属性值样式 -->
+        <Style Selector="TextBlock.prop-value">
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Foreground" Value="#2C3E50"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+        
+        <!-- 层位卡片样式 -->
+        <Style Selector="Border.horizon-card">
+            <Setter Property="Background" Value="#FFFFFF"/>
+            <Setter Property="BorderBrush" Value="#E0E0E0"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="6"/>
+            <Setter Property="Margin" Value="0,4"/>
+            <Setter Property="Padding" Value="12"/>
+        </Style>
+        
+        <Style Selector="Border.horizon-card:pointerover">
+            <Setter Property="BorderBrush" Value="#3498DB"/>
+            <Setter Property="Background" Value="#F8FBFD"/>
+        </Style>
+        
+        <!-- 可编辑文本框样式 -->
+        <Style Selector="TextBox.editable">
+            <Setter Property="BorderThickness" Value="0,0,0,1"/>
+            <Setter Property="BorderBrush" Value="#BDC3C7"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Padding" Value="4,2"/>
+            <Setter Property="FontSize" Value="12"/>
+        </Style>
+        
+        <Style Selector="TextBox.editable:focus">
+            <Setter Property="BorderBrush" Value="#3498DB"/>
+        </Style>
+        
+        <!-- 状态标签样式 -->
+        <Style Selector="Border.status-tag">
+            <Setter Property="CornerRadius" Value="4"/>
+            <Setter Property="Padding" Value="8,2"/>
+        </Style>
+    </UserControl.Styles>
+
+    <Border Background="#F5F6FA">
+        <DockPanel>
+            <!-- 顶部标题栏 -->
+            <Border DockPanel.Dock="Top" 
+                    Background="#FFFFFF" 
+                    BorderBrush="#E0E0E0" 
+                    BorderThickness="0,0,0,1"
+                    Padding="12,8">
+                <DockPanel>
+                    <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" Spacing="8">
+                        <Button Content="🔄" 
+                                ToolTip.Tip="刷新"
+                                Command="{Binding RefreshDataCommand}"
+                                Background="Transparent"
+                                BorderThickness="0"
+                                Padding="6"/>
+                    </StackPanel>
+                    <StackPanel>
+                        <TextBlock Text="{Binding PropertyTitle}" 
+                                   FontSize="14" 
+                                   FontWeight="SemiBold"
+                                   Foreground="#2C3E50"/>
+                        <TextBlock Text="{Binding CurrentVolumeName}" 
+                                   FontSize="11" 
+                                   Foreground="#7F8C8D"
+                                   Margin="0,2,0,0"
+                                   IsVisible="{Binding HasData}"/>
+                    </StackPanel>
+                </DockPanel>
+            </Border>
+
+            <!-- 无数据时的提示 -->
+            <StackPanel IsVisible="{Binding !HasData}"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        Spacing="12">
+                <TextBlock Text="📊" 
+                           FontSize="48" 
+                           HorizontalAlignment="Center"
+                           Opacity="0.5"/>
+                <TextBlock Text="请选择地震数据" 
+                           FontSize="14"
+                           Foreground="#95A5A6"
+                           HorizontalAlignment="Center"/>
+            </StackPanel>
+
+            <!-- 层位列表 -->
+            <ScrollViewer IsVisible="{Binding HasData}"
+                          HorizontalScrollBarVisibility="Disabled"
+                          VerticalScrollBarVisibility="Auto">
+                <StackPanel Margin="12">
+                    <!-- 统计摘要 -->
+                    <Border Background="#FFFFFF" 
+                            CornerRadius="8" 
+                            Padding="12"
+                            Margin="0,0,0,12">
+                        <Grid ColumnDefinitions="*,*,*">
+                            <StackPanel Grid.Column="0" HorizontalAlignment="Center">
+                                <TextBlock Text="{Binding HorizonProperties.Count}" 
+                                           FontSize="24" 
+                                           FontWeight="Bold"
+                                           Foreground="#3498DB"
+                                           HorizontalAlignment="Center"/>
+                                <TextBlock Text="层位数量" 
+                                           FontSize="11" 
+                                           Foreground="#7F8C8D"
+                                           HorizontalAlignment="Center"/>
+                            </StackPanel>
+                            <StackPanel Grid.Column="1" HorizontalAlignment="Center">
+                                <TextBlock Text="3" 
+                                           FontSize="24" 
+                                           FontWeight="Bold"
+                                           Foreground="#27AE60"
+                                           HorizontalAlignment="Center"/>
+                                <TextBlock Text="已完成" 
+                                           FontSize="11" 
+                                           Foreground="#7F8C8D"
+                                           HorizontalAlignment="Center"/>
+                            </StackPanel>
+                            <StackPanel Grid.Column="2" HorizontalAlignment="Center">
+                                <TextBlock Text="1" 
+                                           FontSize="24" 
+                                           FontWeight="Bold"
+                                           Foreground="#F39C12"
+                                           HorizontalAlignment="Center"/>
+                                <TextBlock Text="进行中" 
+                                           FontSize="11" 
+                                           Foreground="#7F8C8D"
+                                           HorizontalAlignment="Center"/>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+
+                    <TextBlock Classes="group-title" Text="📍 层位列表"/>
+
+                    <!-- 层位卡片列表 -->
+                    <ItemsControl ItemsSource="{Binding HorizonProperties}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate DataType="{x:Type vm:HorizonPropertyItem}">
+                                <Border Classes="horizon-card" 
+                                        Cursor="Hand">
+                                    <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto">
+                                        <!-- 第一行：名称和状态 -->
+                                        <DockPanel Grid.Row="0">
+                                            <!-- 可见性开关 -->
+                                            <CheckBox DockPanel.Dock="Right"
+                                                      IsChecked="{Binding IsVisible}"
+                                                      ToolTip.Tip="控制显示/隐藏"
+                                                      VerticalAlignment="Center"/>
+                                            
+                                            <!-- 颜色指示器 + 名称 -->
+                                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                                <Border Width="16" Height="16" 
+                                                        CornerRadius="4"
+                                                        VerticalAlignment="Center">
+                                                    <Border.Background>
+                                                        <SolidColorBrush Color="{Binding Color}"/>
+                                                    </Border.Background>
+                                                </Border>
+                                                <TextBox Text="{Binding Name, Mode=TwoWay}" 
+                                                         Classes="editable"
+                                                         FontWeight="SemiBold"
+                                                         FontSize="13"/>
+                                            </StackPanel>
+                                        </DockPanel>
+
+                                        <!-- 第二行：状态标签 -->
+                                        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,8,0,0" Spacing="8">
+                                            <Border Classes="status-tag"
+                                                    Background="{Binding Status, Converter={x:Static vm:SeismicPropertyViewModel.StatusToColorConverter}}">
+                                                <TextBlock Text="{Binding Status}" 
+                                                           FontSize="10" 
+                                                           Foreground="White"/>
+                                            </Border>
+                                            <TextBlock Text="{Binding ControlPointCount, StringFormat='控制点: {0}'}"
+                                                       FontSize="10"
+                                                       Foreground="#7F8C8D"
+                                                       VerticalAlignment="Center"/>
+                                        </StackPanel>
+
+                                        <!-- 第三行：时间信息 -->
+                                        <Grid Grid.Row="2" ColumnDefinitions="*,*,*" Margin="0,10,0,0">
+                                            <StackPanel Grid.Column="0">
+                                                <TextBlock Classes="prop-label" Text="最小时间"/>
+                                                <TextBox Text="{Binding MinTime, Mode=TwoWay, StringFormat={}{0:F0}}" 
+                                                         Classes="editable"/>
+                                            </StackPanel>
+                                            <StackPanel Grid.Column="1">
+                                                <TextBlock Classes="prop-label" Text="平均时间"/>
+                                                <TextBox Text="{Binding AverageTime, Mode=TwoWay, StringFormat={}{0:F0}}" 
+                                                         Classes="editable"/>
+                                            </StackPanel>
+                                            <StackPanel Grid.Column="2">
+                                                <TextBlock Classes="prop-label" Text="最大时间"/>
+                                                <TextBox Text="{Binding MaxTime, Mode=TwoWay, StringFormat={}{0:F0}}" 
+                                                         Classes="editable"/>
+                                            </StackPanel>
+                                        </Grid>
+
+                                        <!-- 第四行：备注 -->
+                                        <StackPanel Grid.Row="3" Margin="0,8,0,0">
+                                            <TextBlock Classes="prop-label" Text="备注"/>
+                                            <TextBox Text="{Binding Remarks, Mode=TwoWay}" 
+                                                     Classes="editable"
+                                                     TextWrapping="Wrap"
+                                                     AcceptsReturn="False"/>
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </ScrollViewer>
+        </DockPanel>
+    </Border>
+</UserControl>

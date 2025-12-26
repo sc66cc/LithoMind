@@ -1,0 +1,116 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:DeepTime.LithoMind.Desktop.ViewModels.Pages"
+             x:Class="DeepTime.LithoMind.Desktop.Views.SeismicBodyView"
+             x:DataType="vm:SeismicBodyViewModel">
+    
+    <Grid RowDefinitions="Auto,*,Auto">
+        <!-- 顶部工具栏 -->
+        <Border Grid.Row="0" Background="#2C3E50" Padding="8">
+            <Grid ColumnDefinitions="Auto,*,Auto">
+                <!-- 左侧标题 -->
+                <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="8">
+                    <TextBlock Text="🥓" FontSize="16" VerticalAlignment="Center"/>
+                    <TextBlock Text="地震体数据" FontSize="14" Foreground="White" FontWeight="Bold" VerticalAlignment="Center"/>
+                    <TextBlock Text="-" FontSize="14" Foreground="#7F8C8D" VerticalAlignment="Center"/>
+                    <TextBlock Text="{Binding VolumeName}" FontSize="14" Foreground="#3498DB" VerticalAlignment="Center"/>
+                </StackPanel>
+                
+                <!-- 右侧工具按钮 -->
+                <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="4">
+                    <!-- 放大按钮 -->
+                    <Button Content="🔍+" 
+                            ToolTip.Tip="放大"
+                            Command="{Binding ZoomInCommand}"
+                            Background="Transparent"
+                            Foreground="White"
+                            BorderThickness="0"
+                            Padding="8,4"
+                            Cursor="Hand"/>
+                    <!-- 缩放比例显示 -->
+                    <Border Background="#34495E" CornerRadius="4" Padding="8,4" VerticalAlignment="Center">
+                        <TextBlock Text="{Binding ZoomLevelText}" 
+                                   FontSize="12" 
+                                   Foreground="White"
+                                   MinWidth="45"
+                                   TextAlignment="Center"/>
+                    </Border>
+                    <!-- 缩小按钮 -->
+                    <Button Content="🔍-" 
+                            ToolTip.Tip="缩小"
+                            Command="{Binding ZoomOutCommand}"
+                            Background="Transparent"
+                            Foreground="White"
+                            BorderThickness="0"
+                            Padding="8,4"
+                            Cursor="Hand"/>
+                    <!-- 分隔线 -->
+                    <Border Width="1" Background="#7F8C8D" Margin="4,2"/>
+                    <!-- 重置缩放按钮 -->
+                    <Button Content="🎯" 
+                            ToolTip.Tip="重置视图"
+                            Command="{Binding ResetZoomCommand}"
+                            Background="Transparent"
+                            Foreground="White"
+                            BorderThickness="0"
+                            Padding="8,4"
+                            Cursor="Hand"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+        
+        <!-- 主内容区 - 地震体图片显示（禁用滚动，使用自定义缩放） -->
+        <Border Grid.Row="1" Background="#1a1a2e" ClipToBounds="True" x:Name="ImageContainer">
+            <Grid HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="400">
+                <!-- 无图片提示 -->
+                <StackPanel IsVisible="{Binding !HasImage}"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center">
+                    <TextBlock Text="🥓" FontSize="60" HorizontalAlignment="Center" Foreground="White"/>
+                    <TextBlock Text="地震体数据" FontSize="18" Foreground="White" HorizontalAlignment="Center" Margin="0,15,0,0"/>
+                    <TextBlock Text="选择地震体查看数据" FontSize="14" Foreground="#7F8C8D" HorizontalAlignment="Center" Margin="0,5,0,0"/>
+                </StackPanel>
+                
+                <!-- 地震体图片 - 居中显示，滚轮控制缩放 -->
+                <Image Source="{Binding SeismicImage}"
+                       IsVisible="{Binding HasImage}"
+                       Stretch="None"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center">
+                    <Image.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform ScaleX="{Binding ZoomLevel}" 
+                                           ScaleY="{Binding ZoomLevel}"/>
+                            <TranslateTransform X="{Binding PanOffsetX}"
+                                               Y="{Binding PanOffsetY}"/>
+                        </TransformGroup>
+                    </Image.RenderTransform>
+                </Image>
+            </Grid>
+        </Border>
+        
+        <!-- 底部状态栏 -->
+        <Border Grid.Row="2" Background="#ECF0F1" Padding="8,6">
+            <Grid ColumnDefinitions="*,Auto">
+                <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="15">
+                    <StackPanel Orientation="Horizontal" Spacing="4">
+                        <TextBlock Text="主测线:" FontSize="11" Foreground="#7F8C8D"/>
+                        <TextBlock Text="{Binding InlineRange}" FontSize="11" Foreground="#2C3E50" FontWeight="SemiBold"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Spacing="4">
+                        <TextBlock Text="联络线:" FontSize="11" Foreground="#7F8C8D"/>
+                        <TextBlock Text="{Binding CrosslineRange}" FontSize="11" Foreground="#2C3E50"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Spacing="4">
+                        <TextBlock Text="时间范围:" FontSize="11" Foreground="#7F8C8D"/>
+                        <TextBlock Text="{Binding TimeRange}" FontSize="11" Foreground="#2C3E50"/>
+                    </StackPanel>
+                </StackPanel>
+                <TextBlock Grid.Column="1" 
+                           Text="滚轮缩放 | 拖拽平移" 
+                           FontSize="10" 
+                           Foreground="#95A5A6"/>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

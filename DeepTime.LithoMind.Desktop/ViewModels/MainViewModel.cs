@@ -240,7 +240,42 @@ namespace DeepTime.LithoMind.Desktop.ViewModels
 		public void ExecuteMenu(string? commandId)
 		{
 			if (string.IsNullOrWhiteSpace(commandId)) return;
-			// TODO: 实现命令执行逻辑
+				
+			// 根据命令ID执行相应操作
+			switch (commandId)
+			{
+				// 数据资源管理模块命令
+				case "Cmd_PrevAll":
+					// 预览所有已加载数据 - 切换到工区平面图
+					_factory.ActivateDocumentInCurrentLayout("WorkAreaMap");
+					break;
+		
+				// 井综合分析模块命令
+				case "Cmd_SectList":
+					// 从单井列表拉剖面 - 显示井选择对话框并切换到联井剖面
+					_factory.ShowWellSelectionAndActivateCorrelation();
+					break;
+		
+				case "Cmd_WellPreview":
+					// 单井综合柱状图 - 切换到单井柱状图标签页
+					_factory.ActivateDocumentInCurrentLayout("WellColumn");
+					break;
+		
+				// 地震综合分析模块命令
+				case "Cmd_View3D":
+					// 三维地震体视图 - 切换到地震体数据标签页
+					_factory.ActivateDocumentInCurrentLayout("SeismicBody");
+					break;
+		
+				case "Cmd_View2D":
+					// 二维解释剖面视图 - 切换到地震解释剖面标签页
+					_factory.ActivateDocumentInCurrentLayout("SeismicInterpretation");
+					break;
+		
+				default:
+					// 其他命令暂未实现
+					break;
+			}
 		}
 	}
 }

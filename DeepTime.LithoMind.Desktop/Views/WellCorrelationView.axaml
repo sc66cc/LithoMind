@@ -1,0 +1,209 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:DeepTime.LithoMind.Desktop.ViewModels.Pages"
+             x:Class="DeepTime.LithoMind.Desktop.Views.WellCorrelationView"
+             x:DataType="vm:WellCorrelationViewModel">
+    
+    <Grid RowDefinitions="Auto,*,Auto">
+        <!-- 顶部工具栏 -->
+        <Border Grid.Row="0" Background="#2C3E50" Padding="8">
+            <Grid ColumnDefinitions="Auto,*,Auto">
+                <!-- 左侧标题 -->
+                <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="8">
+                    <TextBlock Text="📈" FontSize="16" VerticalAlignment="Center"/>
+                    <TextBlock Text="联井剖面图" FontSize="14" Foreground="White" FontWeight="Bold" VerticalAlignment="Center"/>
+                    <TextBlock Text="-" FontSize="14" Foreground="#7F8C8D" VerticalAlignment="Center"/>
+                    <TextBlock Text="{Binding SectionName}" FontSize="14" Foreground="#1ABC9C" VerticalAlignment="Center"/>
+                </StackPanel>
+                
+                <!-- 右侧工具按钮 -->
+                <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="4">
+                    <!-- 显示层位 -->
+                    <CheckBox Content="层位" 
+                              IsChecked="{Binding ShowHorizonMarkers}"
+                              Foreground="White"
+                              FontSize="11"
+                              VerticalAlignment="Center"/>
+                    <!-- 显示沉积相 -->
+                    <CheckBox Content="沉积相" 
+                              IsChecked="{Binding ShowFacies}"
+                              Foreground="White"
+                              FontSize="11"
+                              VerticalAlignment="Center"
+                              Margin="10,0,10,0"/>
+                    <!-- 分隔线 -->
+                    <Border Width="1" Background="#7F8C8D" Margin="4,2"/>
+                    <!-- 放大按钮 -->
+                    <Button Content="🔍+" 
+                            ToolTip.Tip="放大"
+                            Command="{Binding ZoomInCommand}"
+                            Background="Transparent"
+                            Foreground="White"
+                            BorderThickness="0"
+                            Padding="8,4"
+                            Cursor="Hand"/>
+                    <!-- 缩放比例显示 -->
+                    <Border Background="#34495E" CornerRadius="4" Padding="8,4" VerticalAlignment="Center">
+                        <TextBlock Text="{Binding ZoomLevelText}" 
+                                   FontSize="12" 
+                                   Foreground="White"
+                                   MinWidth="45"
+                                   TextAlignment="Center"/>
+                    </Border>
+                    <!-- 缩小按钮 -->
+                    <Button Content="🔍-" 
+                            ToolTip.Tip="缩小"
+                            Command="{Binding ZoomOutCommand}"
+                            Background="Transparent"
+                            Foreground="White"
+                            BorderThickness="0"
+                            Padding="8,4"
+                            Cursor="Hand"/>
+                    <!-- 重置缩放按钮 -->
+                    <Button Content="🎯" 
+                            ToolTip.Tip="重置视图"
+                            Command="{Binding ResetZoomCommand}"
+                            Background="Transparent"
+                            Foreground="White"
+                            BorderThickness="0"
+                            Padding="8,4"
+                            Cursor="Hand"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+        
+        <!-- 主内容区 -->
+        <Border Grid.Row="1" Background="#F5F5F5" ClipToBounds="True">
+            <Grid>
+                <!-- 右侧剖面图显示区域 -->
+                <ScrollViewer HorizontalScrollBarVisibility="Auto" 
+                              VerticalScrollBarVisibility="Auto">
+                    <Grid>
+                        <!-- 无图片提示 -->
+                        <StackPanel IsVisible="{Binding !HasImage}"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Center">
+                            <TextBlock Text="📈" FontSize="60" HorizontalAlignment="Center"/>
+                            <TextBlock Text="联井剖面图" FontSize="18" Foreground="#2C3E50" HorizontalAlignment="Center" Margin="0,15,0,0"/>
+                            <TextBlock Text="选择井位生成剖面图" FontSize="14" Foreground="#7F8C8D" HorizontalAlignment="Center" Margin="0,5,0,0"/>
+                        </StackPanel>
+                        
+                        <!-- 剖面图图片 -->
+                        <Image Source="{Binding SectionImage}"
+                               IsVisible="{Binding HasImage}"
+                               Stretch="None"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Top">
+                            <Image.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform ScaleX="{Binding ZoomLevel}" 
+                                                   ScaleY="{Binding ZoomLevel}"/>
+                                    <TranslateTransform X="{Binding PanOffsetX}"
+                                                       Y="{Binding PanOffsetY}"/>
+                                </TransformGroup>
+                            </Image.RenderTransform>
+                        </Image>
+                    </Grid>
+                </ScrollViewer>
+
+                <!-- 井选择对话框 -->
+                <Border IsVisible="{Binding ShowWellSelector}"
+                        Background="#CC000000">
+                    <Border Background="White"
+                            CornerRadius="8"
+                            Margin="100"
+                            Padding="20"
+                            MaxWidth="400"
+                            MaxHeight="500"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center">
+                        <Grid RowDefinitions="Auto,*,Auto">
+                            <!-- 标题 -->
+                            <TextBlock Grid.Row="0"
+                                       Text="选择参与联井的井"
+                                       FontSize="16"
+                                       FontWeight="Bold"
+                                       Foreground="#2C3E50"
+                                       Margin="0,0,0,15"/>
+
+                            <!-- 井列表 -->
+                            <ScrollViewer Grid.Row="1" MaxHeight="300">
+                                <ItemsControl ItemsSource="{Binding Wells}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <Border Background="#F5F5F5"
+                                                    CornerRadius="4"
+                                                    Padding="12,8"
+                                                    Margin="0,0,0,8">
+                                                <CheckBox IsChecked="{Binding IsSelected, Mode=TwoWay}">
+                                                    <StackPanel Orientation="Horizontal" Spacing="8">
+                                                        <TextBlock Text="🛢️" FontSize="14"/>
+                                                        <TextBlock Text="{Binding Name}"
+                                                                   FontSize="13"
+                                                                   VerticalAlignment="Center"/>
+                                                    </StackPanel>
+                                                </CheckBox>
+                                            </Border>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </ScrollViewer>
+
+                            <!-- 按钮区 -->
+                            <StackPanel Grid.Row="2"
+                                        Orientation="Horizontal"
+                                        HorizontalAlignment="Right"
+                                        Spacing="10"
+                                        Margin="0,15,0,0">
+                                <Button Content="全选"
+                                        Command="{Binding SelectAllWellsCommand}"
+                                        Padding="20,8"
+                                        FontSize="13"/>
+                                <Button Content="清空"
+                                        Command="{Binding DeselectAllWellsCommand}"
+                                        Padding="20,8"
+                                        FontSize="13"/>
+                                <Button Content="取消"
+                                        Command="{Binding CancelWellSelectionCommand}"
+                                        Padding="20,8"
+                                        FontSize="13"/>
+                                <Button Content="确定"
+                                        Command="{Binding ConfirmWellSelectionCommand}"
+                                        Background="#3498DB"
+                                        Foreground="White"
+                                        Padding="20,8"
+                                        FontSize="13"/>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                </Border>
+            </Grid>
+        </Border>
+        
+        <!-- 底部状态栏 -->
+        <Border Grid.Row="2" Background="#ECF0F1" Padding="8,6">
+            <Grid ColumnDefinitions="*,Auto">
+                <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="15">
+                    <StackPanel Orientation="Horizontal" Spacing="4">
+                        <TextBlock Text="剖面名:" FontSize="11" Foreground="#7F8C8D"/>
+                        <TextBlock Text="{Binding SectionName}" FontSize="11" Foreground="#2C3E50" FontWeight="SemiBold"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Spacing="4">
+                        <TextBlock Text="参与井数:" FontSize="11" Foreground="#7F8C8D"/>
+                        <TextBlock FontSize="11" Foreground="#2C3E50">
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}{0} 口">
+                                    <Binding Path="Wells.Count"/>
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                    </StackPanel>
+                </StackPanel>
+                <TextBlock Grid.Column="1" 
+                           Text="滚轮缩放 | 拖拽平移" 
+                           FontSize="10" 
+                           Foreground="#95A5A6"/>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

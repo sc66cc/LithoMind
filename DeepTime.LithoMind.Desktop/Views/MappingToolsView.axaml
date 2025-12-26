@@ -1,0 +1,220 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:DeepTime.LithoMind.Desktop.ViewModels.Pages"
+             x:Class="DeepTime.LithoMind.Desktop.Views.MappingToolsView"
+             x:DataType="vm:MappingToolsViewModel">
+
+    <UserControl.Styles>
+        <!-- 工具按钮样式 -->
+        <Style Selector="Button.tool-btn">
+            <Setter Property="Background" Value="#FFFFFF"/>
+            <Setter Property="BorderBrush" Value="#E0E0E0"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="8"/>
+            <Setter Property="CornerRadius" Value="4"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+        
+        <Style Selector="Button.tool-btn:pointerover">
+            <Setter Property="Background" Value="#E3F2FD"/>
+            <Setter Property="BorderBrush" Value="#3498DB"/>
+        </Style>
+        
+        <!-- 底部标签页样式 -->
+        <Style Selector="RadioButton.dock-tab">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#7F8C8D"/>
+            <Setter Property="Padding" Value="12,6"/>
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+        
+        <Style Selector="RadioButton.dock-tab:checked">
+            <Setter Property="Foreground" Value="#3498DB"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+        </Style>
+    </UserControl.Styles>
+
+    <Border Background="#F5F6FA">
+        <DockPanel>
+            <!-- 底部标签页切换栏 -->
+            <Border DockPanel.Dock="Bottom" Background="#FFFFFF" BorderBrush="#E0E0E0" BorderThickness="0,1,0,0" Padding="4,2">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                    <RadioButton Classes="dock-tab" 
+                                 Content="Tool1" 
+                                 IsChecked="{Binding IsToolsTabActive}"
+                                 GroupName="DockTabs"/>
+                    <RadioButton Classes="dock-tab" 
+                                 Content="Tool3" 
+                                 IsChecked="{Binding IsPropertiesTabActive}"
+                                 GroupName="DockTabs"/>
+                </StackPanel>
+            </Border>
+
+            <!-- 内容区域 -->
+            <Grid>
+                <!-- Tool1: GIS工具栏 -->
+                <DockPanel IsVisible="{Binding IsToolsTabActive}">
+                    <!-- 顶部标题栏 -->
+                    <Border DockPanel.Dock="Top" Background="#2C3E50" Padding="8,6">
+                        <StackPanel Orientation="Horizontal" Spacing="4">
+                            <TextBlock Text="🛠️" FontSize="14"/>
+                            <TextBlock Text="GIS工具栏" FontSize="13" Foreground="White" FontWeight="SemiBold"/>
+                        </StackPanel>
+                    </Border>
+
+                    <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                        <StackPanel Margin="8">
+                            <!-- 空间分析工具 -->
+                            <TextBlock Text="📐 空间分析工具" FontSize="12" FontWeight="SemiBold" Foreground="#2C3E50" Margin="0,8,0,8"/>
+                            <ItemsControl ItemsSource="{Binding SpatialAnalysisTools}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel/>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate DataType="{x:Type vm:GisToolItem}">
+                                        <Button Classes="tool-btn"
+                                                Width="70"
+                                                Height="60"
+                                                Margin="2"
+                                                ToolTip.Tip="{Binding Description}"
+                                                Command="{Binding $parent[UserControl].((vm:MappingToolsViewModel)DataContext).SelectToolCommand}"
+                                                CommandParameter="{Binding}">
+                                            <StackPanel HorizontalAlignment="Center">
+                                                <TextBlock Text="{Binding Icon}" FontSize="20" HorizontalAlignment="Center"/>
+                                                <TextBlock Text="{Binding Name}" FontSize="10" HorizontalAlignment="Center" TextTrimming="CharacterEllipsis"/>
+                                            </StackPanel>
+                                        </Button>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+
+                            <TextBlock Text="✏️ 绘图工具" FontSize="12" FontWeight="SemiBold" Foreground="#2C3E50" Margin="0,16,0,8"/>
+                            <ItemsControl ItemsSource="{Binding DrawingTools}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel/>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate DataType="{x:Type vm:GisToolItem}">
+                                        <Button Classes="tool-btn"
+                                                Width="70"
+                                                Height="60"
+                                                Margin="2"
+                                                ToolTip.Tip="{Binding Description}"
+                                                Command="{Binding $parent[UserControl].((vm:MappingToolsViewModel)DataContext).SelectToolCommand}"
+                                                CommandParameter="{Binding}">
+                                            <StackPanel HorizontalAlignment="Center">
+                                                <TextBlock Text="{Binding Icon}" FontSize="20" HorizontalAlignment="Center"/>
+                                                <TextBlock Text="{Binding Name}" FontSize="10" HorizontalAlignment="Center" TextTrimming="CharacterEllipsis"/>
+                                            </StackPanel>
+                                        </Button>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+
+                            <TextBlock Text="🎨 可视化工具" FontSize="12" FontWeight="SemiBold" Foreground="#2C3E50" Margin="0,16,0,8"/>
+                            <ItemsControl ItemsSource="{Binding VisualizationTools}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel/>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate DataType="{x:Type vm:GisToolItem}">
+                                        <Button Classes="tool-btn"
+                                                Width="70"
+                                                Height="60"
+                                                Margin="2"
+                                                ToolTip.Tip="{Binding Description}"
+                                                Command="{Binding $parent[UserControl].((vm:MappingToolsViewModel)DataContext).SelectToolCommand}"
+                                                CommandParameter="{Binding}">
+                                            <StackPanel HorizontalAlignment="Center">
+                                                <TextBlock Text="{Binding Icon}" FontSize="20" HorizontalAlignment="Center"/>
+                                                <TextBlock Text="{Binding Name}" FontSize="10" HorizontalAlignment="Center" TextTrimming="CharacterEllipsis"/>
+                                            </StackPanel>
+                                        </Button>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </StackPanel>
+                    </ScrollViewer>
+                </DockPanel>
+
+                <!-- Tool3: 属性栏 -->
+                <DockPanel IsVisible="{Binding IsPropertiesTabActive}">
+                    <!-- 顶部标题栏 -->
+                    <Border DockPanel.Dock="Top" Background="#2C3E50" Padding="8,6">
+                        <StackPanel Orientation="Horizontal" Spacing="4">
+                            <TextBlock Text="📝" FontSize="14"/>
+                            <TextBlock Text="属性栏" FontSize="13" Foreground="White" FontWeight="SemiBold"/>
+                        </StackPanel>
+                    </Border>
+
+                    <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                        <StackPanel Margin="8">
+                            <!-- 图层信息 -->
+                            <Border Background="#FFFFFF" CornerRadius="6" Padding="12" Margin="0,8,0,0">
+                                <StackPanel>
+                                    <TextBlock Text="🗺️ 图层信息" FontSize="12" FontWeight="SemiBold" Foreground="#2C3E50" Margin="0,0,0,12"/>
+                                    
+                                    <TextBlock Text="{Binding SelectedLayerName}" FontSize="11" Foreground="#7F8C8D" Margin="0,0,0,8"/>
+                                    
+                                    <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto" IsVisible="{Binding HasSelectedLayer}">
+                                        <TextBlock Grid.Row="0" Grid.Column="0" Text="图层名:" FontSize="11" Foreground="#7F8C8D" VerticalAlignment="Center"/>
+                                        <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding SelectedLayer.Name}" FontSize="11" Foreground="#2C3E50" Margin="8,2"/>
+                                        
+                                        <TextBlock Grid.Row="1" Grid.Column="0" Text="图层类型:" FontSize="11" Foreground="#7F8C8D" VerticalAlignment="Center"/>
+                                        <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding SelectedLayer.LayerType}" FontSize="11" Foreground="#2C3E50" Margin="8,2"/>
+                                        
+                                        <TextBlock Grid.Row="2" Grid.Column="0" Text="可见性:" FontSize="11" Foreground="#7F8C8D" VerticalAlignment="Center"/>
+                                        <CheckBox Grid.Row="2" Grid.Column="1" IsChecked="{Binding SelectedLayer.IsVisible}" Margin="8,2"/>
+                                        
+                                        <TextBlock Grid.Row="3" Grid.Column="0" Text="透明度:" FontSize="11" Foreground="#7F8C8D" VerticalAlignment="Center"/>
+                                        <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal" Margin="8,2">
+                                            <Slider Width="100" Minimum="0" Maximum="100" Value="{Binding SelectedLayer.Opacity}"/>
+                                            <TextBlock Text="{Binding SelectedLayer.Opacity, StringFormat={}{0}%}" FontSize="10" Foreground="#7F8C8D" VerticalAlignment="Center" Margin="4,0,0,0"/>
+                                        </StackPanel>
+                                        
+                                        <TextBlock Grid.Row="4" Grid.Column="0" Text="叠加顺序:" FontSize="11" Foreground="#7F8C8D" VerticalAlignment="Center"/>
+                                        <NumericUpDown Grid.Row="4" Grid.Column="1" Value="{Binding SelectedLayer.ZOrder}" Minimum="0" Maximum="100" Margin="8,2" Width="80" HorizontalAlignment="Left"/>
+                                    </Grid>
+                                </StackPanel>
+                            </Border>
+                            
+                            <!-- 符号化设置 -->
+                            <Border Background="#FFFFFF" CornerRadius="6" Padding="12" Margin="0,16,0,0">
+                                <StackPanel>
+                                    <TextBlock Text="🎨 符号化设置" FontSize="12" FontWeight="SemiBold" Foreground="#2C3E50" Margin="0,0,0,12"/>
+                                    
+                                    <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto,Auto,Auto" IsVisible="{Binding HasSelectedLayer}">
+                                        <TextBlock Grid.Row="0" Grid.Column="0" Text="填充色:" FontSize="11" Foreground="#7F8C8D" VerticalAlignment="Center"/>
+                                        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding SymbolSettings.FillColor, Mode=TwoWay}" Margin="8,2"/>
+                                        
+                                        <TextBlock Grid.Row="1" Grid.Column="0" Text="边框色:" FontSize="11" Foreground="#7F8C8D" VerticalAlignment="Center"/>
+                                        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding SymbolSettings.StrokeColor, Mode=TwoWay}" Margin="8,2"/>
+                                        
+                                        <TextBlock Grid.Row="2" Grid.Column="0" Text="边框宽:" FontSize="11" Foreground="#7F8C8D" VerticalAlignment="Center"/>
+                                        <NumericUpDown Grid.Row="2" Grid.Column="1" Value="{Binding SymbolSettings.StrokeWidth, Mode=TwoWay}" Minimum="0" Maximum="10" Margin="8,2"/>
+                                        
+                                        <TextBlock Grid.Row="3" Grid.Column="0" Text="透明度:" FontSize="11" Foreground="#7F8C8D" VerticalAlignment="Center"/>
+                                        <Slider Grid.Row="3" Grid.Column="1" Value="{Binding SymbolSettings.Opacity, Mode=TwoWay}" Minimum="0" Maximum="100" Margin="8,2"/>
+                                    </Grid>
+                                    
+                                    <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,12,0,0" IsVisible="{Binding HasSelectedLayer}">
+                                        <Button Content="应用" Command="{Binding ApplySymbolCommand}" Padding="16,4"/>
+                                        <Button Content="重置" Command="{Binding ResetSymbolCommand}" Padding="16,4"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Border>
+                        </StackPanel>
+                    </ScrollViewer>
+                </DockPanel>
+            </Grid>
+        </DockPanel>
+    </Border>
+</UserControl>

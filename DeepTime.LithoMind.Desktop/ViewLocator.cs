@@ -3,6 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 using Avalonia.Controls;
 using Avalonia.Controls.Templates;
 using DeepTime.LithoMind.Desktop.ViewModels.Base;
+using DeepTime.LithoMind.Desktop.ViewModels.Pages;
 
 namespace DeepTime.LithoMind.Desktop
 {
@@ -20,6 +21,12 @@ namespace DeepTime.LithoMind.Desktop
                 return null;
 
             var fullName = param.GetType().FullName!;
+            
+            // 特殊处理：制图文档类ViewModel统一映射到MappingDocumentView
+            if (param is MappingDocumentViewModelBase)
+            {
+                return new Views.MappingDocumentView();
+            }
             
             // 步骤1：先处理命名空间映射 ViewModels.Pages -> Views
             // 步骤2：再处理类名后缀 ViewModel -> View

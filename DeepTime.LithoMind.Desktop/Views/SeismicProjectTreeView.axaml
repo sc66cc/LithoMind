@@ -1,0 +1,109 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:DeepTime.LithoMind.Desktop.ViewModels.Pages"
+             x:Class="DeepTime.LithoMind.Desktop.Views.SeismicProjectTreeView"
+             x:DataType="vm:SeismicProjectTreeViewModel">
+    
+    <Grid RowDefinitions="Auto,*,Auto">
+        <!-- 顶部工具栏 -->
+        <Border Grid.Row="0" Background="#2C3E50" Padding="8">
+            <Grid ColumnDefinitions="*,Auto,Auto,Auto">
+                <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="8">
+                    <TextBlock Text="🥓" FontSize="16" VerticalAlignment="Center"/>
+                    <TextBlock Text="工程结构目录" FontSize="14" Foreground="White" FontWeight="Bold" VerticalAlignment="Center"/>
+                </StackPanel>
+                <!-- 展开全部按钮 -->
+                <Button Grid.Column="1" 
+                        Content="📂" 
+                        ToolTip.Tip="展开全部"
+                        Command="{Binding ExpandAllCommand}"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Padding="5"
+                        Cursor="Hand"/>
+                <!-- 折叠全部按钮 -->
+                <Button Grid.Column="2" 
+                        Content="📁" 
+                        ToolTip.Tip="折叠全部"
+                        Command="{Binding CollapseAllCommand}"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Padding="5"
+                        Cursor="Hand"/>
+                <!-- 刷新按钮 -->
+                <Button Grid.Column="3" 
+                        Content="🔄" 
+                        ToolTip.Tip="刷新"
+                        Command="{Binding RefreshDataCommand}"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Padding="5"
+                        Cursor="Hand"/>
+            </Grid>
+        </Border>
+        
+        <!-- 树形结构区域 -->
+        <Border Grid.Row="1" Background="#FAFAFA">
+            <TreeView x:Name="SeismicTreeView"
+                      ItemsSource="{Binding RootNodes}"
+                      SelectedItem="{Binding SelectedNode, Mode=TwoWay}"
+                      SelectionMode="Single"
+                      Margin="5">
+                <TreeView.Styles>
+                    <!-- 树节点样式 -->
+                    <Style Selector="TreeViewItem" x:DataType="vm:SeismicDataNode">
+                        <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}"/>
+                    </Style>
+                    <!-- 选中条目浅蓝色背景样式 -->
+                    <Style Selector="TreeViewItem:selected /template/ Border#PART_LayoutRoot">
+                        <Setter Property="Background" Value="#E6F3FF"/>
+                    </Style>
+                    <Style Selector="TreeViewItem:selected:focus /template/ Border#PART_LayoutRoot">
+                        <Setter Property="Background" Value="#CCE8FF"/>
+                    </Style>
+                </TreeView.Styles>
+                
+                <TreeView.ItemTemplate>
+                    <TreeDataTemplate ItemsSource="{Binding Children}">
+                        <StackPanel Orientation="Horizontal" 
+                                    Spacing="4" 
+                                    Margin="2"
+                                    ToolTip.Tip="{Binding Description}">
+                            <!-- CheckBox - 只在特定类型节点显示 -->
+                            <CheckBox IsChecked="{Binding IsChecked, Mode=TwoWay}"
+                                      IsVisible="{Binding ShowCheckBox}"
+                                      VerticalAlignment="Center"
+                                      Margin="0,0,2,0"/>
+                            <!-- 图标 -->
+                            <TextBlock Text="{Binding IconKey}" 
+                                       FontSize="14" 
+                                       VerticalAlignment="Center"/>
+                            <!-- 名称 -->
+                            <TextBlock Text="{Binding Name}" 
+                                       FontSize="12" 
+                                       VerticalAlignment="Center"
+                                       Foreground="#2C3E50"/>
+                            <!-- 描述（仅非文件夹显示） -->
+                            <TextBlock Text="{Binding Description}" 
+                                       FontSize="10" 
+                                       Foreground="#95A5A6"
+                                       VerticalAlignment="Center"
+                                       Margin="6,0,0,0"
+                                       IsVisible="{Binding Description, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
+                        </StackPanel>
+                    </TreeDataTemplate>
+                </TreeView.ItemTemplate>
+            </TreeView>
+        </Border>
+        
+        <!-- 底部状态栏 -->
+        <Border Grid.Row="2" Background="#ECF0F1" Padding="8,6">
+            <StackPanel Orientation="Horizontal" Spacing="6">
+                <TextBlock Text="📦" FontSize="11" VerticalAlignment="Center" Foreground="#7F8C8D"/>
+                <TextBlock Text="{Binding SelectedNode.Name, FallbackValue='选择节点查看详情'}" 
+                           FontSize="11" 
+                           Foreground="#2C3E50"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

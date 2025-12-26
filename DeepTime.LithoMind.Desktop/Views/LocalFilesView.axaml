@@ -1,0 +1,145 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:DeepTime.LithoMind.Desktop.ViewModels.Pages"
+             x:Class="DeepTime.LithoMind.Desktop.Views.LocalFilesView"
+             x:DataType="vm:LocalFilesViewModel">
+    
+    <Grid RowDefinitions="Auto,*,Auto,Auto,Auto">
+        <!-- 顶部工具栏 -->
+        <Border Grid.Row="0" Background="#2C3E50" Padding="8">
+            <Grid ColumnDefinitions="*,Auto">
+                <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="8">
+                    <TextBlock Text="📁" FontSize="16" VerticalAlignment="Center"/>
+                    <TextBlock Text="本地文件目录" FontSize="14" Foreground="White" FontWeight="Bold" VerticalAlignment="Center"/>
+                </StackPanel>
+                <Button Grid.Column="1" 
+                        Content="🔄" 
+                        ToolTip.Tip="刷新驱动器列表"
+                        Command="{Binding RefreshDrivesCommand}"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Padding="5"
+                        Cursor="Hand"/>
+            </Grid>
+        </Border>
+        
+        <!-- 文件树区域 -->
+        <Border Grid.Row="1" Background="#FAFAFA">
+            <TreeView x:Name="FileTreeView"
+                      ItemsSource="{Binding RootNodes}"
+                      SelectedItem="{Binding SelectedNode, Mode=TwoWay}"
+                      SelectionMode="Single"
+                      Margin="5">
+                <TreeView.Styles>
+                    <!-- 树节点样式 - 使用x:DataType指定正确的类型 -->
+                    <Style Selector="TreeViewItem" x:DataType="vm:FileSystemNode">
+                        <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}"/>
+                    </Style>
+                    <!-- 选中条目浅蓝色背景样式 -->
+                    <Style Selector="TreeViewItem:selected /template/ Border#PART_LayoutRoot">
+                        <Setter Property="Background" Value="#E6F3FF"/>
+                    </Style>
+                    <Style Selector="TreeViewItem:selected:focus /template/ Border#PART_LayoutRoot">
+                        <Setter Property="Background" Value="#CCE8FF"/>
+                    </Style>
+                </TreeView.Styles>
+                
+                <TreeView.ItemTemplate>
+                    <TreeDataTemplate ItemsSource="{Binding Children}">
+                        <StackPanel Orientation="Horizontal" 
+                                    Spacing="6" 
+                                    Margin="2"
+                                    ToolTip.Tip="{Binding FullPath}">
+                            <!-- 文件/文件夹图标 -->
+                            <TextBlock Text="{Binding IconKey}" 
+                                       FontSize="14" 
+                                       VerticalAlignment="Center"/>
+                            <!-- 名称 -->
+                            <TextBlock Text="{Binding Name}" 
+                                       FontSize="12" 
+                                       VerticalAlignment="Center"
+                                       Foreground="#2C3E50"/>
+                            <!-- 大小/容量显示（黑色字体） -->
+                            <TextBlock Text="{Binding SizeDisplay}" 
+                                       FontSize="10" 
+                                       Foreground="#000000"
+                                       VerticalAlignment="Center"
+                                       Margin="4,0,0,0"
+                                       IsVisible="{Binding SizeDisplay, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
+                        </StackPanel>
+                    </TreeDataTemplate>
+                </TreeView.ItemTemplate>
+            </TreeView>
+        </Border>
+        
+        <!-- 快速导航区域标题 -->
+        <Border Grid.Row="2" Background="#34495E" Padding="8,5"
+                IsVisible="{Binding HasQuickPaths}">
+            <TextBlock Text="📌 快速导航" FontSize="12" Foreground="White" FontWeight="SemiBold"/>
+        </Border>
+        
+        <!-- 快速导航路径列表 -->
+        <Border Grid.Row="3" Background="#F0F4F8" MaxHeight="120"
+                IsVisible="{Binding HasQuickPaths}">
+            <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                <ItemsControl ItemsSource="{Binding QuickNavigationPaths}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate x:DataType="vm:QuickPathItem">
+                            <Border Padding="6,4" Margin="2" CornerRadius="3"
+                                    Background="#FFFFFF" Cursor="Hand">
+                                <Grid ColumnDefinitions="*,Auto">
+                                    <Button Grid.Column="0" 
+                                            Command="{Binding $parent[ItemsControl].((vm:LocalFilesViewModel)DataContext).NavigateToQuickPathCommand}"
+                                            CommandParameter="{Binding Path}"
+                                            Background="Transparent" BorderThickness="0" Padding="0"
+                                            HorizontalContentAlignment="Left"
+                                            Cursor="Hand">
+                                        <StackPanel Orientation="Horizontal" Spacing="6">
+                                            <TextBlock Text="📂" FontSize="12" VerticalAlignment="Center"/>
+                                            <TextBlock Text="{Binding DisplayName}" FontSize="11" 
+                                                       Foreground="#2C3E50" VerticalAlignment="Center"
+                                                       TextTrimming="CharacterEllipsis" MaxWidth="200"/>
+                                        </StackPanel>
+                                    </Button>
+                                    <Button Grid.Column="1" Content="✕" 
+                                            Command="{Binding $parent[ItemsControl].((vm:LocalFilesViewModel)DataContext).RemoveQuickPathCommand}"
+                                            CommandParameter="{Binding Path}"
+                                            FontSize="10" Padding="4,2"
+                                            Background="Transparent" BorderThickness="0"
+                                            Foreground="#95A5A6" Cursor="Hand"
+                                            ToolTip.Tip="移除此快速导航"/>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </Border>
+        
+        <!-- 底部工具栏 -->
+        <Border Grid.Row="4" Background="#ECF0F1" Padding="8,6">
+            <Grid RowDefinitions="Auto,Auto">
+                <!-- 当前路径显示 -->
+                <TextBlock Grid.Row="0" 
+                           Text="{Binding CurrentPath, FallbackValue='选择文件或文件夹'}" 
+                           FontSize="11" 
+                           Foreground="#7F8C8D"
+                           TextTrimming="CharacterEllipsis"
+                           ToolTip.Tip="{Binding CurrentPath}"
+                           Margin="0,0,0,6"/>
+                <!-- 新增文件夹按钮 -->
+                <Button Grid.Row="1" 
+                        Command="{Binding AddFolderToQuickNavCommand}"
+                        Background="#3498DB" Foreground="White"
+                        HorizontalAlignment="Stretch"
+                        HorizontalContentAlignment="Center"
+                        Padding="8,6" CornerRadius="4" Cursor="Hand">
+                    <StackPanel Orientation="Horizontal" Spacing="6">
+                        <TextBlock Text="➕" FontSize="12" VerticalAlignment="Center"/>
+                        <TextBlock Text="新增路径" FontSize="12" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

@@ -1,0 +1,166 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:DeepTime.LithoMind.Desktop.ViewModels.Pages"
+             x:Class="DeepTime.LithoMind.Desktop.Views.FilePreviewView"
+             x:DataType="vm:FilePreviewViewModel">
+    
+    <Grid RowDefinitions="Auto,*">
+        <!-- 顶部标题栏 -->
+        <Border Grid.Row="0" Background="#2C3E50" Padding="12,8">
+            <Grid ColumnDefinitions="*,Auto">
+                <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="10">
+                    <TextBlock Text="" FontSize="18" VerticalAlignment="Center"/>
+                    <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                        <TextBlock Text="数据预览" FontSize="14" Foreground="White" FontWeight="Bold"/>
+                        <TextBlock Text="{Binding CurrentFileName, FallbackValue=''}" 
+                                   FontSize="11" Foreground="#BDC3C7"
+                                   IsVisible="{Binding CurrentFileName, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
+                    </StackPanel>
+                </StackPanel>
+                <!-- 清除按钮 -->
+                <Button Grid.Column="1" 
+                        Content="✕ 清除" 
+                        Command="{Binding ClearPreviewCommand}"
+                        Background="#E74C3C"
+                        Foreground="White"
+                        Padding="10,5"
+                        CornerRadius="3"
+                        FontSize="11"
+                        Cursor="Hand"
+                        IsVisible="{Binding CurrentFileName, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
+            </Grid>
+        </Border>
+        
+        <!-- 预览内容区域 -->
+        <Border Grid.Row="1" Background="#FFFFFF">
+            <Grid>
+                <!-- 加载中状态 -->
+                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center"
+                            IsVisible="{Binding IsLoading}">
+                    <TextBlock Text="⏳" FontSize="48" HorizontalAlignment="Center"/>
+                    <TextBlock Text="正在加载..." FontSize="16" Foreground="#7F8C8D" 
+                               HorizontalAlignment="Center" Margin="0,10,0,0"/>
+                </StackPanel>
+                
+                <!-- 空白状态 - 欢迎界面 -->
+                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center"
+                            IsVisible="{Binding CurrentPreviewType, Converter={x:Static ObjectConverters.Equal}, ConverterParameter={x:Static vm:PreviewType.None}}">
+                    <TextBlock Text="📂" FontSize="64" HorizontalAlignment="Center" Opacity="0.5"/>
+                    <TextBlock Text="{Binding WelcomeText}" 
+                               FontSize="16" Foreground="#95A5A6" 
+                               HorizontalAlignment="Center" Margin="0,20,0,0"/>
+                </StackPanel>
+                
+                <!-- 文本预览 -->
+                <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"
+                              IsVisible="{Binding CurrentPreviewType, Converter={x:Static ObjectConverters.Equal}, ConverterParameter={x:Static vm:PreviewType.Text}}">
+                    <Border Padding="15" Background="#FAFAFA">
+                        <TextBlock Text="{Binding TextContent}" 
+                                   FontFamily="Consolas, 'Courier New', monospace"
+                                   FontSize="12" 
+                                   Foreground="#2C3E50"
+                                   TextWrapping="NoWrap"/>
+                    </Border>
+                </ScrollViewer>
+                
+                <!-- 图片预览 -->
+                <Grid IsVisible="{Binding CurrentPreviewType, Converter={x:Static ObjectConverters.Equal}, ConverterParameter={x:Static vm:PreviewType.Image}}">
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20">
+                            <!-- 图片显示区域 -->
+                            <Border Background="#ECF0F1" CornerRadius="8" Padding="10">
+                                <!-- 真实图片显示 -->
+                                <Image Source="{Binding ImageContent}"
+                                       MaxWidth="800" MaxHeight="600"
+                                       Stretch="Uniform"
+                                       IsVisible="{Binding ImageContent, Converter={x:Static ObjectConverters.IsNotNull}}"/>
+                            </Border>
+                            <!-- 图片信息 -->
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,15,0,0" Spacing="20">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="🖼️ " FontSize="12" Foreground="#7F8C8D"/>
+                                    <TextBlock Text="{Binding CurrentFileName}" FontSize="12" Foreground="#2C3E50" FontWeight="SemiBold"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="大小: " FontSize="11" Foreground="#95A5A6"/>
+                                    <TextBlock Text="{Binding FileSize}" FontSize="11" Foreground="#2C3E50"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </StackPanel>
+                    </ScrollViewer>
+                </Grid>
+                
+                <!-- 文件信息预览 -->
+                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center"
+                            IsVisible="{Binding CurrentPreviewType, Converter={x:Static ObjectConverters.Equal}, ConverterParameter={x:Static vm:PreviewType.FileInfo}}">
+                    <Border Background="#F8F9FA" CornerRadius="10" Padding="40,30" MinWidth="400">
+                        <StackPanel Spacing="15">
+                            <TextBlock Text="📄" FontSize="48" HorizontalAlignment="Center"/>
+                            <TextBlock Text="{Binding CurrentFileName}" 
+                                       FontSize="18" Foreground="#2C3E50" 
+                                       HorizontalAlignment="Center" FontWeight="Bold"
+                                       TextWrapping="Wrap" MaxWidth="350"/>
+                            <Separator Background="#ECF0F1"/>
+                            <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto,Auto,Auto" Margin="0,10">
+                                <TextBlock Grid.Row="0" Grid.Column="0" Text="文件类型:" Foreground="#7F8C8D" FontSize="12" Margin="0,5"/>
+                                <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding FileTypeDescription}" Foreground="#2C3E50" FontSize="12" Margin="15,5,0,5"/>
+                                
+                                <TextBlock Grid.Row="1" Grid.Column="0" Text="文件大小:" Foreground="#7F8C8D" FontSize="12" Margin="0,5"/>
+                                <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding FileSize}" Foreground="#2C3E50" FontSize="12" Margin="15,5,0,5"/>
+                                
+                                <TextBlock Grid.Row="2" Grid.Column="0" Text="修改时间:" Foreground="#7F8C8D" FontSize="12" Margin="0,5"/>
+                                <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding FileModifiedTime}" Foreground="#2C3E50" FontSize="12" Margin="15,5,0,5"/>
+                                
+                                <TextBlock Grid.Row="3" Grid.Column="0" Text="文件路径:" Foreground="#7F8C8D" FontSize="12" Margin="0,5"/>
+                                <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding CurrentFilePath}" Foreground="#2C3E50" FontSize="11" Margin="15,5,0,5"
+                                           TextWrapping="Wrap" MaxWidth="300"/>
+                            </Grid>
+                            <Separator Background="#ECF0F1"/>
+                            <TextBlock Text="此文件格式暂不支持内容预览，请使用专业软件打开" 
+                                       FontSize="11" Foreground="#95A5A6" 
+                                       HorizontalAlignment="Center" FontStyle="Italic"/>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+                
+                <!-- 不支持的文件格式 - 30号字体显示文件名 -->
+                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center"
+                            IsVisible="{Binding CurrentPreviewType, Converter={x:Static ObjectConverters.Equal}, ConverterParameter={x:Static vm:PreviewType.Unsupported}}">
+                    <Border Background="#FDF2E9" CornerRadius="10" Padding="50,40">
+                        <StackPanel Spacing="20">
+                            <TextBlock Text="❓" FontSize="48" HorizontalAlignment="Center"/>
+                            <TextBlock Text="{Binding CurrentFileName}" 
+                                       FontSize="30" 
+                                       Foreground="#E67E22" 
+                                       HorizontalAlignment="Center" 
+                                       FontWeight="Bold"
+                                       TextWrapping="Wrap"
+                                       MaxWidth="500"
+                                       TextAlignment="Center"/>
+                            <TextBlock Text="不支持预览此文件格式" 
+                                       FontSize="14" Foreground="#95A5A6" 
+                                       HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+                
+                <!-- 错误状态 -->
+                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center"
+                            IsVisible="{Binding CurrentPreviewType, Converter={x:Static ObjectConverters.Equal}, ConverterParameter={x:Static vm:PreviewType.Error}}">
+                    <Border Background="#FDEDEC" CornerRadius="10" Padding="40,30">
+                        <StackPanel Spacing="15">
+                            <TextBlock Text="⚠️" FontSize="48" HorizontalAlignment="Center"/>
+                            <TextBlock Text="预览出错" 
+                                       FontSize="18" Foreground="#E74C3C" 
+                                       HorizontalAlignment="Center" FontWeight="Bold"/>
+                            <TextBlock Text="{Binding ErrorMessage}" 
+                                       FontSize="12" Foreground="#7F8C8D" 
+                                       HorizontalAlignment="Center"
+                                       TextWrapping="Wrap" MaxWidth="400"/>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>
