@@ -50,6 +50,18 @@ namespace DeepTime.LithoMind.Desktop.ViewModels.Pages
 		private ObservableCollection<DepthPropertyItem> _depthProperties = new();
 
 		/// <summary>
+		/// 是否显示推理结果
+		/// </summary>
+		[ObservableProperty]
+		private bool _showInferenceResults;
+
+		/// <summary>
+		/// 是否显示地震相推理结果
+		/// </summary>
+		[ObservableProperty]
+		private bool _showSeismicInferenceResults;
+
+		/// <summary>
 		/// 预设的岩性选项
 		/// </summary>
 		[ObservableProperty]
@@ -196,6 +208,7 @@ namespace DeepTime.LithoMind.Desktop.ViewModels.Pages
 			CurrentWellName = wellName;
 			DepthProperties = properties;
 			HasData = properties.Count > 0;
+			ShowInferenceResults = false;
 
 			if (HasData)
 			{
@@ -204,6 +217,74 @@ namespace DeepTime.LithoMind.Desktop.ViewModels.Pages
 				CurrentDepthRange = $"{firstDepth}m - {lastDepth}m";
 			}
 
+			UpdateJsonContent();
+		}
+
+		/// <summary>
+		/// 设置智能推理结果
+		/// </summary>
+		public void SetInferenceResults(string wellName, ObservableCollection<InferenceResult> results)
+		{
+			CurrentWellName = wellName;
+			ShowInferenceResults = true;
+			ShowSeismicInferenceResults = false;
+			HasData = results.Count > 0;
+
+			// 将InferenceResult转换为DepthPropertyItem
+			DepthProperties.Clear();
+			foreach (var result in results)
+			{
+				DepthProperties.Add(new DepthPropertyItem
+				{
+					DepthStart = result.DepthStart,
+					DepthEnd = result.DepthEnd,
+					Lithology = result.Lithofacies,
+					SedimentaryFacies = result.SedimentaryFacies,
+					GeologicalDescription = $"层位: {result.HorizonName}, 置信度: {result.ConfidencePercent}",
+					Confidence = result.Confidence
+				});
+			}
+
+			if (HasData)
+			{
+				var firstDepth = DepthProperties[0].DepthStart;
+				var lastDepth = DepthProperties[DepthProperties.Count - 1].DepthEnd;
+				CurrentDepthRange = $"{firstDepth}m - {lastDepth}m";
+			}
+
+			PropertyTitle = "岩相/沉积相推理结果";
+			UpdateJsonContent();
+		}
+
+		/// <summary>
+		/// 设置地震相智能推理结果
+		/// </summary>
+		public void SetSeismicInferenceResults(string sectionName, ObservableCollection<SeismicFaciesInferenceResult> results)
+		{
+			CurrentWellName = sectionName;
+			ShowInferenceResults = false;
+			ShowSeismicInferenceResults = true;
+			HasData = results.Count > 0;
+
+			// 将SeismicFaciesInferenceResult转换为DepthPropertyItem
+			DepthProperties.Clear();
+			int index = 1;
+			foreach (var result in results)
+			{
+				DepthProperties.Add(new DepthPropertyItem
+				{
+					DepthStart = 0, // 地震相不使用深度，使用索引
+					DepthEnd = 0,
+					Lithology = result.SeismicFacies,
+					SedimentaryFacies = result.SedimentaryFacies,
+					GeologicalDescription = $"物源方向: {result.SourceDirection}\n{result.Description}",
+					Confidence = result.Confidence,
+					SeismicFaciesIndex = index++
+				});
+			}
+
+			CurrentDepthRange = $"道号范围: xLine/inLine";
+			PropertyTitle = "地震相/沉积相推理结果";
 			UpdateJsonContent();
 		}
 
@@ -279,8 +360,22 @@ namespace DeepTime.LithoMind.Desktop.ViewModels.Pages
 		private string _geologicalDescription = string.Empty;
 
 		/// <summary>
+		/// 置信度（智能推理时使用）
+		/// </summary>
+		[ObservableProperty]
+		private double _confidence;
+
+		/// <summary>
+		/// 地震相索引（地震相推理时使用）
+		/// </summary>
+		[ObservableProperty]
+		private int _seismicFaciesIndex;
+
+		/// <summary>
 		/// 深度范围显示
 		/// </summary>
-		public string DepthRangeDisplay => $"{DepthStart:F1}m - {DepthEnd:F1}m";
+		public string DepthRangeDisplay => SeismicFaciesIndex > 0 
+			? $"地震相 #{SeismicFaciesIndex}" 
+			: $"{DepthStart:F1}m - {DepthEnd:F1}m";
 	}
 }

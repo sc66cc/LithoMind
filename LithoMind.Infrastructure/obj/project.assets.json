@@ -124,23 +124,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\24846\\.nuget\\packages\\": {},
+    "C:\\Users\\sc66c\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\24846\\Desktop\\Work\\项目\\海油\\项目执行\\4 系统开发\\原型V2\\LithoMind\\LithoMind.Infrastructure\\LithoMind.Infrastructure.csproj",
+      "projectUniqueName": "C:\\Users\\sc66c\\Desktop\\中海油\\LithoMind\\LithoMind.Infrastructure\\LithoMind.Infrastructure.csproj",
       "projectName": "LithoMind.Infrastructure",
-      "projectPath": "C:\\Users\\24846\\Desktop\\Work\\项目\\海油\\项目执行\\4 系统开发\\原型V2\\LithoMind\\LithoMind.Infrastructure\\LithoMind.Infrastructure.csproj",
-      "packagesPath": "C:\\Users\\24846\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\24846\\Desktop\\Work\\项目\\海油\\项目执行\\4 系统开发\\原型V2\\LithoMind\\LithoMind.Infrastructure\\obj\\",
+      "projectPath": "C:\\Users\\sc66c\\Desktop\\中海油\\LithoMind\\LithoMind.Infrastructure\\LithoMind.Infrastructure.csproj",
+      "packagesPath": "C:\\Users\\sc66c\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\sc66c\\Desktop\\中海油\\LithoMind\\LithoMind.Infrastructure\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\24846\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\sc66c\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -148,17 +148,19 @@
         "net8.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "C:\\Program Files\\dotnet\\library-packs": {},
-        "https://repo.huaweicloud.com/repository/nuget/v3/index.json": {},
-        "https://www.myget.org/F/dock-nightly/api/v2": {},
-        "https://www.nuget.org/api/v2/": {}
+        "C:\\ProgramData\\Progress\\": {},
+        "D:\\BaiduNetdiskDownload\\Telerik Collection NuGet Package R2 2023 SP2 Retail": {},
+        "https://api.nuget.org/v3/index.json": {},
+        "https://nuget.telerik.com/v3/index.json": {}
       },
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\24846\\Desktop\\Work\\项目\\海油\\项目执行\\4 系统开发\\原型V2\\LithoMind\\LithoMind.Core\\LithoMind.Core.csproj": {
-              "projectPath": "C:\\Users\\24846\\Desktop\\Work\\项目\\海油\\项目执行\\4 系统开发\\原型V2\\LithoMind\\LithoMind.Core\\LithoMind.Core.csproj"
+            "C:\\Users\\sc66c\\Desktop\\中海油\\LithoMind\\LithoMind.Core\\LithoMind.Core.csproj": {
+              "projectPath": "C:\\Users\\sc66c\\Desktop\\中海油\\LithoMind\\LithoMind.Core\\LithoMind.Core.csproj"
             }
           }
         }
@@ -173,7 +175,7 @@
         "auditLevel": "low",
         "auditMode": "direct"
       },
-      "SdkAnalysisLevel": "10.0.100"
+      "SdkAnalysisLevel": "9.0.300"
     },
     "frameworks": {
       "net8.0": {
@@ -204,7 +206,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.100/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.301/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

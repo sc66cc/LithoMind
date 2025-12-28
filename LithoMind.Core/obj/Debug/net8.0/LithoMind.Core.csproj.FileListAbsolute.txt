@@ -10,3 +10,15 @@ C:\Users\24846\Desktop\Work\项目\海油\项目执行\4 系统开发\原型V2\L
 C:\Users\24846\Desktop\Work\项目\海油\项目执行\4 系统开发\原型V2\LithoMind\LithoMind.Core\obj\Debug\net8.0\refint\LithoMind.Core.dll
 C:\Users\24846\Desktop\Work\项目\海油\项目执行\4 系统开发\原型V2\LithoMind\LithoMind.Core\obj\Debug\net8.0\LithoMind.Core.pdb
 C:\Users\24846\Desktop\Work\项目\海油\项目执行\4 系统开发\原型V2\LithoMind\LithoMind.Core\obj\Debug\net8.0\ref\LithoMind.Core.dll
+C:\Users\sc66c\Desktop\中海油\LithoMind\LithoMind.Core\bin\Debug\net8.0\LithoMind.Core.deps.json
+C:\Users\sc66c\Desktop\中海油\LithoMind\LithoMind.Core\bin\Debug\net8.0\LithoMind.Core.dll
+C:\Users\sc66c\Desktop\中海油\LithoMind\LithoMind.Core\bin\Debug\net8.0\LithoMind.Core.pdb
+C:\Users\sc66c\Desktop\中海油\LithoMind\LithoMind.Core\obj\Debug\net8.0\LithoMind.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\sc66c\Desktop\中海油\LithoMind\LithoMind.Core\obj\Debug\net8.0\LithoMind.Core.AssemblyInfoInputs.cache
+C:\Users\sc66c\Desktop\中海油\LithoMind\LithoMind.Core\obj\Debug\net8.0\LithoMind.Core.AssemblyInfo.cs
+C:\Users\sc66c\Desktop\中海油\LithoMind\LithoMind.Core\obj\Debug\net8.0\LithoMind.Core.csproj.CoreCompileInputs.cache
+C:\Users\sc66c\Desktop\中海油\LithoMind\LithoMind.Core\obj\Debug\net8.0\LithoMind.Core.sourcelink.json
+C:\Users\sc66c\Desktop\中海油\LithoMind\LithoMind.Core\obj\Debug\net8.0\LithoMind.Core.dll
+C:\Users\sc66c\Desktop\中海油\LithoMind\LithoMind.Core\obj\Debug\net8.0\refint\LithoMind.Core.dll
+C:\Users\sc66c\Desktop\中海油\LithoMind\LithoMind.Core\obj\Debug\net8.0\LithoMind.Core.pdb
+C:\Users\sc66c\Desktop\中海油\LithoMind\LithoMind.Core\obj\Debug\net8.0\ref\LithoMind.Core.dll

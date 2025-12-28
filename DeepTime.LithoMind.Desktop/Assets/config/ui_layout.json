@@ -138,8 +138,20 @@
 					{
 						"id": "Imp.Core",
 						"header": "导入岩心/薄片数据",
-						"icon": "🪨",
+						"icon": "",
 						"commandId": "Cmd_ImportCore"
+					},
+					{
+						"id": "Imp.Sequence",
+						"header": "导入层位数据",
+						"icon": "",
+						"commandId": "Cmd_ImportSequ"
+					},
+					{
+						"id": "Imp.TimeDepthRelation",
+						"header": "导入时-深数据",
+						"icon": "",
+						"commandId": "Cmd_ImportTDP"
 					}
 				]
 			},
@@ -165,25 +177,30 @@
 			},
 			{ "type": "Separator" },
 			{
-				"id": "Data.Annotation",
-				"header": "数据标注库",
+				"id": "Data.Labeled",
+				"header": "已标注数据",
 				"icon": "🏷️",
 				"type": "SubMenu",
 				"children": [
 					{
 						"id": "Anno.Log",
-						"header": "测井曲线标注",
+						"header": "已标注测井曲线",
 						"commandId": "Cmd_AnnoLog"
 					},
 					{
 						"id": "Anno.SeisLine",
-						"header": "地震剖面标注",
+						"header": "已标注地震剖面",
 						"commandId": "Cmd_AnnoSeisLine"
 					},
 					{
 						"id": "Anno.SeisSurf",
-						"header": "地震层面数据集",
+						"header": "已标注地震层面",
 						"commandId": "Cmd_AnnoSeisSurf"
+					},
+					{
+						"id": "Anno.WellSeis",
+						"header": "已标注井旁地震",
+						"commandId": "Cmd_AnnoWellSeis"
 					}
 				]
 			},
@@ -215,7 +232,7 @@
 				"children": [
 					{
 						"id": "Sym.Basic",
-						"header": "基础图元样式",
+						"header": "基础样式库",
 						"type": "SubMenu",
 						"children": [
 							{
@@ -232,7 +249,7 @@
 					},
 					{
 						"id": "Sym.Poly",
-						"header": "面填充样式",
+						"header": "面样式",
 						"type": "SubMenu",
 						"children": [
 							{
@@ -242,7 +259,7 @@
 							},
 							{
 								"id": "Sym.Border",
-								"header": "面描边配置",
+								"header": "描边配置",
 								"commandId": "Cmd_SymBorder"
 							}
 						]
@@ -250,12 +267,12 @@
 					{
 						"id": "Sym.Color",
 						"header": "颜色方案管理",
-						"icon": "🌈",
+						"icon": "",
 						"type": "SubMenu",
 						"children": [
 							{
 								"id": "Color.Import",
-								"header": "导入色带",
+								"header": "导入颜色方案",
 								"commandId": "Cmd_ColorImport"
 							},
 							{
@@ -285,25 +302,24 @@
 						"icon": "👁️",
 						"commandId": "Cmd_PrevAll"
 					},
-					{ "type": "Separator" },
 					{
 						"id": "Prev.AddWell",
-						"header": "添加井位",
+						"header": "添加井位预览",
 						"commandId": "Cmd_PrevAddWell"
 					},
 					{
 						"id": "Prev.AddSeis",
-						"header": "添加地震测线/体",
+						"header": "添加地震测线/体预览",
 						"commandId": "Cmd_PrevAddSeis"
 					},
 					{
 						"id": "Prev.AddShp",
-						"header": "添加构造图 (SHP)",
+						"header": "添加构造图 (SHP)预览",
 						"commandId": "Cmd_PrevAddShp"
 					},
 					{
 						"id": "Prev.AddMap",
-						"header": "添加地形图 (TIF/NC)",
+						"header": "添加地形图 (TIF/NC)预览",
 						"commandId": "Cmd_PrevAddMap"
 					}
 				]
@@ -326,24 +342,6 @@
 						"id": "Imp.Lake",
 						"header": "数据湖导入",
 						"commandId": "Cmd_ImportLake"
-					}
-				]
-			},
-			{
-				"id": "Well.Infer",
-				"header": "岩相/沉积相智能推理",
-				"icon": "🧠",
-				"type": "SubMenu",
-				"children": [
-					{
-						"id": "Infer.Map",
-						"header": "从工区平面图选择",
-						"commandId": "Cmd_InferMap"
-					},
-					{
-						"id": "Infer.List",
-						"header": "从单井列表选择",
-						"commandId": "Cmd_InferList"
 					}
 				]
 			},
@@ -426,7 +424,7 @@
 			{
 				"id": "Well.Section",
 				"header": "联井剖面",
-				"icon": "📐",
+				"icon": "",
 				"type": "SubMenu",
 				"children": [
 					{
@@ -440,73 +438,76 @@
 						"commandId": "Cmd_SectList"
 					}
 				]
+			},
+			{
+				"id": "Well.Infer",
+				"header": "岩相/沉积相智能推理",
+				"icon": "🧠",
+				"type": "SubMenu",
+				"children": [
+					{
+						"id": "Infer.Map",
+						"header": "从工区平面图选择",
+						"commandId": "Cmd_InferMap"
+					},
+					{
+						"id": "Infer.List",
+						"header": "从单井列表选择",
+						"commandId": "Cmd_InferList"
+					}
+				]
 			}
 		],
 
 		"Module_Strat": [
 			{
 				"id": "Strat.Scheme",
-				"header": "层序地层方案",
+				"header": "新建联井视图",
 				"icon": "📚",
 				"type": "SubMenu",
 				"children": [
 					{
 						"id": "Sch.Edit",
-						"header": "方案表编辑 (级次/颜色/代号)",
+						"header": "从工区平面图选择",
 						"commandId": "Cmd_SchEdit"
 					},
 					{
 						"id": "Sch.Load",
-						"header": "加载区域标准层序",
+						"header": "从井列表选择",
 						"commandId": "Cmd_SchLoad"
+					}
+				]
+			},
+			{
+				"id": "Import.Scheme",
+				"header": "导入层位数据",
+				"icon": "📚",
+				"type": "SubMenu",
+				"children": [
+					{
+						"id": "Import.Edit",
+						"header": "导入井层位数据",
+						"commandId": "Cmd_ImpoEdit"
 					},
 					{
-						"id": "Sch.Export",
-						"header": "导出层序方案",
-						"commandId": "Cmd_SchExport"
+						"id": "Import.Load",
+						"header": "导入地震层位数据",
+						"commandId": "Cmd_ImpoLoad"
 					}
 				]
 			},
 			{
 				"id": "Strat.Align",
-				"header": "井-震标定与时深转换",
+				"header": "导入时深关系",
 				"icon": "🎯",
-				"type": "SubMenu",
-				"children": [
-					{
-						"id": "Align.Synth",
-						"header": "制作合成记录 (Synthetic)",
-						"icon": "📉",
-						"commandId": "Cmd_MakeSynth"
-					},
-					{
-						"id": "Align.Check",
-						"header": "声波/VSP校正",
-						"commandId": "Cmd_VspCorrect"
-					},
-					{
-						"id": "Align.TD",
-						"header": "时深关系表管理 (T-D Table)",
-						"commandId": "Cmd_TDTable"
-					},
-					{
-						"id": "Align.Stretch",
-						"header": "非线性拉伸/压缩",
-						"commandId": "Cmd_LogStretch"
-					}
-				]
+				"type": "SubMenu"
 			},
 			{
 				"id": "Strat.Corr",
-				"header": "高分辨地层对比",
+				"header": "智能地层对比",
 				"icon": "📐",
 				"type": "SubMenu",
 				"children": [
-					{
-						"id": "Corr.Section",
-						"header": "创建连井剖面",
-						"commandId": "Cmd_CreateCorrSection"
-					},
 					{
 						"id": "Corr.Flatten",
 						"header": "层拉平 (Flattening)",
@@ -529,7 +530,7 @@
 			},
 			{
 				"id": "Strat.Cycle",
-				"header": "旋回分析",
+				"header": "智能旋回分析",
 				"icon": "🔄",
 				"type": "SubMenu",
 				"children": [
@@ -703,7 +704,6 @@
 					}
 				]
 			},
-			{ "type": "Separator" },
 			{
 				"id": "Map.Layers",
 				"header": "图层管理",

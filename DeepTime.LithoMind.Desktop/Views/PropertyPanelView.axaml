@@ -73,6 +73,30 @@
                                            FontSize="12" 
                                            Foreground="#7F8C8D"/>
                             </StackPanel>
+                            <!-- 推理结果标记 -->
+                            <Border IsVisible="{Binding ShowInferenceResults}"
+                                    Background="#27AE60"
+                                    CornerRadius="4"
+                                    Padding="6,3"
+                                    HorizontalAlignment="Left"
+                                    Margin="0,3,0,0">
+                                <StackPanel Orientation="Horizontal" Spacing="5">
+                                    <TextBlock Text="🧠" FontSize="11" Foreground="White"/>
+                                    <TextBlock Text="AI智能推理结果" FontSize="11" Foreground="White" FontWeight="SemiBold"/>
+                                </StackPanel>
+                            </Border>
+                            <!-- 地震相推理结果标记 -->
+                            <Border IsVisible="{Binding ShowSeismicInferenceResults}"
+                                    Background="#3498DB"
+                                    CornerRadius="4"
+                                    Padding="6,3"
+                                    HorizontalAlignment="Left"
+                                    Margin="0,3,0,0">
+                                <StackPanel Orientation="Horizontal" Spacing="5">
+                                    <TextBlock Text="🌊" FontSize="11" Foreground="White"/>
+                                    <TextBlock Text="地震相AI推理结果" FontSize="11" Foreground="White" FontWeight="SemiBold"/>
+                                </StackPanel>
+                            </Border>
                         </StackPanel>
                     </Border>
                     
@@ -112,13 +136,21 @@
                                                 </Grid>
                                             </Border>
                                             
-                                            <!-- 岩性 - 下拉选择+自定义输入 -->
+                                            <!-- 岩性/地震相 - 下拉选择+自定义输入 -->
                                             <Grid ColumnDefinitions="80,*">
+                                                <!-- 动态标签：地震相时显示"地震相:"，否则显示"岩性:" -->
                                                 <TextBlock Grid.Column="0" 
-                                                           Text="岩性:" 
                                                            FontSize="12" 
                                                            Foreground="#7F8C8D"
-                                                           VerticalAlignment="Center"/>
+                                                           VerticalAlignment="Center"
+                                                           IsVisible="{Binding !$parent[UserControl].((vm:PropertyPanelViewModel)DataContext).ShowSeismicInferenceResults}"
+                                                           Text="岩性:"/>
+                                                <TextBlock Grid.Column="0" 
+                                                           FontSize="12" 
+                                                           Foreground="#7F8C8D"
+                                                           VerticalAlignment="Center"
+                                                           IsVisible="{Binding $parent[UserControl].((vm:PropertyPanelViewModel)DataContext).ShowSeismicInferenceResults}"
+                                                           Text="地震相:"/>
                                                 <AutoCompleteBox Grid.Column="1" 
                                                                  Text="{Binding Lithology, Mode=TwoWay}" 
                                                                  ItemsSource="{Binding $parent[UserControl].((vm:PropertyPanelViewModel)DataContext).LithologyOptions}"
@@ -160,6 +192,36 @@
                                                          MinHeight="50"
                                                          MaxHeight="100"/>
                                             </Grid>
+                                            
+                                            <!-- 置信度 - 仅在推理结果时显示 -->
+                                            <Border IsVisible="{Binding $parent[UserControl].((vm:PropertyPanelViewModel)DataContext).ShowInferenceResults}"
+                                                    Background="#F0F8FF"
+                                                    CornerRadius="4"
+                                                    Padding="8"
+                                                    Margin="0,5,0,0">
+                                                <Grid ColumnDefinitions="Auto,*,Auto">
+                                                    <TextBlock Grid.Column="0" 
+                                                               Text="🎯 置信度:" 
+                                                               FontSize="12" 
+                                                               Foreground="#2C3E50"
+                                                               FontWeight="SemiBold"
+                                                               VerticalAlignment="Center"/>
+                                                    <ProgressBar Grid.Column="1"
+                                                                 Value="{Binding Confidence}"
+                                                                 Maximum="1.0"
+                                                                 Height="8"
+                                                                 Margin="8,0"
+                                                                 VerticalAlignment="Center"
+                                                                 Foreground="#27AE60"/>
+                                                    <TextBlock Grid.Column="2"
+                                                               FontSize="12"
+                                                               Foreground="#27AE60"
+                                                               FontWeight="Bold"
+                                                               VerticalAlignment="Center">
+                                                        <Run Text="{Binding Confidence, StringFormat={}{0:P0}}"/>
+                                                    </TextBlock>
+                                                </Grid>
+                                            </Border>
                                         </StackPanel>
                                     </Border>
                                 </DataTemplate>
