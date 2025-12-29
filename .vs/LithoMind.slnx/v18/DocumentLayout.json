@@ -250,7 +250,7 @@
               "RelativeDocumentMoniker": "DeepTime.LithoMind.Desktop\\ViewModels\\Pages\\LocalFilesViewModel.cs",
               "ToolTip": "C:\\Users\\24846\\Desktop\\Work\\\u9879\u76EE\\\u6D77\u6CB9\\\u9879\u76EE\u6267\u884C\\4 \u7CFB\u7EDF\u5F00\u53D1\\\u539F\u578BV2\\LithoMind\\DeepTime.LithoMind.Desktop\\ViewModels\\Pages\\LocalFilesViewModel.cs",
               "RelativeToolTip": "DeepTime.LithoMind.Desktop\\ViewModels\\Pages\\LocalFilesViewModel.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAAB0AAAAqAAAAAAAAAA==",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAABMAAAACAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-12-26T06:06:41.688Z",
               "EditorCaption": ""
@@ -976,6 +976,10 @@
             {
               "$type": "Bookmark",
               "Name": "ST:128:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
             }
           ]
         }
