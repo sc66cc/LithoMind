@@ -120,11 +120,11 @@
                 <RadioButton Classes="NavBtn" GroupName="Mods" Content="数据资源管理" Tag="📂"
                              Command="{Binding SwitchModuleCommand}" CommandParameter="Module_DataMgr" IsChecked="True"/>
                 
-                <RadioButton Classes="NavBtn" GroupName="Mods" Content="井综合分析" Tag="📊"
-                             Command="{Binding SwitchModuleCommand}" CommandParameter="Module_SingleWell"/>
-                
                 <RadioButton Classes="NavBtn" GroupName="Mods" Content="地层对比" Tag="🧱"
                              Command="{Binding SwitchModuleCommand}" CommandParameter="Module_Strat"/>
+                
+                <RadioButton Classes="NavBtn" GroupName="Mods" Content="井综合分析" Tag="📊"
+                             Command="{Binding SwitchModuleCommand}" CommandParameter="Module_SingleWell"/>
                 
                 <RadioButton Classes="NavBtn" GroupName="Mods" Content="地震综合分析" Tag="🥓"
                              Command="{Binding SwitchModuleCommand}" CommandParameter="Module_Seismic"/>

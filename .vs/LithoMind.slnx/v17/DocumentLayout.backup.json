@@ -1,0 +1,145 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\sc66c\\Desktop\\\u4E2D\u6D77\u6CB9\\LithoMind\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{4082ACB4-1A01-7D67-4A1A-B756A12281CF}|DeepTime.LithoMind.Desktop\\DeepTime.LithoMind.Desktop.csproj|c:\\users\\sc66c\\desktop\\\u4E2D\u6D77\u6CB9\\lithomind\\deeptime.lithomind.desktop\\assets\\config\\ui_layout.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{4082ACB4-1A01-7D67-4A1A-B756A12281CF}|DeepTime.LithoMind.Desktop\\DeepTime.LithoMind.Desktop.csproj|solutionrelative:deeptime.lithomind.desktop\\assets\\config\\ui_layout.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4082ACB4-1A01-7D67-4A1A-B756A12281CF}|DeepTime.LithoMind.Desktop\\DeepTime.LithoMind.Desktop.csproj|c:\\users\\sc66c\\desktop\\\u4E2D\u6D77\u6CB9\\lithomind\\deeptime.lithomind.desktop\\viewmodels\\mainviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4082ACB4-1A01-7D67-4A1A-B756A12281CF}|DeepTime.LithoMind.Desktop\\DeepTime.LithoMind.Desktop.csproj|solutionrelative:deeptime.lithomind.desktop\\viewmodels\\mainviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4082ACB4-1A01-7D67-4A1A-B756A12281CF}|DeepTime.LithoMind.Desktop\\DeepTime.LithoMind.Desktop.csproj|c:\\users\\sc66c\\desktop\\\u4E2D\u6D77\u6CB9\\lithomind\\deeptime.lithomind.desktop\\views\\mainwindow.axaml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{4082ACB4-1A01-7D67-4A1A-B756A12281CF}|DeepTime.LithoMind.Desktop\\DeepTime.LithoMind.Desktop.csproj|solutionrelative:deeptime.lithomind.desktop\\views\\mainwindow.axaml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4082ACB4-1A01-7D67-4A1A-B756A12281CF}|DeepTime.LithoMind.Desktop\\DeepTime.LithoMind.Desktop.csproj|c:\\users\\sc66c\\desktop\\\u4E2D\u6D77\u6CB9\\lithomind\\deeptime.lithomind.desktop\\assets\\pics\\a5-1-ori.jpg||{58961B49-13E0-48C0-9258-13CBC4D40279}",
+      "RelativeMoniker": "D:0:0:{4082ACB4-1A01-7D67-4A1A-B756A12281CF}|DeepTime.LithoMind.Desktop\\DeepTime.LithoMind.Desktop.csproj|solutionrelative:deeptime.lithomind.desktop\\assets\\pics\\a5-1-ori.jpg||{58961B49-13E0-48C0-9258-13CBC4D40279}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4082ACB4-1A01-7D67-4A1A-B756A12281CF}|DeepTime.LithoMind.Desktop\\DeepTime.LithoMind.Desktop.csproj|c:\\users\\sc66c\\desktop\\\u4E2D\u6D77\u6CB9\\lithomind\\deeptime.lithomind.desktop\\assets\\pics\\a5-1-res.jpg||{58961B49-13E0-48C0-9258-13CBC4D40279}",
+      "RelativeMoniker": "D:0:0:{4082ACB4-1A01-7D67-4A1A-B756A12281CF}|DeepTime.LithoMind.Desktop\\DeepTime.LithoMind.Desktop.csproj|solutionrelative:deeptime.lithomind.desktop\\assets\\pics\\a5-1-res.jpg||{58961B49-13E0-48C0-9258-13CBC4D40279}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4082ACB4-1A01-7D67-4A1A-B756A12281CF}|DeepTime.LithoMind.Desktop\\DeepTime.LithoMind.Desktop.csproj|c:\\users\\sc66c\\desktop\\\u4E2D\u6D77\u6CB9\\lithomind\\deeptime.lithomind.desktop\\assets\\pics\\\u8054\u4E95\u5C42\u5E8F\u5256\u9762.jpg||{58961B49-13E0-48C0-9258-13CBC4D40279}",
+      "RelativeMoniker": "D:0:0:{4082ACB4-1A01-7D67-4A1A-B756A12281CF}|DeepTime.LithoMind.Desktop\\DeepTime.LithoMind.Desktop.csproj|solutionrelative:deeptime.lithomind.desktop\\assets\\pics\\\u8054\u4E95\u5C42\u5E8F\u5256\u9762.jpg||{58961B49-13E0-48C0-9258-13CBC4D40279}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 8,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "MainViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\sc66c\\Desktop\\\u4E2D\u6D77\u6CB9\\LithoMind\\DeepTime.LithoMind.Desktop\\ViewModels\\MainViewModel.cs",
+              "RelativeDocumentMoniker": "DeepTime.LithoMind.Desktop\\ViewModels\\MainViewModel.cs",
+              "ToolTip": "C:\\Users\\sc66c\\Desktop\\\u4E2D\u6D77\u6CB9\\LithoMind\\DeepTime.LithoMind.Desktop\\ViewModels\\MainViewModel.cs",
+              "RelativeToolTip": "DeepTime.LithoMind.Desktop\\ViewModels\\MainViewModel.cs",
+              "ViewState": "AgIAAO4AAAAAAAAAAAAWwBEBAAAHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-28T11:50:55.448Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "MainWindow.axaml",
+              "DocumentMoniker": "C:\\Users\\sc66c\\Desktop\\\u4E2D\u6D77\u6CB9\\LithoMind\\DeepTime.LithoMind.Desktop\\Views\\MainWindow.axaml",
+              "RelativeDocumentMoniker": "DeepTime.LithoMind.Desktop\\Views\\MainWindow.axaml",
+              "ToolTip": "C:\\Users\\sc66c\\Desktop\\\u4E2D\u6D77\u6CB9\\LithoMind\\DeepTime.LithoMind.Desktop\\Views\\MainWindow.axaml",
+              "RelativeToolTip": "DeepTime.LithoMind.Desktop\\Views\\MainWindow.axaml",
+              "ViewState": "AgIAAGYAAAAAAAAAAAAvwIAAAABIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-12-28T11:50:54.117Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{56df62a4-05a3-4e5b-aa1a-99371ccfb997}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "A5-1-res.jpg",
+              "DocumentMoniker": "C:\\Users\\sc66c\\Desktop\\\u4E2D\u6D77\u6CB9\\LithoMind\\DeepTime.LithoMind.Desktop\\Assets\\Pics\\A5-1-res.jpg",
+              "RelativeDocumentMoniker": "DeepTime.LithoMind.Desktop\\Assets\\Pics\\A5-1-res.jpg",
+              "ToolTip": "C:\\Users\\sc66c\\Desktop\\\u4E2D\u6D77\u6CB9\\LithoMind\\DeepTime.LithoMind.Desktop\\Assets\\Pics\\A5-1-res.jpg",
+              "RelativeToolTip": "DeepTime.LithoMind.Desktop\\Assets\\Pics\\A5-1-res.jpg",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001533|",
+              "WhenOpened": "2025-12-28T11:18:09.023Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "A5-1-ori.jpg",
+              "DocumentMoniker": "C:\\Users\\sc66c\\Desktop\\\u4E2D\u6D77\u6CB9\\LithoMind\\DeepTime.LithoMind.Desktop\\Assets\\Pics\\A5-1-ori.jpg",
+              "RelativeDocumentMoniker": "DeepTime.LithoMind.Desktop\\Assets\\Pics\\A5-1-ori.jpg",
+              "ToolTip": "C:\\Users\\sc66c\\Desktop\\\u4E2D\u6D77\u6CB9\\LithoMind\\DeepTime.LithoMind.Desktop\\Assets\\Pics\\A5-1-ori.jpg",
+              "RelativeToolTip": "DeepTime.LithoMind.Desktop\\Assets\\Pics\\A5-1-ori.jpg",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001533|",
+              "WhenOpened": "2025-12-28T11:18:07.628Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "\u8054\u4E95\u5C42\u5E8F\u5256\u9762.jpg",
+              "DocumentMoniker": "C:\\Users\\sc66c\\Desktop\\\u4E2D\u6D77\u6CB9\\LithoMind\\DeepTime.LithoMind.Desktop\\Assets\\Pics\\\u8054\u4E95\u5C42\u5E8F\u5256\u9762.jpg",
+              "RelativeDocumentMoniker": "DeepTime.LithoMind.Desktop\\Assets\\Pics\\\u8054\u4E95\u5C42\u5E8F\u5256\u9762.jpg",
+              "ToolTip": "C:\\Users\\sc66c\\Desktop\\\u4E2D\u6D77\u6CB9\\LithoMind\\DeepTime.LithoMind.Desktop\\Assets\\Pics\\\u8054\u4E95\u5C42\u5E8F\u5256\u9762.jpg",
+              "RelativeToolTip": "DeepTime.LithoMind.Desktop\\Assets\\Pics\\\u8054\u4E95\u5C42\u5E8F\u5256\u9762.jpg",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001533|",
+              "WhenOpened": "2025-12-28T10:22:52.352Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ui_layout.json",
+              "DocumentMoniker": "C:\\Users\\sc66c\\Desktop\\\u4E2D\u6D77\u6CB9\\LithoMind\\DeepTime.LithoMind.Desktop\\Assets\\config\\ui_layout.json",
+              "RelativeDocumentMoniker": "DeepTime.LithoMind.Desktop\\Assets\\config\\ui_layout.json",
+              "ToolTip": "C:\\Users\\sc66c\\Desktop\\\u4E2D\u6D77\u6CB9\\LithoMind\\DeepTime.LithoMind.Desktop\\Assets\\config\\ui_layout.json",
+              "RelativeToolTip": "DeepTime.LithoMind.Desktop\\Assets\\config\\ui_layout.json",
+              "ViewState": "AgIAADgCAAAAAAAAAAASwFQCAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-12-28T10:00:15.928Z",
+              "EditorCaption": ""
+            }
+          ]
+        },
+        {
+          "DockedWidth": 194,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

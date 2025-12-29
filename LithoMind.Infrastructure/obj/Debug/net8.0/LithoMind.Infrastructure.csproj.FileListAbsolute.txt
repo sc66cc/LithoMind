@@ -14,3 +14,19 @@ C:\Users\24846\Desktop\Work\项目\海油\项目执行\4 系统开发\原型V2\L
 C:\Users\24846\Desktop\Work\项目\海油\项目执行\4 系统开发\原型V2\LithoMind\LithoMind.Infrastructure\obj\Debug\net8.0\refint\LithoMind.Infrastructure.dll
 C:\Users\24846\Desktop\Work\项目\海油\项目执行\4 系统开发\原型V2\LithoMind\LithoMind.Infrastructure\obj\Debug\net8.0\LithoMind.Infrastructure.pdb
 C:\Users\24846\Desktop\Work\项目\海油\项目执行\4 系统开发\原型V2\LithoMind\LithoMind.Infrastructure\obj\Debug\net8.0\ref\LithoMind.Infrastructure.dll
+C:\Users\sc66c\Desktop\中海油\LithoMind\LithoMind.Infrastructure\bin\Debug\net8.0\LithoMind.Infrastructure.deps.json
+C:\Users\sc66c\Desktop\中海油\LithoMind\LithoMind.Infrastructure\bin\Debug\net8.0\LithoMind.Infrastructure.dll
+C:\Users\sc66c\Desktop\中海油\LithoMind\LithoMind.Infrastructure\bin\Debug\net8.0\LithoMind.Infrastructure.pdb
+C:\Users\sc66c\Desktop\中海油\LithoMind\LithoMind.Infrastructure\bin\Debug\net8.0\LithoMind.Core.dll
+C:\Users\sc66c\Desktop\中海油\LithoMind\LithoMind.Infrastructure\bin\Debug\net8.0\LithoMind.Core.pdb
+C:\Users\sc66c\Desktop\中海油\LithoMind\LithoMind.Infrastructure\obj\Debug\net8.0\LithoMind.Infrastructure.csproj.AssemblyReference.cache
+C:\Users\sc66c\Desktop\中海油\LithoMind\LithoMind.Infrastructure\obj\Debug\net8.0\LithoMind.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\sc66c\Desktop\中海油\LithoMind\LithoMind.Infrastructure\obj\Debug\net8.0\LithoMind.Infrastructure.AssemblyInfoInputs.cache
+C:\Users\sc66c\Desktop\中海油\LithoMind\LithoMind.Infrastructure\obj\Debug\net8.0\LithoMind.Infrastructure.AssemblyInfo.cs
+C:\Users\sc66c\Desktop\中海油\LithoMind\LithoMind.Infrastructure\obj\Debug\net8.0\LithoMind.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\sc66c\Desktop\中海油\LithoMind\LithoMind.Infrastructure\obj\Debug\net8.0\LithoMind.Infrastructure.sourcelink.json
+C:\Users\sc66c\Desktop\中海油\LithoMind\LithoMind.Infrastructure\obj\Debug\net8.0\LithoMin.9C12572D.Up2Date
+C:\Users\sc66c\Desktop\中海油\LithoMind\LithoMind.Infrastructure\obj\Debug\net8.0\LithoMind.Infrastructure.dll
+C:\Users\sc66c\Desktop\中海油\LithoMind\LithoMind.Infrastructure\obj\Debug\net8.0\refint\LithoMind.Infrastructure.dll
+C:\Users\sc66c\Desktop\中海油\LithoMind\LithoMind.Infrastructure\obj\Debug\net8.0\LithoMind.Infrastructure.pdb
+C:\Users\sc66c\Desktop\中海油\LithoMind\LithoMind.Infrastructure\obj\Debug\net8.0\ref\LithoMind.Infrastructure.dll

@@ -16,6 +16,7 @@ namespace DeepTime.LithoMind.Desktop.Layouts
 	{
 		private readonly object _context;
 		private IRootDock? _rootDock;
+		private PropertyPanelViewModel? _propertyPanelVM;
 
 		public LithoMindDockFactory(object context)
 		{
@@ -53,7 +54,7 @@ namespace DeepTime.LithoMind.Desktop.Layouts
 					break;
 
 				case "Stratigraphy":
-					mainLayout = CreateSimpleLayout(new StratigraphyViewModel());
+					mainLayout = CreateStratigraphyLayout();
 					break;
 
 				default:
@@ -268,8 +269,14 @@ namespace DeepTime.LithoMind.Desktop.Layouts
 			var seismicBodyVM = new SeismicBodyViewModel();
 			var seismicInterpretationVM = new SeismicInterpretationViewModel();
 
-			// 右侧：层位信息属性窗口
-			var seismicPropertyVM = new SeismicPropertyViewModel();
+			// 右侧：属性窗口（使用通用PropertyPanelViewModel）
+			var propertyPanelVM = new PropertyPanelViewModel();
+
+			// 建立地震相智能推理与属性面板的连接
+			seismicInterpretationVM.SeismicInferenceCompleted += (sectionName, results) =>
+			{
+				propertyPanelVM.SetSeismicInferenceResults(sectionName, results);
+			};
 
 			var middleDock = new DocumentDock
 			{
@@ -288,11 +295,11 @@ namespace DeepTime.LithoMind.Desktop.Layouts
 			var rightDock = new ToolDock
 			{
 				Id = "SeismicPropertyPane",
-				Title = "层位属性",
+				Title = "属性窗口",
 				Proportion = 0.18,
 				Alignment = Alignment.Right,
-				ActiveDockable = seismicPropertyVM,
-				VisibleDockables = CreateList<IDockable>(seismicPropertyVM),
+				ActiveDockable = propertyPanelVM,
+				VisibleDockables = CreateList<IDockable>(propertyPanelVM),
 				GripMode = GripMode.Visible,
 				CanFloat = true,
 				CanPin = true,
@@ -361,11 +368,18 @@ namespace DeepTime.LithoMind.Desktop.Layouts
 
 			// 右侧：属性窗口
 			var propertyPanelVM = new PropertyPanelViewModel();
+			_propertyPanelVM = propertyPanelVM; // 保存引用
 
 			// 建立事件连接：选择井时加载对应柱状图
 			wellProjectTreeVM.WellSelected += (wellName) =>
 			{
 				wellColumnVM.LoadWellData(wellName);
+			};
+
+			// 建立智能推理与属性面板的连接
+			wellColumnVM.InferenceCompleted += (wellName, results) =>
+			{
+				propertyPanelVM.SetInferenceResults(wellName, results);
 			};
 
 			var middleDock = new DocumentDock
@@ -525,10 +539,54 @@ namespace DeepTime.LithoMind.Desktop.Layouts
 					rightDock
 				)
 			};
-
+		
 			return layout;
 		}
-
+		
+		/// <summary>
+		/// 地层对比布局
+		/// 左侧: 数据资源视图 (20%)
+		/// 右侧: 联井层序剖面图显示 (80%)
+		/// </summary>
+		private ProportionalDock CreateStratigraphyLayout()
+		{
+			// 创建地层对比ViewModel（用于右侧图片显示）
+			var stratigraphyVM = new StratigraphyViewModel();
+		
+			// 右侧：联井层序剖面显示区（DocumentDock）
+			var rightDock = new DocumentDock
+			{
+				Id = "StratigraphySectionPane",
+				Title = "联井层序剖面",
+				Proportion = double.NaN,
+				IsCollapsable = false,
+				ActiveDockable = stratigraphyVM,
+				VisibleDockables = CreateList<IDockable>(stratigraphyVM),
+				CanFloat = true,
+				CanPin = true,
+				CanClose = true,
+				CanCreateDocument = true
+			};
+		
+			var splitter = new ProportionalDockSplitter
+			{
+				Id = "StratigraphySplitter",
+				Title = "Splitter"
+			};
+		
+			// 水平布局：右侧剖面显示（不需要左侧Dock，直接在View中实现数据资源树）
+			var layout = new ProportionalDock
+			{
+				Id = "StratigraphyMainLayout",
+				Orientation = Orientation.Horizontal,
+				VisibleDockables = CreateList<IDockable>(
+					rightDock
+				)
+			};
+		
+			return layout;
+		}
+		
 		/// <summary>
 		/// 在当前布局中激活指定的文档标签页
 		/// </summary>
@@ -632,6 +690,72 @@ namespace DeepTime.LithoMind.Desktop.Layouts
 			}
 
 			return null;
+		}
+
+		/// <summary>
+		/// 显示井智能推理对话框（从单井列表选择）
+		/// </summary>
+		public void ShowWellInferenceDialog()
+		{
+			if (_rootDock == null) return;
+
+			// 激活单井柱状图标签页
+			ActivateDocumentInCurrentLayout("WellColumn");
+
+			// 查找WellColumnViewModel并显示井选择对话框
+			var wellColumnVM = FindDocumentRecursive(_rootDock, "WellColumn") as WellColumnViewModel;
+			if (wellColumnVM != null)
+			{
+				wellColumnVM.ShowInferenceDialogCommand.Execute(null);
+			}
+		}
+
+		/// <summary>
+		/// 显示基于工区平面图的智能推理对话框
+		/// </summary>
+		public void ShowMapBasedInferenceDialog()
+		{
+			if (_rootDock == null) return;
+
+			// 先激活工区平面图
+			ActivateDocumentInCurrentLayout("WorkAreaMap");
+
+			// TODO: 实现工区平面图井选择对话框
+			// 当前暂时切换到单井列表选择
+			ShowWellInferenceDialog();
+		}
+
+		/// <summary>
+		/// 显示地震道号范围推理对话框
+		/// </summary>
+		public void ShowSeismicTraceInferenceDialog()
+		{
+			if (_rootDock == null) return;
+
+			// 激活地震解释剖面标签页
+			ActivateDocumentInCurrentLayout("SeismicInterpretation");
+
+			// 查找SeismicInterpretationViewModel并显示道号范围对话框
+			var seismicInterpVM = FindDocumentRecursive(_rootDock, "SeismicInterpretation") as SeismicInterpretationViewModel;
+			if (seismicInterpVM != null)
+			{
+				seismicInterpVM.ShowInferenceDialogCommand.Execute(null);
+			}
+		}
+
+		/// <summary>
+		/// 显示模型对比对话框
+		/// </summary>
+		public void ShowModelComparisonDialog()
+		{
+			if (_rootDock == null) return;
+
+			// 激活地震解释剖面标签页
+			ActivateDocumentInCurrentLayout("SeismicInterpretation");
+
+			// TODO: 实现模型对比对话框
+			// 当前暂时显示道号范围对话框
+			ShowSeismicTraceInferenceDialog();
 		}
 	}
 }

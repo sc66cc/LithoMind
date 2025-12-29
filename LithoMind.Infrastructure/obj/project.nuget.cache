@@ -1,11 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "2dXlofkfjgU=",
+  "dgSpecHash": "A+CDu6xBHMU=",
   "success": true,
-  "projectFilePath": "C:\\Users\\24846\\Desktop\\Work\\项目\\海油\\项目执行\\4 系统开发\\原型V2\\LithoMind\\LithoMind.Infrastructure\\LithoMind.Infrastructure.csproj",
+  "projectFilePath": "C:\\Users\\sc66c\\Desktop\\中海油\\LithoMind\\LithoMind.Infrastructure\\LithoMind.Infrastructure.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\24846\\.nuget\\packages\\communitytoolkit.mvvm\\8.2.1\\communitytoolkit.mvvm.8.2.1.nupkg.sha512",
-    "C:\\Users\\24846\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\8.0.0\\microsoft.extensions.dependencyinjection.abstractions.8.0.0.nupkg.sha512"
+    "C:\\Users\\sc66c\\.nuget\\packages\\communitytoolkit.mvvm\\8.2.1\\communitytoolkit.mvvm.8.2.1.nupkg.sha512",
+    "C:\\Users\\sc66c\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\8.0.0\\microsoft.extensions.dependencyinjection.abstractions.8.0.0.nupkg.sha512"
   ],
   "logs": []
 }

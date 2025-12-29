@@ -261,6 +261,16 @@ namespace DeepTime.LithoMind.Desktop.ViewModels
 					_factory.ActivateDocumentInCurrentLayout("WellColumn");
 					break;
 		
+				case "Cmd_InferList":
+					// 岩相/沉积相智能推理 - 从单井列表选择
+					_factory.ShowWellInferenceDialog();
+					break;
+		
+				case "Cmd_InferMap":
+					// 岩相/沉积相智能推理 - 从工区平面图选择
+					_factory.ShowMapBasedInferenceDialog();
+					break;
+		
 				// 地震综合分析模块命令
 				case "Cmd_View3D":
 					// 三维地震体视图 - 切换到地震体数据标签页
@@ -270,6 +280,16 @@ namespace DeepTime.LithoMind.Desktop.ViewModels
 				case "Cmd_View2D":
 					// 二维解释剖面视图 - 切换到地震解释剖面标签页
 					_factory.ActivateDocumentInCurrentLayout("SeismicInterpretation");
+					break;
+		
+				case "Cmd_InferTrace":
+					// 沉积相智能推理 - 根据道号范围选择
+					_factory.ShowSeismicTraceInferenceDialog();
+					break;
+		
+				case "Cmd_InferCompare":
+					// 沉积相智能推理 - 不同模型结果对比
+					_factory.ShowModelComparisonDialog();
 					break;
 		
 				default:

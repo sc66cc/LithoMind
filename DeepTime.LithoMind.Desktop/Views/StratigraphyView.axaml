@@ -1,13 +1,227 @@
 ﻿<UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="DeepTime.LithoMind.Desktop.Views.StratigraphyView">
-    <Grid Background="White">
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="20">
-            <TextBlock Text="🧱" FontSize="60" HorizontalAlignment="Center"/>
-            <TextBlock Text="这里是【地层地层格架】工作区" FontSize="24" Foreground="Black" HorizontalAlignment="Center"/>
-        </StackPanel>
+             xmlns:vm="using:DeepTime.LithoMind.Desktop.ViewModels.Pages"
+             x:Class="DeepTime.LithoMind.Desktop.Views.StratigraphyView"
+             x:DataType="vm:StratigraphyViewModel">
+    
+    <Grid ColumnDefinitions="0.2*,*">
+        <!-- 左侧：数据资源视图 (20%) -->
+        <Border Grid.Column="0" 
+                Background="#F8F9FA" 
+                BorderBrush="#DEE2E6" 
+                BorderThickness="0,0,1,0">
+            <Grid RowDefinitions="Auto,*">
+                <!-- 标题栏 -->
+                <Border Grid.Row="0" Background="#2C3E50" Padding="12,8">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <TextBlock Text="📊" FontSize="16" VerticalAlignment="Center"/>
+                        <TextBlock Text="数据资源" 
+                                   FontSize="14" 
+                                   Foreground="White" 
+                                   FontWeight="Bold" 
+                                   VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- 数据资源树 -->
+                <ScrollViewer Grid.Row="1" 
+                              HorizontalScrollBarVisibility="Auto"
+                              VerticalScrollBarVisibility="Auto">
+                    <TreeView ItemsSource="{Binding DataResources}"
+                              Background="Transparent"
+                              Margin="4">
+                        <!-- 右键菜单 -->
+                        <TreeView.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="添加到对比视图" 
+                                          Command="{Binding AddDataToViewCommand}"
+                                          CommandParameter="{Binding $parent[TreeView].SelectedItem}"
+                                          Icon="➕"/>
+                                <Separator/>
+                                <MenuItem Header="显示/隐藏" 
+                                          Command="{Binding ToggleDataLayerCommand}"
+                                          CommandParameter="{Binding $parent[TreeView].SelectedItem}"
+                                          Icon="👁️"/>
+                                <Separator/>
+                                <MenuItem Header="刷新数据资源" 
+                                          Command="{Binding RefreshDataResourcesCommand}"
+                                          Icon="🔄"/>
+                            </ContextMenu>
+                        </TreeView.ContextMenu>
+                        
+                        <!-- 定义TreeView数据模板 -->
+                        <TreeView.ItemTemplate>
+                            <TreeDataTemplate ItemsSource="{Binding Children}" DataType="vm:DataResourceNode">
+                                <StackPanel Orientation="Horizontal" Spacing="6" Margin="0,2">
+                                    <!-- Checkbox控件 -->
+                                    <CheckBox IsChecked="{Binding IsVisible, Mode=TwoWay}"
+                                              VerticalAlignment="Center"
+                                              MinWidth="20"/>
+                                    <!-- 图标 -->
+                                    <TextBlock Text="{Binding Icon}" 
+                                               FontSize="14"
+                                               VerticalAlignment="Center"/>
+                                    <!-- 名称 -->
+                                    <TextBlock Text="{Binding Name}" 
+                                               FontSize="13"
+                                               VerticalAlignment="Center"
+                                               Foreground="#2C3E50"/>
+                                </StackPanel>
+                            </TreeDataTemplate>
+                        </TreeView.ItemTemplate>
+                    </TreeView>
+                </ScrollViewer>
+            </Grid>
+        </Border>
+
+        <!-- 右侧：图片显示区域 (80%) -->
+        <Grid Grid.Column="1" RowDefinitions="Auto,*,Auto">
+            <!-- 顶部工具栏 -->
+            <Border Grid.Row="0" Background="#2C3E50" Padding="8">
+                <Grid ColumnDefinitions="Auto,*,Auto">
+                    <!-- 左侧标题 -->
+                    <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="8">
+                        <TextBlock Text="🧱" FontSize="16" VerticalAlignment="Center"/>
+                        <TextBlock Text="地层对比 - 联井层序剖面" 
+                                   FontSize="14" 
+                                   Foreground="White" 
+                                   FontWeight="Bold" 
+                                   VerticalAlignment="Center"/>
+                    </StackPanel>
+                    
+                    <!-- 右侧工具按钮 -->
+                    <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="4">
+                        <!-- 放大按钮 -->
+                        <Button Content="🔍+" 
+                                ToolTip.Tip="放大"
+                                Command="{Binding ZoomInCommand}"
+                                Background="Transparent"
+                                Foreground="White"
+                                BorderThickness="0"
+                                Padding="8,4"
+                                Cursor="Hand"/>
+                        <!-- 缩放比例显示 -->
+                        <Border Background="#34495E" CornerRadius="4" Padding="8,4" VerticalAlignment="Center">
+                            <TextBlock Text="{Binding ZoomLevelText}" 
+                                       FontSize="12" 
+                                       Foreground="White"
+                                       MinWidth="45"
+                                       TextAlignment="Center"/>
+                        </Border>
+                        <!-- 缩小按钮 -->
+                        <Button Content="🔍-" 
+                                ToolTip.Tip="缩小"
+                                Command="{Binding ZoomOutCommand}"
+                                Background="Transparent"
+                                Foreground="White"
+                                BorderThickness="0"
+                                Padding="8,4"
+                                Cursor="Hand"/>
+                        <!-- 重置缩放按钮 -->
+                        <Button Content="🎯" 
+                                ToolTip.Tip="重置视图"
+                                Command="{Binding ResetZoomCommand}"
+                                Background="Transparent"
+                                Foreground="White"
+                                BorderThickness="0"
+                                Padding="8,4"
+                                Cursor="Hand"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+            
+            <!-- 主内容区 - 图片显示 -->
+            <Border Grid.Row="1" Background="#F5F5F5" ClipToBounds="True">
+                <!-- 右键菜单 -->
+                <Border.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="新建对比槽" 
+                                  Command="{Binding CreateCorrelationTrackCommand}"
+                                  ToolTip.Tip="创建新的地层对比槽道"
+                                  Icon="➕"/>
+                        <Separator/>
+                        <MenuItem Header="对比地层填充方案" Icon="🎨">
+                            <MenuItem Header="颜色填充" 
+                                      Command="{Binding SetStratumFillSchemeCommand}"/>
+                            <MenuItem Header="图案填充" 
+                                      Command="{Binding SetStratumFillSchemeCommand}"/>
+                            <MenuItem Header="渐变填充" 
+                                      Command="{Binding SetStratumFillSchemeCommand}"/>
+                        </MenuItem>
+                        <Separator/>
+                        <MenuItem Header="自动对比" 
+                                  Command="{Binding AutoCorrelationCommand}"
+                                  ToolTip.Tip="执行智能地层自动对比"
+                                  Icon="⚡"/>
+                        <MenuItem Header="导出对比结果" 
+                                  Command="{Binding ExportCorrelationResultCommand}"
+                                  ToolTip.Tip="导出对比结果为图片或数据文件"
+                                  Icon="💾"/>
+                        <Separator/>
+                        <MenuItem Header="重置视图" 
+                                  Command="{Binding ResetZoomCommand}"
+                                  Icon="🎯"/>
+                    </ContextMenu>
+                </Border.ContextMenu>
+                
+                <ScrollViewer HorizontalScrollBarVisibility="Auto" 
+                              VerticalScrollBarVisibility="Auto">
+                    <Grid>
+                        <!-- 无图片提示 -->
+                        <StackPanel IsVisible="{Binding !HasImage}"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Center">
+                            <TextBlock Text="🧱" FontSize="60" HorizontalAlignment="Center"/>
+                            <TextBlock Text="地层对比分析" 
+                                       FontSize="18" 
+                                       Foreground="#2C3E50" 
+                                       HorizontalAlignment="Center" 
+                                       Margin="0,15,0,0"/>
+                            <TextBlock Text="选择数据源加载地层剖面图" 
+                                       FontSize="14" 
+                                       Foreground="#7F8C8D" 
+                                       HorizontalAlignment="Center" 
+                                       Margin="0,5,0,0"/>
+                        </StackPanel>
+                        
+                        <!-- 联井层序剖面图片 -->
+                        <Image Source="{Binding SectionImage}"
+                               IsVisible="{Binding HasImage}"
+                               Stretch="None"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Top">
+                            <Image.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform ScaleX="{Binding ZoomLevel}" 
+                                                   ScaleY="{Binding ZoomLevel}"/>
+                                    <TranslateTransform X="{Binding PanOffsetX}"
+                                                       Y="{Binding PanOffsetY}"/>
+                                </TransformGroup>
+                            </Image.RenderTransform>
+                        </Image>
+                    </Grid>
+                </ScrollViewer>
+            </Border>
+            
+            <!-- 底部状态栏 -->
+            <Border Grid.Row="2" Background="#ECF0F1" Padding="8,6">
+                <Grid ColumnDefinitions="*,Auto">
+                    <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="15">
+                        <StackPanel Orientation="Horizontal" Spacing="4">
+                            <TextBlock Text="显示模式:" FontSize="11" Foreground="#7F8C8D"/>
+                            <TextBlock Text="联井层序剖面" FontSize="11" Foreground="#2C3E50" FontWeight="SemiBold"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Spacing="4">
+                            <TextBlock Text="缩放:" FontSize="11" Foreground="#7F8C8D"/>
+                            <TextBlock Text="{Binding ZoomLevelText}" FontSize="11" Foreground="#2C3E50" FontWeight="SemiBold"/>
+                        </StackPanel>
+                    </StackPanel>
+                    <TextBlock Grid.Column="1" 
+                               Text="滚轮缩放 | 拖拽平移 | Checkbox控制图层显示" 
+                               FontSize="10" 
+                               Foreground="#95A5A6"/>
+                </Grid>
+            </Border>
+        </Grid>
     </Grid>
 </UserControl>

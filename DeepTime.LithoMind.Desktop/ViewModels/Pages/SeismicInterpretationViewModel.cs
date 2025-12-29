@@ -1,4 +1,6 @@
 using System;
+using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using Avalonia.Media.Imaging;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -84,6 +86,53 @@ namespace DeepTime.LithoMind.Desktop.ViewModels.Pages
 		[ObservableProperty]
 		private bool _showWells = true;
 
+		/// <summary>
+		/// 是否显示道号范围选择对话框
+		/// </summary>
+		[ObservableProperty]
+		private bool _showTraceRangeDialog;
+
+		/// <summary>
+		/// xLine起始道号
+		/// </summary>
+		[ObservableProperty]
+		private int _xLineStart = 250;
+
+		/// <summary>
+		/// xLine结束道号
+		/// </summary>
+		[ObservableProperty]
+		private int _xLineEnd = 300;
+
+		/// <summary>
+		/// inLine起始道号
+		/// </summary>
+		[ObservableProperty]
+		private int _inLineStart = 250;
+
+		/// <summary>
+		/// inLine结束道号
+		/// </summary>
+		[ObservableProperty]
+		private int _inLineEnd = 300;
+
+		/// <summary>
+		/// 当前是否显示原始图片（true）还是推理结果图片（false）
+		/// </summary>
+		[ObservableProperty]
+		private bool _isShowingOriginalImage = true;
+
+		/// <summary>
+		/// 地震相推理结果集合
+		/// </summary>
+		[ObservableProperty]
+		private ObservableCollection<SeismicFaciesInferenceResult> _inferenceResults = new();
+
+		/// <summary>
+		/// 智能推理完成事件 - 通知属性面板更新
+		/// </summary>
+		public event Action<string, ObservableCollection<SeismicFaciesInferenceResult>>? SeismicInferenceCompleted;
+
 		public SeismicInterpretationViewModel()
 		{
 			Id = "SeismicInterpretation";
@@ -102,7 +151,9 @@ namespace DeepTime.LithoMind.Desktop.ViewModels.Pages
 		{
 			try
 			{
-				var uri = new Uri("avares://DeepTime.LithoMind.Desktop/Assets/Pics/InterpreWindowScale.png");
+				// 根据当前状态加载原始图片或推理结果图片
+				string imageName = IsShowingOriginalImage ? "InterpreWindowScale.png" : "InterpreWindowScaleRES.png";
+				var uri = new Uri($"avares://DeepTime.LithoMind.Desktop/Assets/Pics/{imageName}");
 				var assets = Avalonia.Platform.AssetLoader.Open(uri);
 				SectionImage = new Bitmap(assets);
 				HasImage = true;
@@ -190,5 +241,136 @@ namespace DeepTime.LithoMind.Desktop.ViewModels.Pages
 			SectionPosition = $"{sectionType} {sectionName}";
 			LoadSectionImage();
 		}
+
+		#region 智能推理功能
+
+		/// <summary>
+		/// 显示道号范围选择对话框
+		/// </summary>
+		[RelayCommand]
+		public void ShowInferenceDialog()
+		{
+			ShowTraceRangeDialog = true;
+		}
+
+		/// <summary>
+		/// 取消道号范围选择
+		/// </summary>
+		[RelayCommand]
+		public void CancelTraceRangeSelection()
+		{
+			ShowTraceRangeDialog = false;
+		}
+
+		/// <summary>
+		/// 开始地震相智能推理
+		/// </summary>
+		[RelayCommand]
+		public async Task StartSeismicInference()
+		{
+			// 关闭对话框
+			ShowTraceRangeDialog = false;
+
+			// 模拟推理过程（延迟一下模拟AI计算）
+			await Task.Delay(800);
+
+			// 切换到推理结果图片
+			IsShowingOriginalImage = false;
+			LoadSectionImage();
+
+			// 生成模拟推理结果
+			GenerateMockSeismicInferenceResults();
+
+			// 通知属性面板更新
+			SeismicInferenceCompleted?.Invoke(SectionName, InferenceResults);
+		}
+
+		/// <summary>
+		/// 生成模拟的地震相推理结果
+		/// </summary>
+		private void GenerateMockSeismicInferenceResults()
+		{
+			InferenceResults.Clear();
+
+			// 模拟生成地震相推理结果
+			InferenceResults.Add(new SeismicFaciesInferenceResult
+			{
+				SeismicFacies = "平行-亚平行反射",
+				SedimentaryFacies = "河道分流相",
+				Confidence = 0.89,
+				SourceDirection = "北东向",
+				Description = "反射同相轴连续性好，振幅中-强，频率中等，显示河道砂体特征"
+			});
+
+			InferenceResults.Add(new SeismicFaciesInferenceResult
+			{
+				SeismicFacies = "亚平行-波状反射",
+				SedimentaryFacies = "泛滥平原相",
+				Confidence = 0.85,
+				SourceDirection = "不明显",
+				Description = "反射连续性较差，振幅弱，频率低，为泛滥泥岩沉积"
+			});
+
+			InferenceResults.Add(new SeismicFaciesInferenceResult
+			{
+				SeismicFacies = "丘状-杂乱反射",
+				SedimentaryFacies = "河口坝相",
+				Confidence = 0.91,
+				SourceDirection = "东向",
+				Description = "丘状反射特征明显，振幅强，为河口坝砂体堆积"
+			});
+
+			InferenceResults.Add(new SeismicFaciesInferenceResult
+			{
+				SeismicFacies = "平行-连续强振幅",
+				SedimentaryFacies = "三角洲前缘相",
+				Confidence = 0.87,
+				SourceDirection = "南东向",
+				Description = "反射连续性好，振幅强，为三角洲前缘沉积体系"
+			});
+		}
+
+		#endregion
+	}
+
+	/// <summary>
+	/// 地震相智能推理结果
+	/// </summary>
+	public partial class SeismicFaciesInferenceResult : ObservableObject
+	{
+		/// <summary>
+		/// 地震相类型
+		/// </summary>
+		[ObservableProperty]
+		private string _seismicFacies = string.Empty;
+
+		/// <summary>
+		/// 沉积相类型
+		/// </summary>
+		[ObservableProperty]
+		private string _sedimentaryFacies = string.Empty;
+
+		/// <summary>
+		/// 置信度（0-1）
+		/// </summary>
+		[ObservableProperty]
+		private double _confidence;
+
+		/// <summary>
+		/// 物源方向
+		/// </summary>
+		[ObservableProperty]
+		private string _sourceDirection = string.Empty;
+
+		/// <summary>
+		/// 综合描述
+		/// </summary>
+		[ObservableProperty]
+		private string _description = string.Empty;
+
+		/// <summary>
+		/// 置信度百分比显示
+		/// </summary>
+		public string ConfidencePercent => $"{Confidence * 100:F0}%";
 	}
 }
