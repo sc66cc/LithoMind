@@ -133,12 +133,13 @@ namespace DeepTime.LithoMind.Desktop.ViewModels.Pages
 
 			// 初始化曲线道
 			InitializeLogTracks();
-			
+
 			// 初始化可用井列表
 			InitializeAvailableWells();
-			
-			// 加载示例图片
-			LoadSampleImage();
+
+			// 延迟加载示例图片，避免阻塞UI线程
+			Avalonia.Threading.Dispatcher.UIThread.Post(() => LoadSampleImage(),
+				Avalonia.Threading.DispatcherPriority.Background);
 		}
 
 		/// <summary>

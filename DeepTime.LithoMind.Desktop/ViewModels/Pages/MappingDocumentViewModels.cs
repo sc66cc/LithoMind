@@ -172,8 +172,12 @@ namespace DeepTime.LithoMind.Desktop.ViewModels.Pages
 
 		protected MappingDocumentViewModelBase()
 		{
-			LoadMapImage();
-			LoadLegendItems();
+			// 延迟加载地图图片和图例，避免阻塞UI线程
+			Avalonia.Threading.Dispatcher.UIThread.Post(() =>
+			{
+				LoadMapImage();
+				LoadLegendItems();
+			}, Avalonia.Threading.DispatcherPriority.Background);
 		}
 
 		/// <summary>

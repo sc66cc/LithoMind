@@ -18,9 +18,68 @@ namespace DeepTime.LithoMind.Desktop.Layouts
 		private IRootDock? _rootDock;
 		private PropertyPanelViewModel? _propertyPanelVM;
 
+		// ViewModel缓存：按模块ID和ViewModel ID缓存，避免重复创建
+		private readonly Dictionary<string, Dictionary<string, IDockable>> _viewModelCache = new();
+
+		// 布局缓存：缓存整个布局结构，避免重复创建（性能优化核心）
+		private readonly Dictionary<string, IRootDock> _layoutCache = new();
+
+		// 布局初始化标记：记录哪些布局已经初始化过，避免重复初始化
+		private readonly HashSet<string> _initializedLayouts = new();
+
+		// 事件订阅标记：记录哪些事件已经订阅，避免重复订阅导致内存泄漏
+		private readonly HashSet<string> _subscribedEvents = new();
+
 		public LithoMindDockFactory(object context)
 		{
 			_context = context;
+		}
+
+		/// <summary>
+		/// 检查事件是否已订阅，如果未订阅则标记为已订阅
+		/// </summary>
+		/// <param name="eventKey">事件唯一标识（格式：模块ID_源ViewModel_目标ViewModel_事件名）</param>
+		/// <returns>如果事件未订阅返回true，已订阅返回false</returns>
+		private bool TrySubscribeEvent(string eventKey)
+		{
+			if (_subscribedEvents.Contains(eventKey))
+				return false;
+
+			_subscribedEvents.Add(eventKey);
+			return true;
+		}
+
+		/// <summary>
+		/// 获取或创建ViewModel（带缓存）
+		/// </summary>
+		private T GetOrCreateViewModel<T>(string moduleId, string viewModelId, Func<T> factory) 
+			where T : class, IDockable
+		{
+			if (!_viewModelCache.TryGetValue(moduleId, out var moduleCache))
+			{
+				moduleCache = new Dictionary<string, IDockable>();
+				_viewModelCache[moduleId] = moduleCache;
+			}
+
+			if (moduleCache.TryGetValue(viewModelId, out var cached) && cached is T cachedVM)
+			{
+				return cachedVM;
+			}
+
+			var newVM = factory();
+			moduleCache[viewModelId] = newVM;
+			return newVM;
+		}
+
+		/// <summary>
+		/// 检查ViewModel是否是新创建的（用于判断是否需要建立事件连接）
+		/// </summary>
+		private bool IsViewModelNew<T>(string moduleId, string viewModelId) where T : class, IDockable
+		{
+			if (!_viewModelCache.TryGetValue(moduleId, out var moduleCache))
+				return true;
+			
+			return !moduleCache.ContainsKey(viewModelId);
 		}
 
 		// 默认布局（可以是空的，或者指向第一个模块）
@@ -29,9 +88,16 @@ namespace DeepTime.LithoMind.Desktop.Layouts
 			return CreateLayoutForModule("DataManager");
 		}
 
-		// 🔥 核心：根据模块ID创建不同的布局
+		// 🔥 核心：根据模块ID创建不同的布局（带缓存优化）
 		public IRootDock CreateLayoutForModule(string moduleId)
 		{
+			// 优先从缓存获取布局，避免重复创建
+			if (_layoutCache.TryGetValue(moduleId, out var cachedLayout))
+			{
+				_rootDock = cachedLayout;
+				return cachedLayout;
+			}
+
 			ProportionalDock mainLayout;
 
 			// 根据不同模块创建不同的布局结构
@@ -76,23 +142,64 @@ namespace DeepTime.LithoMind.Desktop.Layouts
 				CanClose = true
 			};
 
+			// 缓存布局
+			_layoutCache[moduleId] = root;
 			_rootDock = root;
 			return root;
 		}
 
 		/// <summary>
-		/// 重写 InitLayout 以确保正确初始化 DockState
+		/// 预创建所有模块的布局（可在应用启动时调用，提升首次切换速度）
+		/// </summary>
+		public void PreloadAllLayouts()
+		{
+			var moduleIds = new[] { "DataManager", "SingleWell", "Seismic", "Mapping", "Stratigraphy" };
+			foreach (var moduleId in moduleIds)
+			{
+				if (!_layoutCache.ContainsKey(moduleId))
+				{
+					CreateLayoutForModule(moduleId);
+				}
+			}
+		}
+
+		/// <summary>
+		/// 清除指定模块的布局缓存（用于需要重建布局的场景）
+		/// </summary>
+		public void ClearLayoutCache(string? moduleId = null)
+		{
+			if (string.IsNullOrEmpty(moduleId))
+			{
+				_layoutCache.Clear();
+			}
+			else
+			{
+				_layoutCache.Remove(moduleId);
+			}
+		}
+
+		/// <summary>
+		/// 重写 InitLayout 以确保正确初始化 DockState（带重复初始化检查）
 		/// </summary>
 		public override void InitLayout(IDockable layout)
 		{
-			// 调用基类的初始化方法
-			base.InitLayout(layout);
-
-			// 确保 DockState 正确初始化
 			if (layout is IRootDock rootDock)
 			{
+				var moduleId = rootDock.Title ?? "Unknown";
+
+				// 检查是否已经初始化过，避免重复初始化
+				if (_initializedLayouts.Contains(moduleId))
+				{
+					// 已初始化过，只需更新引用
+					_rootDock = rootDock;
+					return;
+				}
+
+				// 调用基类的初始化方法
+				base.InitLayout(layout);
+
 				_rootDock = rootDock;
-				
+
 				// 设置默认活动面板
 				if (rootDock.DefaultDockable != null)
 				{
@@ -101,25 +208,39 @@ namespace DeepTime.LithoMind.Desktop.Layouts
 
 				// 设置焦点停靠面板
 				SetFocusedDockable(rootDock, rootDock.DefaultDockable);
+
+				// 标记为已初始化
+				_initializedLayouts.Add(moduleId);
+			}
+			else
+			{
+				// 非 RootDock 类型，直接调用基类方法
+				base.InitLayout(layout);
 			}
 		}
 
 		private ProportionalDock CreateDataManagerLayout()
 		{
+			const string moduleId = "DataManager";
+
+			// 使用缓存获取或创建ViewModel
 			// 右侧：数据预览区域 - 使用FilePreviewViewModel实现文件预览
-			var previewVM = new FilePreviewViewModel();
+			var previewVM = GetOrCreateViewModel(moduleId, "FilePreview", () => new FilePreviewViewModel());
 
 			// 工区平面图 - 支持缩放/拖拽
-			var workAreaMapVM = new WorkAreaMapViewModel();
+			var workAreaMapVM = GetOrCreateViewModel(moduleId, "WorkAreaMap", () => new WorkAreaMapViewModel());
 
 			// 左侧：本地文件目录面板 - 使用LocalFilesViewModel实现真实文件系统访问
-			var localFilesVM = new LocalFilesViewModel();
-			
-			// 建立本地文件目录和预览区域的事件连接
-			localFilesVM.FileSelected += async (fileNode) =>
+			var localFilesVM = GetOrCreateViewModel(moduleId, "LocalFiles", () => new LocalFilesViewModel());
+
+			// 建立本地文件目录和预览区域的事件连接（仅首次订阅）
+			if (TrySubscribeEvent($"{moduleId}_LocalFiles_FilePreview_FileSelected"))
 			{
-				await previewVM.PreviewLocalFileAsync(fileNode);
-			};
+				localFilesVM.FileSelected += async (fileNode) =>
+				{
+					await previewVM.PreviewLocalFileAsync(fileNode);
+				};
+			}
 		
 			var leftDock = new ToolDock
 			{
@@ -137,19 +258,25 @@ namespace DeepTime.LithoMind.Desktop.Layouts
 			};
 			
 			// 中间：工程结构目录面板 - 使用ProjectFilesViewModel实现工程结构显示
-			var projectFilesVM = new ProjectFilesViewModel();
-			
-			// 建立工程目录和预览区域的事件连接
-			projectFilesVM.FileSelected += async (fileNode) =>
-			{
-				await previewVM.PreviewFileAsync(fileNode);
-			};
+			var projectFilesVM = GetOrCreateViewModel(moduleId, "ProjectFiles", () => new ProjectFilesViewModel());
 
-			// 建立工程目录和工区平面图的图层控制事件连接
-			projectFilesVM.LayerVisibilityChanged += (layerPath, isVisible) =>
+			// 建立工程目录和预览区域的事件连接（仅首次订阅）
+			if (TrySubscribeEvent($"{moduleId}_ProjectFiles_FilePreview_FileSelected"))
 			{
-				workAreaMapVM.SetLayerVisibility(layerPath, isVisible);
-			};
+				projectFilesVM.FileSelected += async (fileNode) =>
+				{
+					await previewVM.PreviewFileAsync(fileNode);
+				};
+			}
+
+			// 建立工程目录和工区平面图的图层控制事件连接（仅首次订阅）
+			if (TrySubscribeEvent($"{moduleId}_ProjectFiles_WorkAreaMap_LayerVisibilityChanged"))
+			{
+				projectFilesVM.LayerVisibilityChanged += (layerPath, isVisible) =>
+				{
+					workAreaMapVM.SetLayerVisibility(layerPath, isVisible);
+				};
+			}
 
 			// 当工区平面图被激活时，显示图层复选框
 			// 注意：实际应用中可以通过监听标签页切换事件来实现
@@ -247,8 +374,10 @@ namespace DeepTime.LithoMind.Desktop.Layouts
 		/// </summary>
 		private ProportionalDock CreateSeismicLayout()
 		{
+			const string moduleId = "Seismic";
+			
 			// 左侧：地震工程结构目录
-			var seismicProjectTreeVM = new SeismicProjectTreeViewModel();
+			var seismicProjectTreeVM = GetOrCreateViewModel(moduleId, "SeismicProjectTree", () => new SeismicProjectTreeViewModel());
 			
 			var leftDock = new ToolDock
 			{
@@ -266,17 +395,20 @@ namespace DeepTime.LithoMind.Desktop.Layouts
 			};
 
 			// 中间：地震体数据和地震解释剖面标签页
-			var seismicBodyVM = new SeismicBodyViewModel();
-			var seismicInterpretationVM = new SeismicInterpretationViewModel();
+			var seismicBodyVM = GetOrCreateViewModel(moduleId, "SeismicBody", () => new SeismicBodyViewModel());
+			var seismicInterpretationVM = GetOrCreateViewModel(moduleId, "SeismicInterpretation", () => new SeismicInterpretationViewModel());
 
 			// 右侧：属性窗口（使用通用PropertyPanelViewModel）
-			var propertyPanelVM = new PropertyPanelViewModel();
+			var propertyPanelVM = GetOrCreateViewModel(moduleId, "SeismicProperty", () => new PropertyPanelViewModel());
 
-			// 建立地震相智能推理与属性面板的连接
-			seismicInterpretationVM.SeismicInferenceCompleted += (sectionName, results) =>
+			// 建立地震相智能推理与属性面板的连接（仅首次订阅）
+			if (TrySubscribeEvent($"{moduleId}_SeismicInterpretation_PropertyPanel_SeismicInferenceCompleted"))
 			{
-				propertyPanelVM.SetSeismicInferenceResults(sectionName, results);
-			};
+				seismicInterpretationVM.SeismicInferenceCompleted += (sectionName, results) =>
+				{
+					propertyPanelVM.SetSeismicInferenceResults(sectionName, results);
+				};
+			}
 
 			var middleDock = new DocumentDock
 			{
@@ -344,8 +476,10 @@ namespace DeepTime.LithoMind.Desktop.Layouts
 		/// </summary>
 		private ProportionalDock CreateSingleWellLayout()
 		{
+			const string moduleId = "SingleWell";
+			
 			// 左侧：工程结构目录
-			var wellProjectTreeVM = new WellProjectTreeViewModel();
+			var wellProjectTreeVM = GetOrCreateViewModel(moduleId, "WellProjectTree", () => new WellProjectTreeViewModel());
 			
 			var leftDock = new ToolDock
 			{
@@ -363,24 +497,30 @@ namespace DeepTime.LithoMind.Desktop.Layouts
 			};
 
 			// 中间：单井综合柱状图和联井剖面图标签页
-			var wellColumnVM = new WellColumnViewModel();
-			var wellCorrelationVM = new WellCorrelationViewModel();
+			var wellColumnVM = GetOrCreateViewModel(moduleId, "WellColumn", () => new WellColumnViewModel());
+			var wellCorrelationVM = GetOrCreateViewModel(moduleId, "WellCorrelation", () => new WellCorrelationViewModel());
 
 			// 右侧：属性窗口
-			var propertyPanelVM = new PropertyPanelViewModel();
+			var propertyPanelVM = GetOrCreateViewModel(moduleId, "PropertyPanel", () => new PropertyPanelViewModel());
 			_propertyPanelVM = propertyPanelVM; // 保存引用
 
-			// 建立事件连接：选择井时加载对应柱状图
-			wellProjectTreeVM.WellSelected += (wellName) =>
+			// 建立事件连接：选择井时加载对应柱状图（仅首次订阅）
+			if (TrySubscribeEvent($"{moduleId}_WellProjectTree_WellColumn_WellSelected"))
 			{
-				wellColumnVM.LoadWellData(wellName);
-			};
+				wellProjectTreeVM.WellSelected += (wellName) =>
+				{
+					wellColumnVM.LoadWellData(wellName);
+				};
+			}
 
-			// 建立智能推理与属性面板的连接
-			wellColumnVM.InferenceCompleted += (wellName, results) =>
+			// 建立智能推理与属性面板的连接（仅首次订阅）
+			if (TrySubscribeEvent($"{moduleId}_WellColumn_PropertyPanel_InferenceCompleted"))
 			{
-				propertyPanelVM.SetInferenceResults(wellName, results);
-			};
+				wellColumnVM.InferenceCompleted += (wellName, results) =>
+				{
+					propertyPanelVM.SetInferenceResults(wellName, results);
+				};
+			}
 
 			var middleDock = new DocumentDock
 			{
@@ -448,8 +588,10 @@ namespace DeepTime.LithoMind.Desktop.Layouts
 		/// </summary>
 		private ProportionalDock CreateMappingLayout()
 		{
+			const string moduleId = "Mapping";
+			
 			// 左侧：图层管理器（类ArcGIS风格）
-			var mappingLayerVM = new MappingLayerViewModel();
+			var mappingLayerVM = GetOrCreateViewModel(moduleId, "MappingLayer", () => new MappingLayerViewModel());
 			
 			var leftDock = new ToolDock
 			{
@@ -467,19 +609,22 @@ namespace DeepTime.LithoMind.Desktop.Layouts
 			};
 
 			// 中间：四个制图标签页
-			var sandBodyThicknessVM = new SandBodyThicknessViewModel();
-			var sandRatioVM = new SandRatioViewModel();
-			var carbonateContentVM = new CarbonateContentViewModel();
-			var lithofaciesVM = new LithofaciesPaleogeographyViewModel();
+			var sandBodyThicknessVM = GetOrCreateViewModel(moduleId, "SandBodyThickness", () => new SandBodyThicknessViewModel());
+			var sandRatioVM = GetOrCreateViewModel(moduleId, "SandRatio", () => new SandRatioViewModel());
+			var carbonateContentVM = GetOrCreateViewModel(moduleId, "CarbonateContent", () => new CarbonateContentViewModel());
+			var lithofaciesVM = GetOrCreateViewModel(moduleId, "LithofaciesPaleogeography", () => new LithofaciesPaleogeographyViewModel());
 
 			// 右侧：GIS工具栏和属性窗口
-			var mappingToolsVM = new MappingToolsViewModel();
+			var mappingToolsVM = GetOrCreateViewModel(moduleId, "MappingTools", () => new MappingToolsViewModel());
 
-			// 建立图层选择事件连接
-			mappingLayerVM.LayerSelected += (layer) =>
+			// 建立图层选择事件连接（仅首次订阅）
+			if (TrySubscribeEvent($"{moduleId}_MappingLayer_MappingTools_LayerSelected"))
 			{
-				mappingToolsVM.SetSelectedLayer(layer);
-			};
+				mappingLayerVM.LayerSelected += (layer) =>
+				{
+					mappingToolsVM.SetSelectedLayer(layer);
+				};
+			}
 
 			var middleDock = new DocumentDock
 			{
@@ -550,8 +695,10 @@ namespace DeepTime.LithoMind.Desktop.Layouts
 		/// </summary>
 		private ProportionalDock CreateStratigraphyLayout()
 		{
+			const string moduleId = "Stratigraphy";
+			
 			// 创建地层对比ViewModel（用于右侧图片显示）
-			var stratigraphyVM = new StratigraphyViewModel();
+			var stratigraphyVM = GetOrCreateViewModel(moduleId, "Stratigraphy", () => new StratigraphyViewModel());
 		
 			// 右侧：联井层序剖面显示区（DocumentDock）
 			var rightDock = new DocumentDock
@@ -613,7 +760,10 @@ namespace DeepTime.LithoMind.Desktop.Layouts
 					{
 						// 找到目标文档，激活它
 						documentDock.ActiveDockable = doc;
-						SetFocusedDockable(_rootDock, doc);
+						if (_rootDock != null)
+						{
+							SetFocusedDockable(_rootDock, doc);
+						}
 						return true;
 					}
 				}

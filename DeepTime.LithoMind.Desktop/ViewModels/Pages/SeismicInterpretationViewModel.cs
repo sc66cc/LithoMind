@@ -140,8 +140,9 @@ namespace DeepTime.LithoMind.Desktop.ViewModels.Pages
 			IconKey = "📊";
 			Order = 2;
 
-			// 加载剖面图片
-			LoadSectionImage();
+			// 延迟加载剖面图片，避免阻塞UI线程
+			Avalonia.Threading.Dispatcher.UIThread.Post(() => LoadSectionImage(),
+				Avalonia.Threading.DispatcherPriority.Background);
 		}
 
 		/// <summary>

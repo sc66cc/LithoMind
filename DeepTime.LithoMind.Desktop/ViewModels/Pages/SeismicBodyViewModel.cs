@@ -79,8 +79,9 @@ namespace DeepTime.LithoMind.Desktop.ViewModels.Pages
 			IconKey = "🌊";
 			Order = 1;
 
-			// 加载地震体图片
-			LoadSeismicBodyImage();
+			// 延迟加载地震体图片，避免阻塞UI线程
+			Avalonia.Threading.Dispatcher.UIThread.Post(() => LoadSeismicBodyImage(),
+				Avalonia.Threading.DispatcherPriority.Background);
 		}
 
 		/// <summary>

@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "C:\\Users\\24846\\Desktop\\Work\\\u9879\u76EE\\\u6D77\u6CB9\\\u9879\u76EE\u6267\u884C\\4 \u7CFB\u7EDF\u5F00\u53D1\\\u539F\u578BV2\\LithoMind\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{4082ACB4-1A01-7D67-4A1A-B756A12281CF}|DeepTime.LithoMind.Desktop\\DeepTime.LithoMind.Desktop.csproj|c:\\users\\24846\\desktop\\work\\\u9879\u76EE\\\u6D77\u6CB9\\\u9879\u76EE\u6267\u884C\\4 \u7CFB\u7EDF\u5F00\u53D1\\\u539F\u578Bv2\\lithomind\\deeptime.lithomind.desktop\\viewmodels\\mainviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4082ACB4-1A01-7D67-4A1A-B756A12281CF}|DeepTime.LithoMind.Desktop\\DeepTime.LithoMind.Desktop.csproj|solutionrelative:deeptime.lithomind.desktop\\viewmodels\\mainviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{4082ACB4-1A01-7D67-4A1A-B756A12281CF}|DeepTime.LithoMind.Desktop\\DeepTime.LithoMind.Desktop.csproj|c:\\users\\24846\\desktop\\work\\\u9879\u76EE\\\u6D77\u6CB9\\\u9879\u76EE\u6267\u884C\\4 \u7CFB\u7EDF\u5F00\u53D1\\\u539F\u578Bv2\\lithomind\\deeptime.lithomind.desktop\\viewmodels\\pages\\localfilesviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{4082ACB4-1A01-7D67-4A1A-B756A12281CF}|DeepTime.LithoMind.Desktop\\DeepTime.LithoMind.Desktop.csproj|solutionrelative:deeptime.lithomind.desktop\\viewmodels\\pages\\localfilesviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -177,10 +181,6 @@
       "RelativeMoniker": "D:0:0:{4082ACB4-1A01-7D67-4A1A-B756A12281CF}|DeepTime.LithoMind.Desktop\\DeepTime.LithoMind.Desktop.csproj|solutionrelative:deeptime.lithomind.desktop\\views\\datamanagerview.axaml||{6D5344A2-2FCD-49DE-A09D-6A14FD1B1224}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4082ACB4-1A01-7D67-4A1A-B756A12281CF}|DeepTime.LithoMind.Desktop\\DeepTime.LithoMind.Desktop.csproj|c:\\users\\24846\\desktop\\work\\\u9879\u76EE\\\u6D77\u6CB9\\\u9879\u76EE\u6267\u884C\\4 \u7CFB\u7EDF\u5F00\u53D1\\\u539F\u578Bv2\\lithomind\\deeptime.lithomind.desktop\\viewmodels\\mainviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4082ACB4-1A01-7D67-4A1A-B756A12281CF}|DeepTime.LithoMind.Desktop\\DeepTime.LithoMind.Desktop.csproj|solutionrelative:deeptime.lithomind.desktop\\viewmodels\\mainviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{4082ACB4-1A01-7D67-4A1A-B756A12281CF}|DeepTime.LithoMind.Desktop\\DeepTime.LithoMind.Desktop.csproj|c:\\users\\24846\\desktop\\work\\\u9879\u76EE\\\u6D77\u6CB9\\\u9879\u76EE\u6267\u884C\\4 \u7CFB\u7EDF\u5F00\u53D1\\\u539F\u578Bv2\\lithomind\\deeptime.lithomind.desktop\\views\\mainwindow.axaml||{6D5344A2-2FCD-49DE-A09D-6A14FD1B1224}",
       "RelativeMoniker": "D:0:0:{4082ACB4-1A01-7D67-4A1A-B756A12281CF}|DeepTime.LithoMind.Desktop\\DeepTime.LithoMind.Desktop.csproj|solutionrelative:deeptime.lithomind.desktop\\views\\mainwindow.axaml||{6D5344A2-2FCD-49DE-A09D-6A14FD1B1224}"
     },
@@ -220,7 +220,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 11,
           "Children": [
             {
               "$type": "Bookmark",
@@ -244,32 +244,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "LocalFilesViewModel.cs",
-              "DocumentMoniker": "C:\\Users\\24846\\Desktop\\Work\\\u9879\u76EE\\\u6D77\u6CB9\\\u9879\u76EE\u6267\u884C\\4 \u7CFB\u7EDF\u5F00\u53D1\\\u539F\u578BV2\\LithoMind\\DeepTime.LithoMind.Desktop\\ViewModels\\Pages\\LocalFilesViewModel.cs",
-              "RelativeDocumentMoniker": "DeepTime.LithoMind.Desktop\\ViewModels\\Pages\\LocalFilesViewModel.cs",
-              "ToolTip": "C:\\Users\\24846\\Desktop\\Work\\\u9879\u76EE\\\u6D77\u6CB9\\\u9879\u76EE\u6267\u884C\\4 \u7CFB\u7EDF\u5F00\u53D1\\\u539F\u578BV2\\LithoMind\\DeepTime.LithoMind.Desktop\\ViewModels\\Pages\\LocalFilesViewModel.cs",
-              "RelativeToolTip": "DeepTime.LithoMind.Desktop\\ViewModels\\Pages\\LocalFilesViewModel.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAABMAAAACAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-26T06:06:41.688Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 45,
-              "Title": "PropertyPanelViewModel.cs",
-              "DocumentMoniker": "C:\\Users\\24846\\Desktop\\Work\\\u9879\u76EE\\\u6D77\u6CB9\\\u9879\u76EE\u6267\u884C\\4 \u7CFB\u7EDF\u5F00\u53D1\\\u539F\u578BV2\\LithoMind\\DeepTime.LithoMind.Desktop\\ViewModels\\Pages\\PropertyPanelViewModel.cs",
-              "RelativeDocumentMoniker": "DeepTime.LithoMind.Desktop\\ViewModels\\Pages\\PropertyPanelViewModel.cs",
-              "ToolTip": "C:\\Users\\24846\\Desktop\\Work\\\u9879\u76EE\\\u6D77\u6CB9\\\u9879\u76EE\u6267\u884C\\4 \u7CFB\u7EDF\u5F00\u53D1\\\u539F\u578BV2\\LithoMind\\DeepTime.LithoMind.Desktop\\ViewModels\\Pages\\PropertyPanelViewModel.cs",
-              "RelativeToolTip": "DeepTime.LithoMind.Desktop\\ViewModels\\Pages\\PropertyPanelViewModel.cs",
-              "ViewState": "AgIAAGAAAAAAAAAAAAAlwHEAAAAaAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-25T06:07:12.026Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 46,
+              "DocumentIndex": 47,
               "Title": "WellProjectTreeViewModel.cs",
               "DocumentMoniker": "C:\\Users\\24846\\Desktop\\Work\\\u9879\u76EE\\\u6D77\u6CB9\\\u9879\u76EE\u6267\u884C\\4 \u7CFB\u7EDF\u5F00\u53D1\\\u539F\u578BV2\\LithoMind\\DeepTime.LithoMind.Desktop\\ViewModels\\Pages\\WellProjectTreeViewModel.cs",
               "RelativeDocumentMoniker": "DeepTime.LithoMind.Desktop\\ViewModels\\Pages\\WellProjectTreeViewModel.cs",
@@ -277,11 +252,12 @@
               "RelativeToolTip": "DeepTime.LithoMind.Desktop\\ViewModels\\Pages\\WellProjectTreeViewModel.cs",
               "ViewState": "AgIAAIwAAAAAAAAAAAApwKIAAAASAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-25T06:04:46.51Z"
+              "WhenOpened": "2025-12-25T06:04:46.51Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 47,
+              "DocumentIndex": 48,
               "Title": "WellColumnViewModel.cs",
               "DocumentMoniker": "C:\\Users\\24846\\Desktop\\Work\\\u9879\u76EE\\\u6D77\u6CB9\\\u9879\u76EE\u6267\u884C\\4 \u7CFB\u7EDF\u5F00\u53D1\\\u539F\u578BV2\\LithoMind\\DeepTime.LithoMind.Desktop\\ViewModels\\Pages\\WellColumnViewModel.cs",
               "RelativeDocumentMoniker": "DeepTime.LithoMind.Desktop\\ViewModels\\Pages\\WellColumnViewModel.cs",
@@ -289,11 +265,12 @@
               "RelativeToolTip": "DeepTime.LithoMind.Desktop\\ViewModels\\Pages\\WellColumnViewModel.cs",
               "ViewState": "AgIAAC4AAAAAAAAAAAApwEUAAAAPAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-25T06:04:45.593Z"
+              "WhenOpened": "2025-12-25T06:04:45.593Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 48,
+              "DocumentIndex": 49,
               "Title": "ProjectFilesViewModel.cs",
               "DocumentMoniker": "C:\\Users\\24846\\Desktop\\Work\\\u9879\u76EE\\\u6D77\u6CB9\\\u9879\u76EE\u6267\u884C\\4 \u7CFB\u7EDF\u5F00\u53D1\\\u539F\u578BV2\\LithoMind\\DeepTime.LithoMind.Desktop\\ViewModels\\Pages\\ProjectFilesViewModel.cs",
               "RelativeDocumentMoniker": "DeepTime.LithoMind.Desktop\\ViewModels\\Pages\\ProjectFilesViewModel.cs",
@@ -301,11 +278,12 @@
               "RelativeToolTip": "DeepTime.LithoMind.Desktop\\ViewModels\\Pages\\ProjectFilesViewModel.cs",
               "ViewState": "AgIAAIgAAAAAAAAAAAAQwJoAAAAzAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-25T06:04:43.856Z"
+              "WhenOpened": "2025-12-25T06:04:43.856Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "ui_layout.json",
               "DocumentMoniker": "C:\\Users\\24846\\Desktop\\Work\\\u9879\u76EE\\\u6D77\u6CB9\\\u9879\u76EE\u6267\u884C\\4 \u7CFB\u7EDF\u5F00\u53D1\\\u539F\u578BV2\\LithoMind\\DeepTime.LithoMind.Desktop\\Assets\\config\\ui_layout.json",
               "RelativeDocumentMoniker": "DeepTime.LithoMind.Desktop\\Assets\\config\\ui_layout.json",
@@ -313,22 +291,24 @@
               "RelativeToolTip": "DeepTime.LithoMind.Desktop\\Assets\\config\\ui_layout.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-12-25T06:03:04.747Z"
+              "WhenOpened": "2025-12-25T06:03:04.747Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 49,
+              "DocumentIndex": 50,
               "Title": "LocalFilesView.axaml",
               "DocumentMoniker": "C:\\Users\\24846\\Desktop\\Work\\\u9879\u76EE\\\u6D77\u6CB9\\\u9879\u76EE\u6267\u884C\\4 \u7CFB\u7EDF\u5F00\u53D1\\\u539F\u578BV2\\LithoMind\\DeepTime.LithoMind.Desktop\\Views\\LocalFilesView.axaml",
               "RelativeDocumentMoniker": "DeepTime.LithoMind.Desktop\\Views\\LocalFilesView.axaml",
               "ToolTip": "C:\\Users\\24846\\Desktop\\Work\\\u9879\u76EE\\\u6D77\u6CB9\\\u9879\u76EE\u6267\u884C\\4 \u7CFB\u7EDF\u5F00\u53D1\\\u539F\u578BV2\\LithoMind\\DeepTime.LithoMind.Desktop\\Views\\LocalFilesView.axaml",
               "RelativeToolTip": "DeepTime.LithoMind.Desktop\\Views\\LocalFilesView.axaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-12-25T06:02:20.25Z"
+              "WhenOpened": "2025-12-25T06:02:20.25Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 50,
+              "DocumentIndex": 51,
               "Title": "FilePreviewViewModel.cs",
               "DocumentMoniker": "C:\\Users\\24846\\Desktop\\Work\\\u9879\u76EE\\\u6D77\u6CB9\\\u9879\u76EE\u6267\u884C\\4 \u7CFB\u7EDF\u5F00\u53D1\\\u539F\u578BV2\\LithoMind\\DeepTime.LithoMind.Desktop\\ViewModels\\Pages\\FilePreviewViewModel.cs",
               "RelativeDocumentMoniker": "DeepTime.LithoMind.Desktop\\ViewModels\\Pages\\FilePreviewViewModel.cs",
@@ -336,11 +316,51 @@
               "RelativeToolTip": "DeepTime.LithoMind.Desktop\\ViewModels\\Pages\\FilePreviewViewModel.cs",
               "ViewState": "AgIAAHsBAAAAAAAAAADgv44BAAArAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-25T03:12:56.192Z"
+              "WhenOpened": "2025-12-25T03:12:56.192Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "MainViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\24846\\Desktop\\Work\\\u9879\u76EE\\\u6D77\u6CB9\\\u9879\u76EE\u6267\u884C\\4 \u7CFB\u7EDF\u5F00\u53D1\\\u539F\u578BV2\\LithoMind\\DeepTime.LithoMind.Desktop\\ViewModels\\MainViewModel.cs",
+              "RelativeDocumentMoniker": "DeepTime.LithoMind.Desktop\\ViewModels\\MainViewModel.cs",
+              "ToolTip": "C:\\Users\\24846\\Desktop\\Work\\\u9879\u76EE\\\u6D77\u6CB9\\\u9879\u76EE\u6267\u884C\\4 \u7CFB\u7EDF\u5F00\u53D1\\\u539F\u578BV2\\LithoMind\\DeepTime.LithoMind.Desktop\\ViewModels\\MainViewModel.cs",
+              "RelativeToolTip": "DeepTime.LithoMind.Desktop\\ViewModels\\MainViewModel.cs",
+              "ViewState": "AgIAAGEAAAAAAAAAAAAlwGgAAAAGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-24T09:08:19.233Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "LocalFilesViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\24846\\Desktop\\Work\\\u9879\u76EE\\\u6D77\u6CB9\\\u9879\u76EE\u6267\u884C\\4 \u7CFB\u7EDF\u5F00\u53D1\\\u539F\u578BV2\\LithoMind\\DeepTime.LithoMind.Desktop\\ViewModels\\Pages\\LocalFilesViewModel.cs",
+              "RelativeDocumentMoniker": "DeepTime.LithoMind.Desktop\\ViewModels\\Pages\\LocalFilesViewModel.cs",
+              "ToolTip": "C:\\Users\\24846\\Desktop\\Work\\\u9879\u76EE\\\u6D77\u6CB9\\\u9879\u76EE\u6267\u884C\\4 \u7CFB\u7EDF\u5F00\u53D1\\\u539F\u578BV2\\LithoMind\\DeepTime.LithoMind.Desktop\\ViewModels\\Pages\\LocalFilesViewModel.cs",
+              "RelativeToolTip": "DeepTime.LithoMind.Desktop\\ViewModels\\Pages\\LocalFilesViewModel.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABUAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-26T06:06:41.688Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 46,
+              "Title": "PropertyPanelViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\24846\\Desktop\\Work\\\u9879\u76EE\\\u6D77\u6CB9\\\u9879\u76EE\u6267\u884C\\4 \u7CFB\u7EDF\u5F00\u53D1\\\u539F\u578BV2\\LithoMind\\DeepTime.LithoMind.Desktop\\ViewModels\\Pages\\PropertyPanelViewModel.cs",
+              "RelativeDocumentMoniker": "DeepTime.LithoMind.Desktop\\ViewModels\\Pages\\PropertyPanelViewModel.cs",
+              "ToolTip": "C:\\Users\\24846\\Desktop\\Work\\\u9879\u76EE\\\u6D77\u6CB9\\\u9879\u76EE\u6267\u884C\\4 \u7CFB\u7EDF\u5F00\u53D1\\\u539F\u578BV2\\LithoMind\\DeepTime.LithoMind.Desktop\\ViewModels\\Pages\\PropertyPanelViewModel.cs",
+              "RelativeToolTip": "DeepTime.LithoMind.Desktop\\ViewModels\\Pages\\PropertyPanelViewModel.cs",
+              "ViewState": "AgIAAGAAAAAAAAAAAAAlwHEAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-25T06:07:12.026Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "DataManagerViewModel.cs",
               "DocumentMoniker": "C:\\Users\\24846\\Desktop\\Work\\\u9879\u76EE\\\u6D77\u6CB9\\\u9879\u76EE\u6267\u884C\\4 \u7CFB\u7EDF\u5F00\u53D1\\\u539F\u578BV2\\LithoMind\\DeepTime.LithoMind.Desktop\\ViewModels\\Pages\\DataManagerViewModel.cs",
               "RelativeDocumentMoniker": "DeepTime.LithoMind.Desktop\\ViewModels\\Pages\\DataManagerViewModel.cs",
@@ -348,11 +368,12 @@
               "RelativeToolTip": "DeepTime.LithoMind.Desktop\\ViewModels\\Pages\\DataManagerViewModel.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAuwAcAAAADAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-23T10:16:51.895Z"
+              "WhenOpened": "2025-12-23T10:16:51.895Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 44,
+              "DocumentIndex": 45,
               "Title": "WellCorrelationViewModel.cs",
               "DocumentMoniker": "C:\\Users\\24846\\Desktop\\Work\\\u9879\u76EE\\\u6D77\u6CB9\\\u9879\u76EE\u6267\u884C\\4 \u7CFB\u7EDF\u5F00\u53D1\\\u539F\u578BV2\\LithoMind\\DeepTime.LithoMind.Desktop\\ViewModels\\Pages\\WellCorrelationViewModel.cs",
               "RelativeDocumentMoniker": "DeepTime.LithoMind.Desktop\\ViewModels\\Pages\\WellCorrelationViewModel.cs",
@@ -360,41 +381,32 @@
               "RelativeToolTip": "DeepTime.LithoMind.Desktop\\ViewModels\\Pages\\WellCorrelationViewModel.cs",
               "ViewState": "AgIAAAEAAAAAAAAAAAAlwBIAAAAhAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-25T06:10:21.927Z"
+              "WhenOpened": "2025-12-25T06:10:21.927Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 51,
+              "DocumentIndex": 52,
               "Title": "MappingView.axaml",
               "DocumentMoniker": "C:\\Users\\24846\\Desktop\\Work\\\u9879\u76EE\\\u6D77\u6CB9\\\u9879\u76EE\u6267\u884C\\4 \u7CFB\u7EDF\u5F00\u53D1\\\u539F\u578BV2\\LithoMind\\DeepTime.LithoMind.Desktop\\Views\\MappingView.axaml",
               "RelativeDocumentMoniker": "DeepTime.LithoMind.Desktop\\Views\\MappingView.axaml",
               "ToolTip": "C:\\Users\\24846\\Desktop\\Work\\\u9879\u76EE\\\u6D77\u6CB9\\\u9879\u76EE\u6267\u884C\\4 \u7CFB\u7EDF\u5F00\u53D1\\\u539F\u578BV2\\LithoMind\\DeepTime.LithoMind.Desktop\\Views\\MappingView.axaml",
               "RelativeToolTip": "DeepTime.LithoMind.Desktop\\Views\\MappingView.axaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-12-25T01:18:47.695Z"
+              "WhenOpened": "2025-12-25T01:18:47.695Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 52,
+              "DocumentIndex": 53,
               "Title": "DataManagerView.axaml",
               "DocumentMoniker": "C:\\Users\\24846\\Desktop\\Work\\\u9879\u76EE\\\u6D77\u6CB9\\\u9879\u76EE\u6267\u884C\\4 \u7CFB\u7EDF\u5F00\u53D1\\\u539F\u578BV2\\LithoMind\\DeepTime.LithoMind.Desktop\\Views\\DataManagerView.axaml",
               "RelativeDocumentMoniker": "DeepTime.LithoMind.Desktop\\Views\\DataManagerView.axaml",
               "ToolTip": "C:\\Users\\24846\\Desktop\\Work\\\u9879\u76EE\\\u6D77\u6CB9\\\u9879\u76EE\u6267\u884C\\4 \u7CFB\u7EDF\u5F00\u53D1\\\u539F\u578BV2\\LithoMind\\DeepTime.LithoMind.Desktop\\Views\\DataManagerView.axaml",
               "RelativeToolTip": "DeepTime.LithoMind.Desktop\\Views\\DataManagerView.axaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-12-25T01:18:05.012Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 53,
-              "Title": "MainViewModel.cs",
-              "DocumentMoniker": "C:\\Users\\24846\\Desktop\\Work\\\u9879\u76EE\\\u6D77\u6CB9\\\u9879\u76EE\u6267\u884C\\4 \u7CFB\u7EDF\u5F00\u53D1\\\u539F\u578BV2\\LithoMind\\DeepTime.LithoMind.Desktop\\ViewModels\\MainViewModel.cs",
-              "RelativeDocumentMoniker": "DeepTime.LithoMind.Desktop\\ViewModels\\MainViewModel.cs",
-              "ToolTip": "C:\\Users\\24846\\Desktop\\Work\\\u9879\u76EE\\\u6D77\u6CB9\\\u9879\u76EE\u6267\u884C\\4 \u7CFB\u7EDF\u5F00\u53D1\\\u539F\u578BV2\\LithoMind\\DeepTime.LithoMind.Desktop\\ViewModels\\MainViewModel.cs",
-              "RelativeToolTip": "DeepTime.LithoMind.Desktop\\ViewModels\\MainViewModel.cs",
-              "ViewState": "AgIAAGQAAAAAAAAAAAAwwHsAAAAGAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-24T09:08:19.233Z"
+              "WhenOpened": "2025-12-25T01:18:05.012Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -443,7 +455,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "DeepTime.LithoMind.Desktop.csproj",
               "DocumentMoniker": "C:\\Users\\24846\\Desktop\\Work\\\u9879\u76EE\\\u6D77\u6CB9\\\u9879\u76EE\u6267\u884C\\4 \u7CFB\u7EDF\u5F00\u53D1\\\u539F\u578BV2\\LithoMind\\DeepTime.LithoMind.Desktop\\DeepTime.LithoMind.Desktop.csproj",
               "RelativeDocumentMoniker": "DeepTime.LithoMind.Desktop\\DeepTime.LithoMind.Desktop.csproj",
@@ -500,7 +512,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 43,
+              "DocumentIndex": 44,
               "Title": "FusionViewModel.cs",
               "DocumentMoniker": "C:\\Users\\24846\\Desktop\\Work\\\u9879\u76EE\\\u6D77\u6CB9\\\u9879\u76EE\u6267\u884C\\4 \u7CFB\u7EDF\u5F00\u53D1\\\u539F\u578BV2\\LithoMind\\DeepTime.LithoMind.Desktop\\ViewModels\\Pages\\FusionViewModel.cs",
               "RelativeDocumentMoniker": "DeepTime.LithoMind.Desktop\\ViewModels\\Pages\\FusionViewModel.cs",
@@ -511,7 +523,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "LithoMind.Core.csproj",
               "DocumentMoniker": "C:\\Users\\24846\\Desktop\\Work\\\u9879\u76EE\\\u6D77\u6CB9\\\u9879\u76EE\u6267\u884C\\4 \u7CFB\u7EDF\u5F00\u53D1\\\u539F\u578BV2\\LithoMind\\LithoMind.Core\\LithoMind.Core.csproj",
               "RelativeDocumentMoniker": "LithoMind.Core\\LithoMind.Core.csproj",
@@ -523,7 +535,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "ui_layout.json",
               "DocumentMoniker": "C:\\Users\\24846\\source\\repos\\LithoFaceisStudio\\Assets\\config\\ui_layout.json",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\..\\..\\source\\repos\\LithoFaceisStudio\\Assets\\config\\ui_layout.json",
@@ -534,7 +546,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "SingleWellViewModel.cs",
               "DocumentMoniker": "C:\\Users\\24846\\source\\repos\\LithoFaceisStudio\\ViewModels\\Pages\\SingleWellViewModel.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\..\\..\\source\\repos\\LithoFaceisStudio\\ViewModels\\Pages\\SingleWellViewModel.cs",
@@ -546,7 +558,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "StratigraphyViewModel.cs",
               "DocumentMoniker": "C:\\Users\\24846\\source\\repos\\LithoFaceisStudio\\ViewModels\\Pages\\StratigraphyViewModel.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\..\\..\\source\\repos\\LithoFaceisStudio\\ViewModels\\Pages\\StratigraphyViewModel.cs",
@@ -557,7 +569,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 9,
               "Title": "DataManagerViewModel.cs",
               "DocumentMoniker": "C:\\Users\\24846\\source\\repos\\LithoFaceisStudio\\ViewModels\\Pages\\DataManagerViewModel.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\..\\..\\source\\repos\\LithoFaceisStudio\\ViewModels\\Pages\\DataManagerViewModel.cs",
@@ -569,7 +581,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 10,
               "Title": "FusionViewModel.cs",
               "DocumentMoniker": "C:\\Users\\24846\\source\\repos\\LithoFaceisStudio\\ViewModels\\Pages\\FusionViewModel.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\..\\..\\source\\repos\\LithoFaceisStudio\\ViewModels\\Pages\\FusionViewModel.cs",
@@ -581,7 +593,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 11,
               "Title": "SingleWellView.axaml.cs",
               "DocumentMoniker": "C:\\Users\\24846\\source\\repos\\LithoFaceisStudio\\Views\\SingleWellView.axaml.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\..\\..\\source\\repos\\LithoFaceisStudio\\Views\\SingleWellView.axaml.cs",
@@ -593,7 +605,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 12,
               "Title": "MappingViewModel.cs",
               "DocumentMoniker": "C:\\Users\\24846\\source\\repos\\LithoFaceisStudio\\ViewModels\\Pages\\MappingViewModel.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\..\\..\\source\\repos\\LithoFaceisStudio\\ViewModels\\Pages\\MappingViewModel.cs",
@@ -605,7 +617,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 13,
               "Title": "SeismicViewModel.cs",
               "DocumentMoniker": "C:\\Users\\24846\\source\\repos\\LithoFaceisStudio\\ViewModels\\Pages\\SeismicViewModel.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\..\\..\\source\\repos\\LithoFaceisStudio\\ViewModels\\Pages\\SeismicViewModel.cs",
@@ -617,7 +629,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 14,
               "Title": "StratigraphyView.axaml.cs",
               "DocumentMoniker": "C:\\Users\\24846\\source\\repos\\LithoFaceisStudio\\Views\\StratigraphyView.axaml.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\..\\..\\source\\repos\\LithoFaceisStudio\\Views\\StratigraphyView.axaml.cs",
@@ -629,7 +641,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 15,
               "Title": "SingleWellView.axaml",
               "DocumentMoniker": "C:\\Users\\24846\\source\\repos\\LithoFaceisStudio\\Views\\SingleWellView.axaml",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\..\\..\\source\\repos\\LithoFaceisStudio\\Views\\SingleWellView.axaml",
@@ -640,7 +652,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 16,
               "Title": "StratigraphyView.axaml",
               "DocumentMoniker": "C:\\Users\\24846\\source\\repos\\LithoFaceisStudio\\Views\\StratigraphyView.axaml",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\..\\..\\source\\repos\\LithoFaceisStudio\\Views\\StratigraphyView.axaml",
@@ -651,7 +663,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 17,
               "Title": "MainViewModel.cs",
               "DocumentMoniker": "C:\\Users\\24846\\source\\repos\\LithoFaceisStudio\\ViewModels\\MainViewModel.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\..\\..\\source\\repos\\LithoFaceisStudio\\ViewModels\\MainViewModel.cs",
@@ -663,7 +675,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 18,
               "Title": "EmojiIconConverter.cs",
               "DocumentMoniker": "C:\\Users\\24846\\source\\repos\\LithoFaceisStudio\\Converters\\EmojiIconConverter.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\..\\..\\source\\repos\\LithoFaceisStudio\\Converters\\EmojiIconConverter.cs",
@@ -675,7 +687,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 19,
               "Title": "App.axaml.cs",
               "DocumentMoniker": "C:\\Users\\24846\\source\\repos\\LithoFaceisStudio\\App.axaml.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\..\\..\\source\\repos\\LithoFaceisStudio\\App.axaml.cs",
@@ -687,7 +699,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 20,
               "Title": "SeismicView.axaml",
               "DocumentMoniker": "C:\\Users\\24846\\source\\repos\\LithoFaceisStudio\\Views\\SeismicView.axaml",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\..\\..\\source\\repos\\LithoFaceisStudio\\Views\\SeismicView.axaml",
@@ -698,7 +710,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 21,
               "Title": "UiLayoutConfig.cs",
               "DocumentMoniker": "C:\\Users\\24846\\Desktop\\Work\\\u9879\u76EE\\\u6D77\u6CB9\\\u9879\u76EE\u6267\u884C\\4 \u7CFB\u7EDF\u5F00\u53D1\\\u539F\u578BV2\\LithoMind\\LithoMind.Core\\Models\\UI\\UiLayoutConfig.cs",
               "RelativeDocumentMoniker": "LithoMind.Core\\Models\\UI\\UiLayoutConfig.cs",
@@ -710,7 +722,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 22,
               "Title": "AppCommandBootstrapper.cs",
               "DocumentMoniker": "C:\\Users\\24846\\source\\repos\\LithoFaceisStudio\\Bootstrappers\\AppCommandBootstrapper.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\..\\..\\source\\repos\\LithoFaceisStudio\\Bootstrappers\\AppCommandBootstrapper.cs",
@@ -722,7 +734,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 23,
               "Title": "MainWindow.axaml",
               "DocumentMoniker": "C:\\Users\\24846\\source\\repos\\LithoFaceisStudio\\Views\\MainWindow.axaml",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\..\\..\\source\\repos\\LithoFaceisStudio\\Views\\MainWindow.axaml",
@@ -733,7 +745,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 24,
               "Title": "App.axaml",
               "DocumentMoniker": "C:\\Users\\24846\\source\\repos\\LithoFaceisStudio\\App.axaml",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\..\\..\\source\\repos\\LithoFaceisStudio\\App.axaml",
@@ -744,7 +756,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 25,
               "Title": "GlobalMenuHandler.cs",
               "DocumentMoniker": "C:\\Users\\24846\\source\\repos\\LithoFaceisStudio\\Handlers\\GlobalMenuHandler.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\..\\..\\source\\repos\\LithoFaceisStudio\\Handlers\\GlobalMenuHandler.cs",
@@ -756,7 +768,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 26,
               "Title": "app.manifest",
               "DocumentMoniker": "C:\\Users\\24846\\source\\repos\\LithoFaceisStudio\\app.manifest",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\..\\..\\source\\repos\\LithoFaceisStudio\\app.manifest",
@@ -768,7 +780,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 26,
+              "DocumentIndex": 27,
               "Title": "FusionView.axaml",
               "DocumentMoniker": "C:\\Users\\24846\\source\\repos\\LithoFaceisStudio\\Views\\FusionView.axaml",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\..\\..\\source\\repos\\LithoFaceisStudio\\Views\\FusionView.axaml",
@@ -779,7 +791,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 27,
+              "DocumentIndex": 28,
               "Title": "MainWindow.axaml.cs",
               "DocumentMoniker": "C:\\Users\\24846\\source\\repos\\LithoFaceisStudio\\Views\\MainWindow.axaml.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\..\\..\\source\\repos\\LithoFaceisStudio\\Views\\MainWindow.axaml.cs",
@@ -791,7 +803,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 28,
+              "DocumentIndex": 29,
               "Title": "MenuItemModel.cs",
               "DocumentMoniker": "C:\\Users\\24846\\Desktop\\Work\\\u9879\u76EE\\\u6D77\u6CB9\\\u9879\u76EE\u6267\u884C\\4 \u7CFB\u7EDF\u5F00\u53D1\\\u539F\u578BV2\\LithoMind\\LithoMind.Core\\Models\\UI\\MenuItemModel.cs",
               "RelativeDocumentMoniker": "LithoMind.Core\\Models\\UI\\MenuItemModel.cs",
@@ -803,7 +815,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 29,
+              "DocumentIndex": 30,
               "Title": "JsonUiConfigService.cs",
               "DocumentMoniker": "C:\\Users\\24846\\Desktop\\Work\\\u9879\u76EE\\\u6D77\u6CB9\\\u9879\u76EE\u6267\u884C\\4 \u7CFB\u7EDF\u5F00\u53D1\\\u539F\u578BV2\\LithoMind\\LithoMind.Infrastructure\\Services\\JsonUiConfigService.cs",
               "RelativeDocumentMoniker": "LithoMind.Infrastructure\\Services\\JsonUiConfigService.cs",
@@ -815,7 +827,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 30,
+              "DocumentIndex": 31,
               "Title": "IUiConfigService.cs",
               "DocumentMoniker": "C:\\Users\\24846\\Desktop\\Work\\\u9879\u76EE\\\u6D77\u6CB9\\\u9879\u76EE\u6267\u884C\\4 \u7CFB\u7EDF\u5F00\u53D1\\\u539F\u578BV2\\LithoMind\\LithoMind.Core\\Services\\IUiConfigService.cs",
               "RelativeDocumentMoniker": "LithoMind.Core\\Services\\IUiConfigService.cs",
@@ -827,7 +839,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 31,
+              "DocumentIndex": 32,
               "Title": "CommandRegistry.cs",
               "DocumentMoniker": "C:\\Users\\24846\\Desktop\\Work\\\u9879\u76EE\\\u6D77\u6CB9\\\u9879\u76EE\u6267\u884C\\4 \u7CFB\u7EDF\u5F00\u53D1\\\u539F\u578BV2\\LithoMind\\LithoMind.Infrastructure\\Services\\CommandRegistry.cs",
               "RelativeDocumentMoniker": "LithoMind.Infrastructure\\Services\\CommandRegistry.cs",
@@ -839,7 +851,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 32,
+              "DocumentIndex": 33,
               "Title": "MenuItemType.cs",
               "DocumentMoniker": "C:\\Users\\24846\\Desktop\\Work\\\u9879\u76EE\\\u6D77\u6CB9\\\u9879\u76EE\u6267\u884C\\4 \u7CFB\u7EDF\u5F00\u53D1\\\u539F\u578BV2\\LithoMind\\LithoMind.Core\\Models\\UI\\MenuItemType.cs",
               "RelativeDocumentMoniker": "LithoMind.Core\\Models\\UI\\MenuItemType.cs",
@@ -851,7 +863,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 33,
+              "DocumentIndex": 34,
               "Title": "PageViewModelBase.cs",
               "DocumentMoniker": "C:\\Users\\24846\\source\\repos\\LithoFaceisStudio\\ViewModels\\Base\\PageViewModelBase.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\..\\..\\source\\repos\\LithoFaceisStudio\\ViewModels\\Base\\PageViewModelBase.cs",
@@ -863,7 +875,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 34,
+              "DocumentIndex": 35,
               "Title": "ViewModelBase.cs",
               "DocumentMoniker": "C:\\Users\\24846\\source\\repos\\LithoFaceisStudio\\ViewModels\\Base\\ViewModelBase.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\..\\..\\source\\repos\\LithoFaceisStudio\\ViewModels\\Base\\ViewModelBase.cs",
@@ -875,7 +887,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 35,
+              "DocumentIndex": 36,
               "Title": "FusionView.axaml.cs",
               "DocumentMoniker": "C:\\Users\\24846\\source\\repos\\LithoFaceisStudio\\Views\\FusionView.axaml.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\..\\..\\source\\repos\\LithoFaceisStudio\\Views\\FusionView.axaml.cs",
@@ -887,7 +899,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 36,
+              "DocumentIndex": 37,
               "Title": "MappingView.axaml",
               "DocumentMoniker": "C:\\Users\\24846\\source\\repos\\LithoFaceisStudio\\Views\\MappingView.axaml",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\..\\..\\source\\repos\\LithoFaceisStudio\\Views\\MappingView.axaml",
@@ -898,7 +910,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 37,
+              "DocumentIndex": 38,
               "Title": "DataManagerView.axaml",
               "DocumentMoniker": "C:\\Users\\24846\\source\\repos\\LithoFaceisStudio\\Views\\DataManagerView.axaml",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\..\\..\\source\\repos\\LithoFaceisStudio\\Views\\DataManagerView.axaml",
@@ -909,7 +921,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 38,
+              "DocumentIndex": 39,
               "Title": "SeismicView.axaml.cs",
               "DocumentMoniker": "C:\\Users\\24846\\source\\repos\\LithoFaceisStudio\\Views\\SeismicView.axaml.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\..\\..\\source\\repos\\LithoFaceisStudio\\Views\\SeismicView.axaml.cs",
@@ -921,7 +933,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 39,
+              "DocumentIndex": 40,
               "Title": "MappingView.axaml.cs",
               "DocumentMoniker": "C:\\Users\\24846\\source\\repos\\LithoFaceisStudio\\Views\\MappingView.axaml.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\..\\..\\source\\repos\\LithoFaceisStudio\\Views\\MappingView.axaml.cs",
@@ -933,7 +945,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 40,
+              "DocumentIndex": 41,
               "Title": "DataManagerView.axaml.cs",
               "DocumentMoniker": "C:\\Users\\24846\\source\\repos\\LithoFaceisStudio\\Views\\DataManagerView.axaml.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\..\\..\\source\\repos\\LithoFaceisStudio\\Views\\DataManagerView.axaml.cs",
@@ -945,7 +957,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 41,
+              "DocumentIndex": 42,
               "Title": "ViewLocator.cs",
               "DocumentMoniker": "C:\\Users\\24846\\source\\repos\\LithoFaceisStudio\\ViewLocator.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\..\\..\\source\\repos\\LithoFaceisStudio\\ViewLocator.cs",
@@ -957,7 +969,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 42,
+              "DocumentIndex": 43,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\24846\\source\\repos\\LithoFaceisStudio\\Program.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\..\\..\\source\\repos\\LithoFaceisStudio\\Program.cs",
@@ -976,10 +988,6 @@
             {
               "$type": "Bookmark",
               "Name": "ST:128:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
             }
           ]
         }

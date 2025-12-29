@@ -54,6 +54,7 @@ public class JsonUiConfigService : IUiConfigService
 			Type = MenuItemType.SubMenu
 		};
 
+		errorMenu.Children ??= new List<MenuItemModel>();
 		errorMenu.Children.Add(new MenuItemModel { Header = "请检查程序完整性" });
 		config.GlobalMenu.Add(errorMenu);
 

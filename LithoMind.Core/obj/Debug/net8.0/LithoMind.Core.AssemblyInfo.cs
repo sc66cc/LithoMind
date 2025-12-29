@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("LithoMind.Core")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bd2424ae19e7e60cd4c85cac985ca154d06b944a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7e2666e3f925fabd5c35e971b014ca210598f81f")]
 [assembly: System.Reflection.AssemblyProductAttribute("LithoMind.Core")]
 [assembly: System.Reflection.AssemblyTitleAttribute("LithoMind.Core")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

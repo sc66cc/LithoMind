@@ -87,9 +87,10 @@ namespace DeepTime.LithoMind.Desktop.ViewModels.Pages
 
 			// 初始化井列表
 			InitializeWells();
-			
-			// 加载示例图片
-			LoadSampleImage();
+
+			// 延迟加载示例图片，避免阻塞UI线程
+			Avalonia.Threading.Dispatcher.UIThread.Post(() => LoadSampleImage(),
+				Avalonia.Threading.DispatcherPriority.Background);
 		}
 
 		/// <summary>
