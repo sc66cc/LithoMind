@@ -73,9 +73,30 @@
         </Style>
     </Window.Styles>
 
-    <Grid RowDefinitions="Auto, Auto, *, Auto">
-        <!-- 第一行: 全局菜单栏 -->
-        <Border Grid.Row="0" Height="30" Background="#FFFFFF">
+    <Grid RowDefinitions="Auto, Auto, Auto, *">
+        <!-- 第一行: 场景切换按钮 -->
+        <Border Grid.Row="0" Background="#EEEEEE" BorderBrush="#D0D0D0" BorderThickness="0,0,0,1" Padding="0,5">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="5">
+                
+                <RadioButton Classes="NavBtn" GroupName="Mods" Content="数据资源管理" Tag="📂"
+                             Command="{Binding SwitchModuleCommand}" CommandParameter="Module_DataMgr" IsChecked="True"/>
+                
+                <RadioButton Classes="NavBtn" GroupName="Mods" Content="地层对比" Tag="🧱"
+                             Command="{Binding SwitchModuleCommand}" CommandParameter="Module_Strat"/>
+                
+                <RadioButton Classes="NavBtn" GroupName="Mods" Content="井综合分析" Tag="📊"
+                             Command="{Binding SwitchModuleCommand}" CommandParameter="Module_SingleWell"/>
+                
+                <RadioButton Classes="NavBtn" GroupName="Mods" Content="地震综合分析" Tag="🥓"
+                             Command="{Binding SwitchModuleCommand}" CommandParameter="Module_Seismic"/>
+                
+                <RadioButton Classes="NavBtn" GroupName="Mods" Content="编图制图" Tag="🗺️"
+                             Command="{Binding SwitchModuleCommand}" CommandParameter="Module_Mapping"/>
+            </StackPanel>
+        </Border>
+
+        <!-- 第二行: 全局菜单栏 -->
+        <Border Grid.Row="1" Height="30" Background="#FFFFFF">
             <Menu ItemsSource="{Binding GlobalMenus}" 
                   VerticalAlignment="Stretch"
                   HorizontalAlignment="Left"
@@ -83,8 +104,8 @@
                   Background="Transparent"/>
         </Border>
 
-        <!-- 第二行: 场景工具栏菜单 -->
-        <Border Grid.Row="1" Background="#F9F9F9" BorderBrush="#E0E0E0" BorderThickness="0,1" Height="36">
+        <!-- 第三行: 场景工具栏菜单 -->
+        <Border Grid.Row="2" Background="#F9F9F9" BorderBrush="#E0E0E0" BorderThickness="0,1" Height="36">
             <Grid ColumnDefinitions="*,Auto">
                 <Menu Grid.Column="0"
                       ItemsSource="{Binding CurrentModuleMenus}" 
@@ -108,31 +129,11 @@
             </Grid>
         </Border>
 
-        <dock:DockControl Grid.Row="2" 
+        <dock:DockControl Grid.Row="3" 
                           Layout="{Binding Layout}" 
                           Factory="{Binding Factory}"
                           IsVisible="{Binding Layout, Converter={x:Static ObjectConverters.IsNotNull}}"
                           x:Name="MainDockControl" />
-
-        <Border Grid.Row="3" Background="#EEEEEE" BorderBrush="#D0D0D0" BorderThickness="0,1,0,0" Padding="0,5">
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="5">
-                
-                <RadioButton Classes="NavBtn" GroupName="Mods" Content="数据资源管理" Tag="📂"
-                             Command="{Binding SwitchModuleCommand}" CommandParameter="Module_DataMgr" IsChecked="True"/>
-                
-                <RadioButton Classes="NavBtn" GroupName="Mods" Content="地层对比" Tag="🧱"
-                             Command="{Binding SwitchModuleCommand}" CommandParameter="Module_Strat"/>
-                
-                <RadioButton Classes="NavBtn" GroupName="Mods" Content="井综合分析" Tag="📊"
-                             Command="{Binding SwitchModuleCommand}" CommandParameter="Module_SingleWell"/>
-                
-                <RadioButton Classes="NavBtn" GroupName="Mods" Content="地震综合分析" Tag="🥓"
-                             Command="{Binding SwitchModuleCommand}" CommandParameter="Module_Seismic"/>
-                
-                <RadioButton Classes="NavBtn" GroupName="Mods" Content="编图制图" Tag="🗺️"
-                             Command="{Binding SwitchModuleCommand}" CommandParameter="Module_Mapping"/>
-            </StackPanel>
-        </Border>
 
     </Grid>
 </Window>

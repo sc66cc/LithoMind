@@ -19,6 +19,10 @@ namespace DeepTime.LithoMind.Desktop.ViewModels
 		private readonly LithoMindDockFactory _factory;
 		private UiLayoutConfig? _uiConfig;
 		private const string LayoutConfigPath = "dock_layout.json";
+		
+		// 防抖机制：避免快速连续切换
+		private System.Threading.CancellationTokenSource? _switchModuleCancellation;
+		private string? _currentModuleId;
 
 		/// <summary>
 		/// Dock Factory - 用于启用拖拽、停靠、浮动等功能
@@ -90,44 +94,85 @@ namespace DeepTime.LithoMind.Desktop.ViewModels
 		}
 
 		[RelayCommand]
-		public void SwitchModule(string? moduleJsonId)
+		public async void SwitchModule(string? moduleJsonId)
 		{
 			if (string.IsNullOrEmpty(moduleJsonId) || _uiConfig == null) return;
+			
+			// 如果切换到相同模块，直接返回
+			if (_currentModuleId == moduleJsonId) return;
+		
+			// 取消之前的切换操作
+			_switchModuleCancellation?.Cancel();
+			_switchModuleCancellation = new System.Threading.CancellationTokenSource();
+			var cancellationToken = _switchModuleCancellation.Token;
 		
 			// 直接使用JSON中的模块ID获取菜单
 			var moduleMenus = _uiConfig.GetModuleMenus(moduleJsonId);
 			CurrentModuleMenus = moduleMenus ?? new List<MenuItemModel>();
 		
-			// 更新 Dock 布局
+			// 异步更新 Dock 布局，避免阻塞UI线程
 			string factoryId = MapJsonIdToFactoryId(moduleJsonId);
-			UpdateDockLayout(factoryId);
+			_currentModuleId = moduleJsonId;
+			
+			try
+			{
+				await UpdateDockLayoutAsync(factoryId, cancellationToken);
+			}
+			catch (System.Threading.Tasks.TaskCanceledException)
+			{
+				// 切换被取消，这是正常的
+			}
 		}
 
-		private void UpdateDockLayout(string factoryId)
+		/// <summary>
+		/// 异步更新Dock布局，提升UI响应性
+		/// </summary>
+		private async System.Threading.Tasks.Task UpdateDockLayoutAsync(string factoryId, System.Threading.CancellationToken cancellationToken = default)
 		{
 			try
 			{
+				// 在后台线程关闭旧布局
 				if (Layout != null && Layout.Close.CanExecute(null))
 				{
-					Layout.Close.Execute(null);
+					await System.Threading.Tasks.Task.Run(() =>
+					{
+						cancellationToken.ThrowIfCancellationRequested();
+						Layout.Close.Execute(null);
+					}, cancellationToken);
 				}
 		
-				var newLayout = _factory.CreateLayoutForModule(factoryId);
+				// 在后台线程创建新布局（利用缓存机制，创建速度会很快）
+				var newLayout = await System.Threading.Tasks.Task.Run(() =>
+				{
+					cancellationToken.ThrowIfCancellationRequested();
+					return _factory.CreateLayoutForModule(factoryId);
+				}, cancellationToken);
+				
 				if (newLayout != null)
 				{
-					_factory.InitLayout(newLayout);
-					
-					// 尝试加载保存的布局配置
-					if (TryLoadLayoutFromFile(factoryId))
+					// 在UI线程初始化布局
+					await Avalonia.Threading.Dispatcher.UIThread.InvokeAsync(() =>
 					{
-						// 布局已从文件恢复
-					}
-					else
-					{
-						// 使用默认布局
-						Layout = newLayout;
-					}
+						cancellationToken.ThrowIfCancellationRequested();
+						_factory.InitLayout(newLayout);
+						
+						// 尝试加载保存的布局配置
+						if (TryLoadLayoutFromFile(factoryId))
+						{
+							// 布局已从文件恢复
+						}
+						else
+						{
+							// 使用默认布局
+							Layout = newLayout;
+						}
+					}, cancellationToken);
 				}
+			}
+			catch (System.Threading.Tasks.TaskCanceledException)
+			{
+				// 切换被取消，这是正常的
+				throw;
 			}
 			catch
 			{

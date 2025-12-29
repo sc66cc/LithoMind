@@ -11,12 +11,12 @@
 using System;
 using System.Reflection;
 
-[assembly: System.Reflection.AssemblyCompanyAttribute("LithoMind.Infrastructure")]
-[assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
+[assembly: System.Reflection.AssemblyCompanyAttribute("LithoMind.Core")]
+[assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
 [assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8b1cda82711fabd6a86e1eb916620cf1c1d63cea")]
-[assembly: System.Reflection.AssemblyProductAttribute("LithoMind.Infrastructure")]
-[assembly: System.Reflection.AssemblyTitleAttribute("LithoMind.Infrastructure")]
+[assembly: System.Reflection.AssemblyProductAttribute("LithoMind.Core")]
+[assembly: System.Reflection.AssemblyTitleAttribute("LithoMind.Core")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
 
 // 由 MSBuild WriteCodeFragment 类生成。
