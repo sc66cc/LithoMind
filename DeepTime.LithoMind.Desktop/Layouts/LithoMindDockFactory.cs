@@ -222,7 +222,6 @@ namespace DeepTime.LithoMind.Desktop.Layouts
 		private ProportionalDock CreateDataManagerLayout()
 		{
 			const string moduleId = "DataManager";
-
 			// 使用缓存获取或创建ViewModel
 			// 右侧：数据预览区域 - 使用FilePreviewViewModel实现文件预览
 			var previewVM = GetOrCreateViewModel(moduleId, "FilePreview", () => new FilePreviewViewModel());

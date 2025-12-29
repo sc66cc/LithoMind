@@ -1,0 +1,31 @@
+## Solution-wide build outputs (LithoMind)
+
+# 所有项目的编译输出目录（Debug/Release 等）
+**/[Dd]ebug/
+**/[Rr]elease/
+**/[Rr]eleases/
+**/[Bb]uild/
+
+# 通用 bin/、obj/、out、log 目录
+**/[Bb]in/
+**/[Oo]bj/
+**/[Oo]ut/
+**/[Ll]og/
+**/[Ll]ogs/
+
+# dotnet publish 输出
+**/publish/
+**/Publish/
+
+# VS 及本地配置
+.vs/
+*.user
+*.suo
+*.userosscache
+
+# 其他常见构建产物
+*.log
+*.tmp
+
+
+

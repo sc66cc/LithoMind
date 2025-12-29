@@ -11,16 +11,16 @@
       "RelativeMoniker": "D:0:0:{4082ACB4-1A01-7D67-4A1A-B756A12281CF}|DeepTime.LithoMind.Desktop\\DeepTime.LithoMind.Desktop.csproj|solutionrelative:deeptime.lithomind.desktop\\viewmodels\\pages\\localfilesviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{4082ACB4-1A01-7D67-4A1A-B756A12281CF}|DeepTime.LithoMind.Desktop\\DeepTime.LithoMind.Desktop.csproj|c:\\users\\24846\\desktop\\work\\\u9879\u76EE\\\u6D77\u6CB9\\\u9879\u76EE\u6267\u884C\\4 \u7CFB\u7EDF\u5F00\u53D1\\\u539F\u578Bv2\\lithomind\\deeptime.lithomind.desktop\\deeptime.lithomind.desktop.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{4082ACB4-1A01-7D67-4A1A-B756A12281CF}|DeepTime.LithoMind.Desktop\\DeepTime.LithoMind.Desktop.csproj|solutionrelative:deeptime.lithomind.desktop\\deeptime.lithomind.desktop.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{4082ACB4-1A01-7D67-4A1A-B756A12281CF}|DeepTime.LithoMind.Desktop\\DeepTime.LithoMind.Desktop.csproj|c:\\users\\24846\\desktop\\work\\\u9879\u76EE\\\u6D77\u6CB9\\\u9879\u76EE\u6267\u884C\\4 \u7CFB\u7EDF\u5F00\u53D1\\\u539F\u578Bv2\\lithomind\\deeptime.lithomind.desktop\\viewmodels\\pages\\datamanagerviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{4082ACB4-1A01-7D67-4A1A-B756A12281CF}|DeepTime.LithoMind.Desktop\\DeepTime.LithoMind.Desktop.csproj|solutionrelative:deeptime.lithomind.desktop\\viewmodels\\pages\\datamanagerviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{4082ACB4-1A01-7D67-4A1A-B756A12281CF}|DeepTime.LithoMind.Desktop\\DeepTime.LithoMind.Desktop.csproj|c:\\users\\24846\\desktop\\work\\\u9879\u76EE\\\u6D77\u6CB9\\\u9879\u76EE\u6267\u884C\\4 \u7CFB\u7EDF\u5F00\u53D1\\\u539F\u578Bv2\\lithomind\\deeptime.lithomind.desktop\\assets\\config\\ui_layout.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{4082ACB4-1A01-7D67-4A1A-B756A12281CF}|DeepTime.LithoMind.Desktop\\DeepTime.LithoMind.Desktop.csproj|solutionrelative:deeptime.lithomind.desktop\\assets\\config\\ui_layout.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4082ACB4-1A01-7D67-4A1A-B756A12281CF}|DeepTime.LithoMind.Desktop\\DeepTime.LithoMind.Desktop.csproj|c:\\users\\24846\\desktop\\work\\\u9879\u76EE\\\u6D77\u6CB9\\\u9879\u76EE\u6267\u884C\\4 \u7CFB\u7EDF\u5F00\u53D1\\\u539F\u578Bv2\\lithomind\\deeptime.lithomind.desktop\\deeptime.lithomind.desktop.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{4082ACB4-1A01-7D67-4A1A-B756A12281CF}|DeepTime.LithoMind.Desktop\\DeepTime.LithoMind.Desktop.csproj|solutionrelative:deeptime.lithomind.desktop\\deeptime.lithomind.desktop.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     },
     {
       "AbsoluteMoniker": "D:0:0:{DD45AD83-7C21-F7C7-3911-8C34752DC35A}|LithoMind.Core\\LithoMind.Core.csproj|c:\\users\\24846\\desktop\\work\\\u9879\u76EE\\\u6D77\u6CB9\\\u9879\u76EE\u6267\u884C\\4 \u7CFB\u7EDF\u5F00\u53D1\\\u539F\u578Bv2\\lithomind\\lithomind.core\\lithomind.core.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
@@ -327,7 +327,7 @@
               "RelativeDocumentMoniker": "DeepTime.LithoMind.Desktop\\ViewModels\\MainViewModel.cs",
               "ToolTip": "C:\\Users\\24846\\Desktop\\Work\\\u9879\u76EE\\\u6D77\u6CB9\\\u9879\u76EE\u6267\u884C\\4 \u7CFB\u7EDF\u5F00\u53D1\\\u539F\u578BV2\\LithoMind\\DeepTime.LithoMind.Desktop\\ViewModels\\MainViewModel.cs",
               "RelativeToolTip": "DeepTime.LithoMind.Desktop\\ViewModels\\MainViewModel.cs",
-              "ViewState": "AgIAAGEAAAAAAAAAAAAlwHUAAABHAAAAAAAAAA==",
+              "ViewState": "AgIAAGEAAAAAAAAAAAAlwGgAAAAGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-12-24T09:08:19.233Z",
               "EditorCaption": ""
@@ -429,7 +429,8 @@
               "RelativeToolTip": "DeepTime.LithoMind.Desktop\\Layouts\\LithoMindDockFactory.cs",
               "ViewState": "AgIAAF0BAAAAAAAAAAApwHMBAAAEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-24T09:07:53.454Z"
+              "WhenOpened": "2025-12-24T09:07:53.454Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -531,7 +532,8 @@
               "RelativeToolTip": "LithoMind.Core\\LithoMind.Core.csproj",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-12-23T10:15:02.438Z"
+              "WhenOpened": "2025-12-23T10:15:02.438Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
