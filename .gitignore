@@ -30,3 +30,9 @@
 
 
 /.vs/LithoFaceisStudio.slnx
+/LithoMind.Core/bin
+/LithoMind.Core/obj
+/DeepTime.LithoMind.Desktop/bin
+/DeepTime.LithoMind.Desktop/obj
+/LithoMind.Infrastructure/bin
+/LithoMind.Infrastructure/obj
