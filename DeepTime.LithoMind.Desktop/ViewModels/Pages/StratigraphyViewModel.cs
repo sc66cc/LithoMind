@@ -122,15 +122,14 @@ namespace DeepTime.LithoMind.Desktop.ViewModels.Pages
 			// 3. 古生物证据数据
 			var paleoBioNode = new DataResourceNode
 			{
-				Name = "古生物证据",
+				Name = "古生物数据",
 				Icon = "🦕",
 				IsExpanded = true,
 				IsVisible = true,
 				Children = new ObservableCollection<DataResourceNode>
 				{
-					new DataResourceNode { Name = "化石数据", Icon = "📁", IsVisible = true },
-					new DataResourceNode { Name = "孵粉数据", Icon = "📁", IsVisible = true },
-					new DataResourceNode { Name = "生物地层序列", Icon = "📁", IsVisible = false }
+					new DataResourceNode { Name = "生物带", Icon = "📁", IsVisible = true },
+					new DataResourceNode { Name = "孢粉", Icon = "📁", IsVisible = true },
 				}
 			};
 

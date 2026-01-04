@@ -44,137 +44,137 @@
         }
     ],
     "contextToolbars": {
-        "Module_DataMgr": [
+      "Module_DataMgr": [
+        {
+          "header": "导入本地数据",
+          "type": "SubMenu",
+          "children": [
             {
-                "header": "导入本地数据",
-                "type": "SubMenu",
-                "children": [
-                    {
-                        "header": "导入井位坐标(xlsx/csv/shp)",
-                        "commandId": "Cmd_16501665",
-                        "id": "GenID_16501665"
-                    },
-                    {
-                        "header": "导入测井数据(las)",
-                        "commandId": "Cmd_12403328",
-                        "id": "GenID_12403328"
-                    },
-                    {
-                        "header": "导入单井/联井数据(wlp,scg)",
-                        "commandId": "Cmd_11762141",
-                        "id": "GenID_11762141"
-                    },
-                    {
-                        "header": "导入地震数据(seg/segy)",
-                        "commandId": "Cmd_11399667",
-                        "id": "GenID_11399667"
-                    },
-                    {
-                        "header": "导入层位数据(txt/csv/xlsx)",
-                        "commandId": "Cmd_4373096",
-                        "id": "GenID_4373096"
-                    },
-                    {
-                        "header": "导入时深关系(txt/csv/xlsx)",
-                        "commandId": "Cmd_12969078",
-                        "id": "GenID_12969078"
-                    },
-                    {
-                        "header": "导入钻井完井报告(pdf/word)",
-                        "commandId": "Cmd_5424919",
-                        "id": "GenID_5424919"
-                    },
-                    {
-                        "header": "导入地理数据(shp/tif)",
-                        "commandId": "Cmd_10295260",
-                        "id": "GenID_10295260"
-                    }
-                ],
-                "id": "GenID_1294372"
+              "header": "导入井位坐标(xlsx/csv/shp)",
+              "commandId": "Cmd_16501665",
+              "id": "GenID_16501665"
             },
             {
-                "header": "连接数据湖",
-                "commandId": "Cmd_5716982",
-                "id": "GenID_5716982"
+              "header": "导入测井数据(las)",
+              "commandId": "Cmd_12403328",
+              "id": "GenID_12403328"
             },
             {
-                "header": "已标注数据",
-                "type": "SubMenu",
-                "children": [
-                    {
-                        "header": "已标注测井曲线",
-                        "commandId": "Cmd_15807139",
-                        "id": "GenID_15807139"
-                    },
-                    {
-                        "header": "已标注地震剖面",
-                        "commandId": "Cmd_14528190",
-                        "id": "GenID_14528190"
-                    },
-                    {
-                        "header": "已标注地震层位",
-                        "commandId": "Cmd_5007021",
-                        "id": "GenID_5007021"
-                    },
-                    {
-                        "header": "已标注井旁地震相沉积相",
-                        "commandId": "Cmd_4387237",
-                        "id": "GenID_4387237"
-                    }
-                ],
-                "id": "GenID_8010850"
+              "header": "导入单井/联井数据(wlp,scg)",
+              "commandId": "Cmd_11762141",
+              "id": "GenID_11762141"
             },
             {
-                "header": "智能模块库",
-                "commandId": "Cmd_12852519",
-                "id": "GenID_12852519"
+              "header": "导入地震数据(seg/segy)",
+              "commandId": "Cmd_11399667",
+              "id": "GenID_11399667"
             },
             {
-                "header": "符号与样式",
-                "type": "SubMenu",
-                "children": [
-                    {
-                        "header": "点样式库",
-                        "commandId": "Cmd_3280",
-                        "id": "GenID_3280"
-                    },
-                    {
-                        "header": "线样式库",
-                        "commandId": "Cmd_6522587",
-                        "id": "GenID_6522587"
-                    },
-                    {
-                        "header": "面样式库",
-                        "type": "SubMenu",
-                        "children": [
-                            {
-                                "header": "填充方案",
-                                "commandId": "Cmd_10027610",
-                                "id": "GenID_10027610"
-                            },
-                            {
-                                "header": "描边方案",
-                                "commandId": "Cmd_11544255",
-                                "id": "GenID_11544255"
-                            }
-                        ],
-                        "id": "GenID_14481719"
-                    },
-                    {
-                        "header": "颜色方案(色带)库",
-                        "commandId": "Cmd_4104720",
-                        "id": "GenID_4104720"
-                    }
-                ],
-                "id": "GenID_6467843"
+              "header": "导入层位数据(txt/csv/xlsx)",
+              "commandId": "Cmd_4373096",
+              "id": "GenID_4373096"
             },
             {
-                "header": "导入数据",
-                "id": "Data.Import",
-                "type": "SubMenu",
-                "commandId": "Cmd_4523122"
+              "header": "导入时深关系(txt/csv/xlsx)",
+              "commandId": "Cmd_12969078",
+              "id": "GenID_12969078"
+            },
+            {
+              "header": "导入钻井完井报告(pdf/word)",
+              "commandId": "Cmd_5424919",
+              "id": "GenID_5424919"
+            },
+            {
+              "header": "导入地理数据(shp/tif)",
+              "commandId": "Cmd_10295260",
+              "id": "GenID_10295260"
             }
-        ],
+          ],
+          "id": "GenID_1294372"
+        },
+        {
+          "header": "连接数据湖",
+          "commandId": "Cmd_5716982",
+          "id": "GenID_5716982"
+        },
+        {
+          "header": "已标注数据",
+          "type": "SubMenu",
+          "children": [
+            {
+              "header": "已标注测井曲线",
+              "commandId": "Cmd_15807139",
+              "id": "GenID_15807139"
+            },
+            {
+              "header": "已标注地震剖面",
+              "commandId": "Cmd_14528190",
+              "id": "GenID_14528190"
+            },
+            {
+              "header": "已标注地震层位",
+              "commandId": "Cmd_5007021",
+              "id": "GenID_5007021"
+            },
+            {
+              "header": "已标注井旁地震相沉积相",
+              "commandId": "Cmd_4387237",
+              "id": "GenID_4387237"
+            }
+          ],
+          "id": "GenID_8010850"
+        },
+        {
+          "header": "智能模型库",
+          "commandId": "Cmd_12852519",
+          "id": "GenID_12852519"
+        },
+        {
+          "header": "符号与样式",
+          "type": "SubMenu",
+          "children": [
+            {
+              "header": "点样式库",
+              "commandId": "Cmd_3280",
+              "id": "GenID_3280"
+            },
+            {
+              "header": "线样式库",
+              "commandId": "Cmd_6522587",
+              "id": "GenID_6522587"
+            },
+            {
+              "header": "面样式库",
+              "type": "SubMenu",
+              "children": [
+                {
+                  "header": "填充方案",
+                  "commandId": "Cmd_10027610",
+                  "id": "GenID_10027610"
+                },
+                {
+                  "header": "描边方案",
+                  "commandId": "Cmd_11544255",
+                  "id": "GenID_11544255"
+                }
+              ],
+              "id": "GenID_14481719"
+            },
+            {
+              "header": "颜色方案(色带)库",
+              "commandId": "Cmd_4104720",
+              "id": "GenID_4104720"
+            }
+          ],
+          "id": "GenID_6467843"
+        },
+        {
+          "header": "导出数据",
+          "id": "Data.Import",
+          "type": "SubMenu",
+          "commandId": "Cmd_4523122"
+        }
+      ],
         "Module_Strat": [
             {
                 "header": "新建联井剖面",
@@ -393,11 +393,28 @@
                 ],
                 "id": "GenID_9833209"
             },
-            {
-                "header": "新建三维视图",
-                "commandId": "Cmd_10562974",
-                "id": "GenID_10562974"
-            },
+          {
+            "header": "新建三维视图",
+            "commandId": "Cmd_10562974",
+            "id": "GenID_10562974"
+          },
+          {
+            "header": "地震相智能推理",
+            "type": "SubMenu",
+            "children": [
+              {
+                "header": "根据道号范围",
+                "commandId": "Cmd_2390280",
+                "id": "GenID_2390280"
+              },
+              {
+                "header": "从工区平面图选择",
+                "commandId": "Cmd_7750331",
+                "id": "GenID_7750331"
+              }
+            ],
+            "id": "GenID_14087812"
+          },
             {
                 "header": "沉积相智能推理",
                 "type": "SubMenu",
