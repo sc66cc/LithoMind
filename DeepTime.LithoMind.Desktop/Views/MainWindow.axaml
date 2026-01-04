@@ -73,54 +73,56 @@
         </Style>
     </Window.Styles>
 
-    <Grid RowDefinitions="Auto, Auto, Auto, *">
+    <Grid RowDefinitions="Auto, Auto, *">
         <!-- 第一行: 场景切换按钮 -->
         <Border Grid.Row="0" Background="#EEEEEE" BorderBrush="#D0D0D0" BorderThickness="0,0,0,1" Padding="0,5">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="5">
-                
+
                 <RadioButton Classes="NavBtn" GroupName="Mods" Content="数据资源管理" Tag="📂"
                              Command="{Binding SwitchModuleCommand}" CommandParameter="Module_DataMgr" IsChecked="True"/>
-                
+
                 <RadioButton Classes="NavBtn" GroupName="Mods" Content="地层对比" Tag="🧱"
                              Command="{Binding SwitchModuleCommand}" CommandParameter="Module_Strat"/>
-                
+
                 <RadioButton Classes="NavBtn" GroupName="Mods" Content="井综合分析" Tag="📊"
                              Command="{Binding SwitchModuleCommand}" CommandParameter="Module_SingleWell"/>
-                
+
                 <RadioButton Classes="NavBtn" GroupName="Mods" Content="地震综合分析" Tag="🥓"
                              Command="{Binding SwitchModuleCommand}" CommandParameter="Module_Seismic"/>
-                
+
                 <RadioButton Classes="NavBtn" GroupName="Mods" Content="编图制图" Tag="🗺️"
                              Command="{Binding SwitchModuleCommand}" CommandParameter="Module_Mapping"/>
             </StackPanel>
         </Border>
 
-        <!-- 第二行: 全局菜单栏 -->
-        <Border Grid.Row="1" Height="30" Background="#FFFFFF">
-            <Menu ItemsSource="{Binding GlobalMenus}" 
-                  VerticalAlignment="Stretch"
-                  HorizontalAlignment="Left"
-                  Margin="10,0"
-                  Background="Transparent"/>
-        </Border>
-
-        <!-- 第三行: 场景工具栏菜单 -->
-        <Border Grid.Row="2" Background="#F9F9F9" BorderBrush="#E0E0E0" BorderThickness="0,1" Height="36">
-            <Grid ColumnDefinitions="*,Auto">
+        <!-- 第二行: 全局菜单 + 场景菜单 (合并在同一行) -->
+        <Border Grid.Row="1" Background="#FFFFFF" BorderBrush="#E0E0E0" BorderThickness="0,0,0,1" Height="36">
+            <Grid ColumnDefinitions="Auto,Auto,*,Auto">
+                <!-- 全局菜单 (始终显示) -->
                 <Menu Grid.Column="0"
-                      ItemsSource="{Binding CurrentModuleMenus}" 
-                      VerticalAlignment="Center" 
+                      ItemsSource="{Binding GlobalMenus}"
+                      VerticalAlignment="Center"
+                      Margin="10,0,0,0"
+                      Background="Transparent"/>
+
+                <!-- 分隔线 -->
+                <Border Grid.Column="1" Width="1" Background="#D0D0D0" Margin="10,6" VerticalAlignment="Stretch"/>
+
+                <!-- 场景菜单 (根据当前场景切换) -->
+                <Menu Grid.Column="2"
+                      ItemsSource="{Binding CurrentModuleMenus}"
+                      VerticalAlignment="Center"
                       Margin="10,0"
                       Background="Transparent"/>
-                
+
                 <!-- 布局管理快捷按钮 -->
-                <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="5" Margin="10,0">
-                    <Button Content="💾 保存布局" 
+                <StackPanel Grid.Column="3" Orientation="Horizontal" Spacing="5" Margin="10,0">
+                    <Button Content="💾 保存布局"
                             Command="{Binding SaveLayoutToFileCommand}"
                             ToolTip.Tip="保存当前窗口布局配置"
                             Padding="8,4"
                             FontSize="11"/>
-                    <Button Content="🔄 重置布局" 
+                    <Button Content="🔄 重置布局"
                             Command="{Binding ResetLayoutCommand}"
                             ToolTip.Tip="恢复默认窗口布局"
                             Padding="8,4"
@@ -129,7 +131,7 @@
             </Grid>
         </Border>
 
-        <dock:DockControl Grid.Row="3" 
+        <dock:DockControl Grid.Row="2" 
                           Layout="{Binding Layout}" 
                           Factory="{Binding Factory}"
                           IsVisible="{Binding Layout, Converter={x:Static ObjectConverters.IsNotNull}}"
