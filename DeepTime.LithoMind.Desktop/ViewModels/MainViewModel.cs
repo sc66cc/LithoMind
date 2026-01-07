@@ -2,11 +2,15 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Platform;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using DeepTime.LithoMind.Desktop.Layouts;
 using DeepTime.LithoMind.Desktop.ViewModels.Base;
+using DeepTime.LithoMind.Desktop.Views;
 using Dock.Model.Core;
 using Dock.Model.Controls;
 using Dock.Model.Mvvm.Core;
@@ -340,10 +344,33 @@ namespace DeepTime.LithoMind.Desktop.ViewModels
 					// 沉积相智能推理 - 不同模型结果对比
 					_factory.ShowModelComparisonDialog();
 					break;
-		
+
+				case "Cmd_AIModelLib":
+					// 智能模型库 - 显示智能模型列表窗口
+					ShowAIModelLibraryWindow();
+					break;
+
+				case "Cmd_RectAnnotation":
+					// 按矩形标注 - 启用矩形标注模式
+					_factory.EnableRectangleAnnotationMode();
+					break;
+
 				default:
 					// 其他命令暂未实现
 					break;
+			}
+		}
+
+		/// <summary>
+		/// 显示智能模型库窗口
+		/// </summary>
+		private void ShowAIModelLibraryWindow()
+		{
+			if (Application.Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop
+				&& desktop.MainWindow != null)
+			{
+				var window = new AIModelLibraryWindow();
+				window.ShowDialog(desktop.MainWindow);
 			}
 		}
 	}

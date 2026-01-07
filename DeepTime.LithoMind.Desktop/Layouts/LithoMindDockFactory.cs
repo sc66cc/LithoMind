@@ -18,6 +18,12 @@ namespace DeepTime.LithoMind.Desktop.Layouts
 		private IRootDock? _rootDock;
 		private PropertyPanelViewModel? _propertyPanelVM;
 
+		// 地震模块相关引用
+		private ToolDock? _seismicPropertyDock;
+		private PropertyPanelViewModel? _seismicPropertyPanelVM;
+		private ProportionalDock? _seismicMainLayout;
+		private bool _seismicPropertyVisible;
+
 		// ViewModel缓存：按模块ID和ViewModel ID缓存，避免重复创建
 		private readonly Dictionary<string, Dictionary<string, IDockable>> _viewModelCache = new();
 
@@ -369,15 +375,15 @@ namespace DeepTime.LithoMind.Desktop.Layouts
 		/// 地震综合布局
 		/// 左侧: 地震工程结构目录 (15%)
 		/// 中间: 地震体数据、地震解释剖面标签页
-		/// 右侧: 层位信息属性窗口
+		/// 右侧: 层位信息属性窗口（默认隐藏，标注模式时显示）
 		/// </summary>
 		private ProportionalDock CreateSeismicLayout()
 		{
 			const string moduleId = "Seismic";
-			
+
 			// 左侧：地震工程结构目录
 			var seismicProjectTreeVM = GetOrCreateViewModel(moduleId, "SeismicProjectTree", () => new SeismicProjectTreeViewModel());
-			
+
 			var leftDock = new ToolDock
 			{
 				Id = "SeismicProjectTreePane",
@@ -397,8 +403,12 @@ namespace DeepTime.LithoMind.Desktop.Layouts
 			var seismicBodyVM = GetOrCreateViewModel(moduleId, "SeismicBody", () => new SeismicBodyViewModel());
 			var seismicInterpretationVM = GetOrCreateViewModel(moduleId, "SeismicInterpretation", () => new SeismicInterpretationViewModel());
 
-			// 右侧：属性窗口（使用通用PropertyPanelViewModel）
-			var propertyPanelVM = GetOrCreateViewModel(moduleId, "SeismicProperty", () => new PropertyPanelViewModel());
+			// 右侧：属性窗口（使用通用PropertyPanelViewModel）- 默认不显示
+			var propertyPanelVM = GetOrCreateViewModel(moduleId, "SeismicProperty", () =>
+			{
+				var vm = new PropertyPanelViewModel();
+				return vm;
+			});
 
 			// 建立地震相智能推理与属性面板的连接（仅首次订阅）
 			if (TrySubscribeEvent($"{moduleId}_SeismicInterpretation_PropertyPanel_SeismicInferenceCompleted"))
@@ -406,6 +416,24 @@ namespace DeepTime.LithoMind.Desktop.Layouts
 				seismicInterpretationVM.SeismicInferenceCompleted += (sectionName, results) =>
 				{
 					propertyPanelVM.SetSeismicInferenceResults(sectionName, results);
+				};
+			}
+
+			// 建立地震标注与属性面板的连接（仅首次订阅）
+			if (TrySubscribeEvent($"{moduleId}_SeismicInterpretation_PropertyPanel_AnnotationsChanged"))
+			{
+				seismicInterpretationVM.SeismicAnnotationsChanged += (sectionName, annotations) =>
+				{
+					propertyPanelVM.SetSeismicAnnotations(sectionName, annotations);
+				};
+			}
+
+			// 建立属性面板删除标注与地震解释视图的连接（仅首次订阅）
+			if (TrySubscribeEvent($"{moduleId}_PropertyPanel_SeismicInterpretation_AnnotationDeleted"))
+			{
+				propertyPanelVM.SeismicAnnotationDeleted += (annotation) =>
+				{
+					seismicInterpretationVM.DeleteAnnotation(annotation);
 				};
 			}
 
@@ -423,6 +451,7 @@ namespace DeepTime.LithoMind.Desktop.Layouts
 				CanCreateDocument = true
 			};
 
+			// 右侧属性窗口 - 默认隐藏
 			var rightDock = new ToolDock
 			{
 				Id = "SeismicPropertyPane",
@@ -434,9 +463,13 @@ namespace DeepTime.LithoMind.Desktop.Layouts
 				GripMode = GripMode.Visible,
 				CanFloat = true,
 				CanPin = true,
-				CanClose = false,
+				CanClose = true,
 				IsCollapsable = true
 			};
+
+			// 保存属性窗口引用，用于后续显示/隐藏
+			_seismicPropertyDock = rightDock;
+			_seismicPropertyPanelVM = propertyPanelVM;
 
 			var splitter1 = new ProportionalDockSplitter
 			{
@@ -444,13 +477,7 @@ namespace DeepTime.LithoMind.Desktop.Layouts
 				Title = "Splitter"
 			};
 
-			var splitter2 = new ProportionalDockSplitter
-			{
-				Id = "SeismicSplitter2",
-				Title = "Splitter"
-			};
-
-			// 水平布局：左侧工程目录 + 中间文档区 + 右侧属性窗口
+			// 水平布局：左侧工程目录 + 中间文档区（默认不显示属性窗口）
 			var layout = new ProportionalDock
 			{
 				Id = "SeismicMainLayout",
@@ -458,11 +485,12 @@ namespace DeepTime.LithoMind.Desktop.Layouts
 				VisibleDockables = CreateList<IDockable>(
 					leftDock,
 					splitter1,
-					middleDock,
-					splitter2,
-					rightDock
+					middleDock
 				)
 			};
+
+			// 保存布局引用，用于后续添加属性窗口
+			_seismicMainLayout = layout;
 
 			return layout;
 		}
@@ -518,6 +546,33 @@ namespace DeepTime.LithoMind.Desktop.Layouts
 				wellColumnVM.InferenceCompleted += (wellName, results) =>
 				{
 					propertyPanelVM.SetInferenceResults(wellName, results);
+				};
+			}
+
+			// 建立标注与属性面板的连接（仅首次订阅）
+			if (TrySubscribeEvent($"{moduleId}_WellColumn_PropertyPanel_AnnotationsChanged"))
+			{
+				wellColumnVM.AnnotationsChanged += (wellName, annotations) =>
+				{
+					propertyPanelVM.SetAnnotations(wellName, annotations);
+				};
+			}
+
+			// 建立标注选中与属性面板的连接（仅首次订阅）
+			if (TrySubscribeEvent($"{moduleId}_WellColumn_PropertyPanel_AnnotationSelected"))
+			{
+				wellColumnVM.AnnotationSelected += (annotation) =>
+				{
+					propertyPanelVM.SetSelectedAnnotation(annotation);
+				};
+			}
+
+			// 建立属性面板删除标注与柱状图的连接（仅首次订阅）
+			if (TrySubscribeEvent($"{moduleId}_PropertyPanel_WellColumn_AnnotationDeleted"))
+			{
+				propertyPanelVM.AnnotationDeleted += (annotation) =>
+				{
+					wellColumnVM.DeleteAnnotation(annotation);
 				};
 			}
 
@@ -905,6 +960,24 @@ namespace DeepTime.LithoMind.Desktop.Layouts
 			// TODO: 实现模型对比对话框
 			// 当前暂时显示道号范围对话框
 			ShowSeismicTraceInferenceDialog();
+		}
+
+		/// <summary>
+		/// 启用矩形标注模式
+		/// </summary>
+		public void EnableRectangleAnnotationMode()
+		{
+			if (_rootDock == null) return;
+
+			// 激活单井柱状图标签页
+			ActivateDocumentInCurrentLayout("WellColumn");
+
+			// 查找WellColumnViewModel并启用标注模式
+			var wellColumnVM = FindDocumentRecursive(_rootDock, "WellColumn") as WellColumnViewModel;
+			if (wellColumnVM != null)
+			{
+				wellColumnVM.EnableAnnotationModeCommand.Execute(null);
+			}
 		}
 	}
 }

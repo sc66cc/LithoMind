@@ -3,15 +3,15 @@
              xmlns:vm="using:DeepTime.LithoMind.Desktop.ViewModels.Pages"
              x:Class="DeepTime.LithoMind.Desktop.Views.WellColumnView"
              x:DataType="vm:WellColumnViewModel">
-    
+
     <Grid RowDefinitions="Auto,*,Auto">
         <!-- 井选择对话框 -->
-        <Border Grid.RowSpan="3" 
+        <Border Grid.RowSpan="3"
                 IsVisible="{Binding ShowWellSelectionDialog}"
                 Background="#80000000"
                 ZIndex="1000">
-            <Border Background="White" 
-                    CornerRadius="8" 
+            <Border Background="White"
+                    CornerRadius="8"
                     Padding="0"
                     MaxWidth="500"
                     MaxHeight="600"
@@ -26,20 +26,20 @@
                             <TextBlock Text="岩相/沉积相智能推理" FontSize="16" FontWeight="Bold" Foreground="White" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Border>
-                    
+
                     <!-- 对话框内容 -->
                     <Grid Grid.Row="1" Margin="16" RowDefinitions="Auto,Auto,*">
                         <!-- 说明文本 -->
                         <Border Grid.Row="0" Background="#EBF5FB" CornerRadius="4" Padding="12" Margin="0,0,0,12">
-                            <TextBlock Text="请选择需要进行岩相/沉积相智能推理的井，系统将利用AI算法识别层位的岩相和沉积相特征。" 
-                                       FontSize="12" 
-                                       Foreground="#2C3E50" 
+                            <TextBlock Text="请选择需要进行岩相/沉积相智能推理的井，系统将利用AI算法识别层位的岩相和沉积相特征。"
+                                       FontSize="12"
+                                       Foreground="#2C3E50"
                                        TextWrapping="Wrap"/>
                         </Border>
-                        
+
                         <!-- 操作按钮行 -->
                         <StackPanel Grid.Row="1" Orientation="Horizontal" Spacing="8" Margin="0,0,0,8">
-                            <Button Content="☑️ 全选" 
+                            <Button Content="全选"
                                     Command="{Binding SelectAllWellsCommand}"
                                     Background="Transparent"
                                     BorderBrush="#3498DB"
@@ -49,7 +49,7 @@
                                     CornerRadius="4"
                                     FontSize="11"
                                     Cursor="Hand"/>
-                            <Button Content="☐ 取消全选" 
+                            <Button Content="取消全选"
                                     Command="{Binding DeselectAllWellsCommand}"
                                     Background="Transparent"
                                     BorderBrush="#7F8C8D"
@@ -60,20 +60,20 @@
                                     FontSize="11"
                                     Cursor="Hand"/>
                         </StackPanel>
-                        
+
                         <!-- 井列表 -->
                         <Border Grid.Row="2" BorderBrush="#BDC3C7" BorderThickness="1" CornerRadius="4">
                             <ScrollViewer MaxHeight="300">
                                 <ItemsControl ItemsSource="{Binding AvailableWells}" Margin="8">
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>
-                                            <Border Background="White" 
-                                                    Padding="8" 
+                                            <Border Background="White"
+                                                    Padding="8"
                                                     Margin="0,0,0,4"
                                                     CornerRadius="4">
                                                 <CheckBox IsChecked="{Binding IsSelected, Mode=TwoWay}">
                                                     <StackPanel Orientation="Horizontal" Spacing="8">
-                                                        <TextBlock Text="💧" FontSize="14" VerticalAlignment="Center"/>
+                                                        <TextBlock Text="井" FontSize="14" VerticalAlignment="Center"/>
                                                         <TextBlock Text="{Binding Name}" FontSize="13" Foreground="#2C3E50" VerticalAlignment="Center"/>
                                                     </StackPanel>
                                                 </CheckBox>
@@ -84,11 +84,11 @@
                             </ScrollViewer>
                         </Border>
                     </Grid>
-                    
+
                     <!-- 对话框底部按钮 -->
                     <Border Grid.Row="2" BorderBrush="#ECF0F1" BorderThickness="0,1,0,0" Padding="16" Background="#FAFAFA" CornerRadius="0 0 8 8">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Spacing="10">
-                            <Button Content="取消" 
+                            <Button Content="取消"
                                     Command="{Binding CancelWellSelectionCommand}"
                                     Background="Transparent"
                                     BorderBrush="#95A5A6"
@@ -98,7 +98,7 @@
                                     CornerRadius="4"
                                     FontSize="12"
                                     Cursor="Hand"/>
-                            <Button Content="开始推理" 
+                            <Button Content="开始推理"
                                     Command="{Binding StartInferenceCommand}"
                                     Background="#27AE60"
                                     BorderThickness="0"
@@ -113,22 +113,43 @@
                 </Grid>
             </Border>
         </Border>
-        
+
         <!-- 顶部工具栏 -->
         <Border Grid.Row="0" Background="#2C3E50" Padding="8">
             <Grid ColumnDefinitions="Auto,*,Auto">
                 <!-- 左侧标题 -->
                 <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="8">
-                    <TextBlock Text="📊" FontSize="16" VerticalAlignment="Center"/>
                     <TextBlock Text="单井综合柱状图" FontSize="14" Foreground="White" FontWeight="Bold" VerticalAlignment="Center"/>
                     <TextBlock Text="-" FontSize="14" Foreground="#7F8C8D" VerticalAlignment="Center"/>
                     <TextBlock Text="{Binding WellName}" FontSize="14" Foreground="#3498DB" VerticalAlignment="Center"/>
+                    <!-- 标注模式指示器 -->
+                    <Border IsVisible="{Binding IsAnnotationMode}"
+                            Background="#E74C3C"
+                            CornerRadius="4"
+                            Padding="8,3"
+                            Margin="10,0,0,0">
+                        <TextBlock Text="标注模式" FontSize="11" Foreground="White" FontWeight="SemiBold"/>
+                    </Border>
                 </StackPanel>
-                
+
                 <!-- 右侧工具按钮 -->
                 <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="4">
+                    <!-- 标注模式切换按钮 -->
+                    <Button ToolTip.Tip="切换标注模式"
+                            Command="{Binding ToggleAnnotationModeCommand}"
+                            Background="Transparent"
+                            Foreground="White"
+                            BorderThickness="0"
+                            Padding="8,4"
+                            Cursor="Hand">
+                        <StackPanel Orientation="Horizontal" Spacing="4">
+                            <TextBlock Text="[]" FontSize="12"/>
+                            <TextBlock Text="标注" FontSize="11"/>
+                        </StackPanel>
+                    </Button>
+                    <Border Width="1" Background="#4A5568" Margin="4,4"/>
                     <!-- 放大按钮 -->
-                    <Button Content="🔍+" 
+                    <Button Content="+"
                             ToolTip.Tip="放大"
                             Command="{Binding ZoomInCommand}"
                             Background="Transparent"
@@ -138,14 +159,14 @@
                             Cursor="Hand"/>
                     <!-- 缩放比例显示 -->
                     <Border Background="#34495E" CornerRadius="4" Padding="8,4" VerticalAlignment="Center">
-                        <TextBlock Text="{Binding ZoomLevelText}" 
-                                   FontSize="12" 
+                        <TextBlock Text="{Binding ZoomLevelText}"
+                                   FontSize="12"
                                    Foreground="White"
                                    MinWidth="45"
                                    TextAlignment="Center"/>
                     </Border>
                     <!-- 缩小按钮 -->
-                    <Button Content="🔍-" 
+                    <Button Content="-"
                             ToolTip.Tip="缩小"
                             Command="{Binding ZoomOutCommand}"
                             Background="Transparent"
@@ -154,7 +175,7 @@
                             Padding="8,4"
                             Cursor="Hand"/>
                     <!-- 重置缩放按钮 -->
-                    <Button Content="🎯" 
+                    <Button Content="1:1"
                             ToolTip.Tip="重置缩放 (1:1)"
                             Command="{Binding ResetZoomCommand}"
                             Background="Transparent"
@@ -165,7 +186,7 @@
                 </StackPanel>
             </Grid>
         </Border>
-        
+
         <!-- 主内容区 - 柱状图显示 -->
         <Border Grid.Row="1" Background="#F5F5F5" ClipToBounds="True">
             <Grid ColumnDefinitions="Auto,*">
@@ -192,56 +213,106 @@
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>
+
+                            <!-- 标注列表 -->
+                            <Border IsVisible="{Binding IsAnnotationMode}" Margin="0,10,0,0">
+                                <StackPanel Spacing="5">
+                                    <TextBlock Text="标注列表" FontSize="12" FontWeight="Bold" Foreground="#E74C3C" Margin="5,0"/>
+                                    <TextBlock Text="{Binding Annotations.Count, StringFormat='共 {0} 个标注'}"
+                                               FontSize="10" Foreground="#7F8C8D" Margin="5,0"/>
+                                    <Button Content="清除所有标注"
+                                            Command="{Binding ClearAllAnnotationsCommand}"
+                                            FontSize="10"
+                                            Padding="5,3"
+                                            Margin="5,5,5,0"
+                                            Background="#E74C3C"
+                                            Foreground="White"
+                                            HorizontalAlignment="Stretch"/>
+                                    <Button Content="导出标注 (JSON)"
+                                            Command="{Binding ExportAnnotationsToJsonCommand}"
+                                            FontSize="10"
+                                            Padding="5,3"
+                                            Margin="5,3,5,0"
+                                            Background="#27AE60"
+                                            Foreground="White"
+                                            HorizontalAlignment="Stretch"/>
+                                </StackPanel>
+                            </Border>
                         </StackPanel>
                     </ScrollViewer>
                 </Border>
-                
-                <!-- 右侧柱状图显示区域 - 居中显示 -->
+
+                <!-- 右侧柱状图显示区域 -->
                 <Border Grid.Column="1" Background="#F5F5F5" ClipToBounds="True">
                     <!-- 右键菜单 -->
                     <Border.ContextMenu>
                         <ContextMenu>
-                            <MenuItem Header="新增道">
-                                <MenuItem Header="📏 深度道" Command="{Binding AddDepthTrackCommand}"/>
-                                <MenuItem Header="📝 文本道" Command="{Binding AddTextTrackCommand}"/>
-                                <MenuItem Header="📈 曲线道" Command="{Binding AddCurveTrackCommand}"/>
-                                <MenuItem Header="📊 解释道" Command="{Binding AddInterpretationTrackCommand}"/>
-                                <MenuItem Header="🪨 岩性道" Command="{Binding AddLithologyTrackCommand}"/>
+                            <MenuItem Header="标注工具">
+                                <MenuItem Header="按矩形标注" Command="{Binding EnableAnnotationModeCommand}"/>
+                                <MenuItem Header="删除选中标注" Command="{Binding DeleteSelectedAnnotationCommand}"/>
+                                <MenuItem Header="清除所有标注" Command="{Binding ClearAllAnnotationsCommand}"/>
+                                <Separator/>
+                                <MenuItem Header="导出标注 (JSON)" Command="{Binding ExportAnnotationsToJsonCommand}"/>
                             </MenuItem>
                             <Separator/>
-                            <MenuItem Header="🔄 重置缩放" Command="{Binding ResetZoomCommand}"/>
+                            <MenuItem Header="新增道">
+                                <MenuItem Header="深度道" Command="{Binding AddDepthTrackCommand}"/>
+                                <MenuItem Header="文本道" Command="{Binding AddTextTrackCommand}"/>
+                                <MenuItem Header="曲线道" Command="{Binding AddCurveTrackCommand}"/>
+                                <MenuItem Header="解释道" Command="{Binding AddInterpretationTrackCommand}"/>
+                                <MenuItem Header="岩性道" Command="{Binding AddLithologyTrackCommand}"/>
+                            </MenuItem>
+                            <Separator/>
+                            <MenuItem Header="重置缩放" Command="{Binding ResetZoomCommand}"/>
                         </ContextMenu>
                     </Border.ContextMenu>
+
                     <ScrollViewer x:Name="ColumnScrollViewer"
-                                  HorizontalScrollBarVisibility="Auto" 
+                                  HorizontalScrollBarVisibility="Auto"
                                   VerticalScrollBarVisibility="Auto">
-                        <Grid HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="400">
+                        <!-- 使用Grid包裹图片和标注Canvas -->
+                        <Grid x:Name="ImageContainer"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Center"
+                              MinWidth="400">
                             <!-- 无图片提示 -->
                             <StackPanel IsVisible="{Binding !HasImage}"
                                         VerticalAlignment="Center"
                                         HorizontalAlignment="Center">
-                                <TextBlock Text="📊" FontSize="60" HorizontalAlignment="Center"/>
                                 <TextBlock Text="单井综合柱状图" FontSize="18" Foreground="#2C3E50" HorizontalAlignment="Center" Margin="0,15,0,0"/>
                                 <TextBlock Text="选择井位查看柱状图" FontSize="14" Foreground="#7F8C8D" HorizontalAlignment="Center" Margin="0,5,0,0"/>
                             </StackPanel>
-                            
-                            <!-- 柱状图图片 - 居中 -->
-                            <Image Source="{Binding ColumnImage}"
+
+                            <!-- 柱状图图片 -->
+                            <Image x:Name="ColumnImage"
+                                   Source="{Binding ColumnImage}"
                                    IsVisible="{Binding HasImage}"
                                    Stretch="None"
                                    HorizontalAlignment="Center"
                                    VerticalAlignment="Center">
                                 <Image.RenderTransform>
-                                    <ScaleTransform ScaleX="{Binding ZoomLevel}" 
+                                    <ScaleTransform ScaleX="{Binding ZoomLevel}"
                                                    ScaleY="{Binding ZoomLevel}"/>
                                 </Image.RenderTransform>
                             </Image>
+
+                            <!-- 标注Canvas覆盖层 -->
+                            <Canvas x:Name="AnnotationCanvas"
+                                    IsVisible="{Binding HasImage}"
+                                    Background="Transparent"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center">
+                                <Canvas.RenderTransform>
+                                    <ScaleTransform ScaleX="{Binding ZoomLevel}"
+                                                   ScaleY="{Binding ZoomLevel}"/>
+                                </Canvas.RenderTransform>
+                            </Canvas>
                         </Grid>
                     </ScrollViewer>
                 </Border>
             </Grid>
         </Border>
-        
+
         <!-- 底部状态栏 -->
         <Border Grid.Row="2" Background="#ECF0F1" Padding="8,6">
             <Grid ColumnDefinitions="*,Auto">
@@ -262,13 +333,14 @@
                         </TextBlock>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Spacing="4">
-                        <TextBlock Text="道数:" FontSize="11" Foreground="#7F8C8D"/>
-                        <TextBlock Text="{Binding LogTracks.Count}" FontSize="11" Foreground="#2C3E50"/>
+                        <TextBlock Text="标注:" FontSize="11" Foreground="#7F8C8D"/>
+                        <TextBlock Text="{Binding Annotations.Count}" FontSize="11" Foreground="#E74C3C" FontWeight="SemiBold"/>
                     </StackPanel>
+                    <TextBlock Text="{Binding AnnotationModeText}" FontSize="11" Foreground="#E74C3C" IsVisible="{Binding IsAnnotationMode}"/>
                 </StackPanel>
-                <TextBlock Grid.Column="1" 
-                           Text="右键新增道 | 滚轮缩放 | 拖拽平移" 
-                           FontSize="10" 
+                <TextBlock Grid.Column="1"
+                           Text="右键菜单 | 标注模式下拖拽绘制矩形"
+                           FontSize="10"
                            Foreground="#95A5A6"/>
             </Grid>
         </Border>

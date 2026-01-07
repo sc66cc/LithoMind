@@ -1,579 +1,1167 @@
 ﻿{
-    "version": "2.0",
-    "comment": "Generated from FreeMind XML",
-    "globalMenu": [
+  "version": "2.0",
+  "comment": "Generated from FreeMind XML (显性功能UI布局.mm)",
+  "globalMenu": [
+    {
+      "header": "工程与文件",
+      "type": "SubMenu",
+      "children": [
         {
-            "header": "工程与文件",
-            "type": "SubMenu",
-            "children": [
-                {
-                    "header": "打开工程",
-                    "commandId": "Cmd_15512521",
-                    "id": "GenID_15512521"
-                },
-                {
-                    "header": "新建工程",
-                    "type": "SubMenu",
-                    "children": [
-                        {
-                            "header": "导入井坐标",
-                            "commandId": "Cmd_3134529",
-                            "id": "GenID_3134529"
-                        },
-                        {
-                            "header": "限定研究层位",
-                            "commandId": "Cmd_8944653",
-                            "id": "GenID_8944653"
-                        }
-                    ],
-                    "id": "GenID_16514164"
-                },
-                {
-                    "header": "保存工程",
-                    "id": "File.Save",
-                    "commandId": "Cmd_SaveProject",
-                    "inputGesture": "Ctrl+S"
-                },
-                {
-                    "header": "另存为工程",
-                    "commandId": "Cmd_13645838",
-                    "id": "GenID_13645838"
-                }
-            ],
-            "id": "GenID_5044006"
-        }
-    ],
-    "contextToolbars": {
-      "Module_DataMgr": [
+          "header": "打开工程",
+          "commandId": "Cmd_OpenProject",
+          "id": "GenID_OpenProject"
+        },
         {
-          "header": "导入本地数据",
+          "header": "新建工程",
           "type": "SubMenu",
           "children": [
             {
-              "header": "导入井位坐标(xlsx/csv/shp)",
-              "commandId": "Cmd_16501665",
-              "id": "GenID_16501665"
+              "header": "导入井坐标",
+              "commandId": "Cmd_ImportWellCoord",
+              "id": "GenID_ImportWellCoord"
             },
             {
-              "header": "导入测井数据(las)",
-              "commandId": "Cmd_12403328",
-              "id": "GenID_12403328"
-            },
-            {
-              "header": "导入单井/联井数据(wlp,scg)",
-              "commandId": "Cmd_11762141",
-              "id": "GenID_11762141"
-            },
-            {
-              "header": "导入地震数据(seg/segy)",
-              "commandId": "Cmd_11399667",
-              "id": "GenID_11399667"
-            },
-            {
-              "header": "导入层位数据(txt/csv/xlsx)",
-              "commandId": "Cmd_4373096",
-              "id": "GenID_4373096"
-            },
-            {
-              "header": "导入时深关系(txt/csv/xlsx)",
-              "commandId": "Cmd_12969078",
-              "id": "GenID_12969078"
-            },
-            {
-              "header": "导入钻井完井报告(pdf/word)",
-              "commandId": "Cmd_5424919",
-              "id": "GenID_5424919"
-            },
-            {
-              "header": "导入地理数据(shp/tif)",
-              "commandId": "Cmd_10295260",
-              "id": "GenID_10295260"
+              "header": "限定研究层位",
+              "commandId": "Cmd_DefineHorizon",
+              "id": "GenID_DefineHorizon"
             }
           ],
-          "id": "GenID_1294372"
+          "id": "GenID_NewProject"
         },
         {
-          "header": "连接数据湖",
-          "commandId": "Cmd_5716982",
-          "id": "GenID_5716982"
+          "header": "最近打开的工程",
+          "commandId": "Cmd_RecentProjects",
+          "id": "GenID_RecentProjects"
         },
         {
-          "header": "已标注数据",
+          "type": "Separator"
+        },
+        {
+          "header": "自动保存",
           "type": "SubMenu",
           "children": [
             {
-              "header": "已标注测井曲线",
-              "commandId": "Cmd_15807139",
-              "id": "GenID_15807139"
+              "header": "开启/关闭自动保存",
+              "commandId": "Cmd_ToggleAutoSave",
+              "id": "GenID_ToggleAutoSave"
             },
             {
-              "header": "已标注地震剖面",
-              "commandId": "Cmd_14528190",
-              "id": "GenID_14528190"
-            },
-            {
-              "header": "已标注地震层位",
-              "commandId": "Cmd_5007021",
-              "id": "GenID_5007021"
-            },
-            {
-              "header": "已标注井旁地震相沉积相",
-              "commandId": "Cmd_4387237",
-              "id": "GenID_4387237"
+              "header": "设置自动保存间隔",
+              "commandId": "Cmd_AutoSaveInterval",
+              "id": "GenID_AutoSaveInterval"
             }
           ],
-          "id": "GenID_8010850"
+          "id": "GenID_AutoSave"
         },
         {
-          "header": "智能模型库",
-          "commandId": "Cmd_12852519",
-          "id": "GenID_12852519"
+          "header": "保存工程",
+          "id": "File.Save",
+          "commandId": "Cmd_SaveProject",
+          "inputGesture": "Ctrl+S"
         },
         {
-          "header": "符号与样式",
-          "type": "SubMenu",
-          "children": [
-            {
-              "header": "点样式库",
-              "commandId": "Cmd_3280",
-              "id": "GenID_3280"
-            },
-            {
-              "header": "线样式库",
-              "commandId": "Cmd_6522587",
-              "id": "GenID_6522587"
-            },
-            {
-              "header": "面样式库",
-              "type": "SubMenu",
-              "children": [
-                {
-                  "header": "填充方案",
-                  "commandId": "Cmd_10027610",
-                  "id": "GenID_10027610"
-                },
-                {
-                  "header": "描边方案",
-                  "commandId": "Cmd_11544255",
-                  "id": "GenID_11544255"
-                }
-              ],
-              "id": "GenID_14481719"
-            },
-            {
-              "header": "颜色方案(色带)库",
-              "commandId": "Cmd_4104720",
-              "id": "GenID_4104720"
-            }
-          ],
-          "id": "GenID_6467843"
+          "header": "另存为工程",
+          "commandId": "Cmd_SaveAsProject",
+          "id": "GenID_SaveAsProject"
         },
         {
-          "header": "导出数据",
-          "id": "Data.Import",
-          "type": "SubMenu",
-          "commandId": "Cmd_4523122"
+          "header": "导出工程",
+          "commandId": "Cmd_ExportProject",
+          "id": "GenID_ExportProject"
+        },
+        {
+          "type": "Separator"
+        },
+        {
+          "header": "工程设置/属性",
+          "commandId": "Cmd_ProjectSettings",
+          "id": "GenID_ProjectSettings"
+        },
+        {
+          "header": "退出",
+          "commandId": "Cmd_Exit",
+          "id": "GenID_Exit"
         }
       ],
-        "Module_Strat": [
+      "id": "GenID_FileMenu"
+    },
+    {
+      "header": "搜索与过滤",
+      "type": "SubMenu",
+      "children": [
+        {
+          "header": "全局搜索",
+          "type": "SubMenu",
+          "children": [
             {
-                "header": "新建联井剖面",
-                "type": "SubMenu",
-                "children": [
-                    {
-                        "header": "从井列表选择",
-                        "commandId": "Cmd_9273926",
-                        "id": "GenID_9273926"
-                    },
-                    {
-                        "header": "从井位平面图选择",
-                        "commandId": "Cmd_8718121",
-                        "id": "GenID_8718121"
-                    }
-                ],
-                "id": "GenID_11002692"
+              "header": "搜索井名",
+              "commandId": "Cmd_SearchWellName",
+              "id": "GenID_SearchWellName"
             },
             {
-                "header": "导入层位数据",
-                "type": "SubMenu",
-                "children": [
-                    {
-                        "header": "导入井地层数据",
-                        "commandId": "Cmd_3130428",
-                        "id": "GenID_3130428"
-                    },
-                    {
-                        "header": "导入地震层位数据",
-                        "commandId": "Cmd_12275059",
-                        "id": "GenID_12275059"
-                    }
-                ],
-                "id": "GenID_7874835"
+              "header": "搜索层位",
+              "commandId": "Cmd_SearchHorizon",
+              "id": "GenID_SearchHorizon"
             },
             {
-                "header": "添加井旁地震剖面",
-                "commandId": "Cmd_13811760",
-                "id": "GenID_13811760"
+              "header": "搜索关键字",
+              "commandId": "Cmd_SearchKeyword",
+              "id": "GenID_SearchKeyword"
             },
             {
-                "header": "导入时深关系",
-                "commandId": "Cmd_4459482",
-                "id": "GenID_4459482"
-            },
-            {
-                "header": "自动地层对比",
-                "commandId": "Cmd_16373731",
-                "id": "GenID_16373731"
-            },
-            {
-                "header": "评估层位置信度",
-                "type": "SubMenu",
-                "children": [
-                    {
-                        "header": "对比置信度评估",
-                        "commandId": "Cmd_6414968",
-                        "id": "GenID_6414968"
-                    },
-                    {
-                        "header": "概率化显示",
-                        "commandId": "Cmd_2555484",
-                        "id": "GenID_2555484"
-                    }
-                ],
-                "id": "GenID_498565"
+              "header": "搜索功能菜单",
+              "commandId": "Cmd_SearchMenu",
+              "id": "GenID_SearchMenu"
             }
-        ],
-        "Module_SingleWell": [
+          ],
+          "id": "GenID_GlobalSearch"
+        },
+        {
+          "header": "数据过滤器",
+          "type": "SubMenu",
+          "children": [
             {
-                "header": "导入本地数据",
-                "type": "SubMenu",
-                "children": [
-                    {
-                        "header": "导入单井数据",
-                        "commandId": "Cmd_116765",
-                        "id": "GenID_116765"
-                    },
-                    {
-                        "header": "导入联井数据",
-                        "commandId": "Cmd_662800",
-                        "id": "GenID_662800"
-                    },
-                    {
-                        "header": "导入测井数据",
-                        "commandId": "Cmd_9729307",
-                        "id": "GenID_9729307"
-                    }
-                ],
-                "id": "GenID_1294372"
+              "header": "按属性过滤",
+              "commandId": "Cmd_FilterByAttr",
+              "id": "GenID_FilterByAttr"
             },
             {
-                "header": "新建单井柱状图",
-                "commandId": "Cmd_16349255",
-                "id": "GenID_16349255"
+              "header": "按空间范围过滤",
+              "commandId": "Cmd_FilterBySpatial",
+              "id": "GenID_FilterBySpatial"
             },
             {
-                "header": "新建联井剖面",
-                "type": "SubMenu",
-                "children": [
-                    {
-                        "header": "从井列表选择",
-                        "commandId": "Cmd_9273926",
-                        "id": "GenID_9273926"
-                    },
-                    {
-                        "header": "从井位平面图选择",
-                        "commandId": "Cmd_8718121",
-                        "id": "GenID_8718121"
-                    }
-                ],
-                "id": "GenID_11002692"
+              "header": "按时间范围过滤",
+              "commandId": "Cmd_FilterByTime",
+              "id": "GenID_FilterByTime"
             },
             {
-                "header": "数据标注工具",
-                "type": "SubMenu",
-                "children": [
-                    {
-                        "header": "按矩形标注",
-                        "commandId": "Cmd_12689041",
-                        "id": "GenID_12689041"
-                    },
-                    {
-                        "header": "按单元格标注",
-                        "commandId": "Cmd_14060429",
-                        "id": "GenID_14060429"
-                    }
-                ],
-                "id": "GenID_16342898"
-            },
-            {
-                "header": "新建道",
-                "type": "SubMenu",
-                "children": [
-                    {
-                        "header": "深度道",
-                        "commandId": "Cmd_1796336",
-                        "id": "GenID_1796336"
-                    },
-                    {
-                        "header": "文本道",
-                        "commandId": "Cmd_846056",
-                        "id": "GenID_846056"
-                    },
-                    {
-                        "header": "曲线道",
-                        "commandId": "Cmd_11458206",
-                        "id": "GenID_11458206"
-                    },
-                    {
-                        "header": "解释道",
-                        "commandId": "Cmd_16326292",
-                        "id": "GenID_16326292"
-                    },
-                    {
-                        "header": "岩性道",
-                        "commandId": "Cmd_16001172",
-                        "id": "GenID_16001172"
-                    }
-                ],
-                "id": "GenID_15638404"
-            },
-            {
-                "header": "岩相智能推理",
-                "commandId": "Cmd_474022",
-                "id": "GenID_474022"
-            },
-            {
-                "header": "沉积相智能推理",
-                "commandId": "Cmd_14087811",
-                "id": "GenID_14087811"
+              "header": "按层位过滤",
+              "commandId": "Cmd_FilterByHorizon",
+              "id": "GenID_FilterByHorizon"
             }
-        ],
-        "Module_Seismic": [
+          ],
+          "id": "GenID_DataFilter"
+        }
+      ],
+      "id": "GenID_SearchMenu"
+    },
+    {
+      "header": "视图",
+      "type": "SubMenu",
+      "children": [
+        {
+          "header": "窗口布局",
+          "type": "SubMenu",
+          "children": [
             {
-                "header": "导入地震数据",
-                "type": "SubMenu",
-                "children": [
-                    {
-                        "header": "导入本地数据",
-                        "commandId": "Cmd_1294372",
-                        "id": "GenID_1294372"
-                    },
-                    {
-                        "header": "连接数据湖",
-                        "commandId": "Cmd_5716982",
-                        "id": "GenID_5716982"
-                    }
-                ],
-                "id": "GenID_4377292"
+              "header": "保存当前布局",
+              "commandId": "Cmd_SaveLayout",
+              "id": "GenID_SaveLayout"
             },
             {
-                "header": "新建二维地震剖面",
-                "commandId": "Cmd_1985647",
-                "id": "GenID_1985647"
+              "header": "恢复默认布局",
+              "commandId": "Cmd_RestoreLayout",
+              "id": "GenID_RestoreLayout"
             },
             {
-                "header": "导入地震层位",
-                "commandId": "Cmd_11359952",
-                "id": "GenID_11359952"
+              "header": "布局管理器",
+              "commandId": "Cmd_LayoutManager",
+              "id": "GenID_LayoutManager"
+            }
+          ],
+          "id": "GenID_WindowLayout"
+        },
+        {
+          "header": "面板显示",
+          "type": "SubMenu",
+          "children": [
+            {
+              "header": "工程资源树",
+              "commandId": "Cmd_ShowProjectTree",
+              "id": "GenID_ShowProjectTree"
             },
             {
-                "header": "地震数据标注",
-                "type": "SubMenu",
-                "children": [
-                    {
-                        "header": "井旁地震相标注",
-                        "commandId": "Cmd_10225042",
-                        "id": "GenID_10225042"
-                    },
-                    {
-                        "header": "已标注地震相",
-                        "commandId": "Cmd_13229667",
-                        "id": "GenID_13229667"
-                    }
-                ],
-                "id": "GenID_9833209"
+              "header": "属性面板",
+              "commandId": "Cmd_ShowPropertyPanel",
+              "id": "GenID_ShowPropertyPanel"
             },
+            {
+              "header": "日志面板",
+              "commandId": "Cmd_ShowLogPanel",
+              "id": "GenID_ShowLogPanel"
+            }
+          ],
+          "id": "GenID_PanelDisplay"
+        },
+        {
+          "header": "工具栏",
+          "commandId": "Cmd_ToggleToolbar",
+          "id": "GenID_ToggleToolbar"
+        },
+        {
+          "header": "全屏模式",
+          "commandId": "Cmd_Fullscreen",
+          "id": "GenID_Fullscreen"
+        }
+      ],
+      "id": "GenID_ViewMenu"
+    },
+    {
+      "header": "工具",
+      "type": "SubMenu",
+      "children": [
+        {
+          "header": "选项设置",
+          "type": "SubMenu",
+          "children": [
+            {
+              "header": "常规设置",
+              "commandId": "Cmd_GeneralSettings",
+              "id": "GenID_GeneralSettings"
+            },
+            {
+              "header": "智能模型接口设置",
+              "commandId": "Cmd_AIModelSettings",
+              "id": "GenID_AIModelSettings"
+            },
+            {
+              "header": "显示设置",
+              "commandId": "Cmd_DisplaySettings",
+              "id": "GenID_DisplaySettings"
+            },
+            {
+              "header": "快捷键设置",
+              "commandId": "Cmd_ShortcutSettings",
+              "id": "GenID_ShortcutSettings"
+            }
+          ],
+          "id": "GenID_OptionsSettings"
+        },
+        {
+          "header": "批处理工具",
+          "type": "SubMenu",
+          "children": [
+            {
+              "header": "批量数据导入",
+              "commandId": "Cmd_BatchImport",
+              "id": "GenID_BatchImport"
+            },
+            {
+              "header": "批量图件导出",
+              "commandId": "Cmd_BatchExport",
+              "id": "GenID_BatchExport"
+            }
+          ],
+          "id": "GenID_BatchTools"
+        },
+        {
+          "header": "系统诊断",
+          "type": "SubMenu",
+          "children": [
+            {
+              "header": "日志",
+              "commandId": "Cmd_SystemLog",
+              "id": "GenID_SystemLog"
+            },
+            {
+              "header": "系统测试",
+              "commandId": "Cmd_SystemTest",
+              "id": "GenID_SystemTest"
+            }
+          ],
+          "id": "GenID_SystemDiag"
+        }
+      ],
+      "id": "GenID_ToolsMenu"
+    },
+    {
+      "header": "帮助",
+      "type": "SubMenu",
+      "children": [
+        {
+          "header": "用户手册",
+          "commandId": "Cmd_UserManual",
+          "id": "GenID_UserManual"
+        },
+        {
+          "header": "视频教程",
+          "commandId": "Cmd_VideoTutorial",
+          "id": "GenID_VideoTutorial"
+        },
+        {
+          "header": "快捷键参考",
+          "commandId": "Cmd_ShortcutRef",
+          "id": "GenID_ShortcutRef"
+        },
+        {
+          "header": "检查更新",
+          "commandId": "Cmd_CheckUpdate",
+          "id": "GenID_CheckUpdate"
+        },
+        {
+          "header": "许可证信息",
+          "commandId": "Cmd_License",
+          "id": "GenID_License"
+        },
+        {
+          "header": "关于",
+          "commandId": "Cmd_About",
+          "id": "GenID_About"
+        }
+      ],
+      "id": "GenID_HelpMenu"
+    }
+  ],
+  "contextToolbars": {
+    "Module_DataMgr": [
+      {
+        "header": "导入本地数据",
+        "type": "SubMenu",
+        "children": [
           {
-            "header": "新建三维视图",
-            "commandId": "Cmd_10562974",
-            "id": "GenID_10562974"
+            "header": "导入井位坐标(xlsx/csv/shp)",
+            "commandId": "Cmd_ImportWellCoordFile",
+            "id": "GenID_ImportWellCoordFile"
           },
           {
-            "header": "地震相智能推理",
+            "header": "导入测井数据(las)",
+            "commandId": "Cmd_ImportLAS",
+            "id": "GenID_ImportLAS"
+          },
+          {
+            "header": "导入单井/联井数据(wlp,scg)",
+            "commandId": "Cmd_ImportWLP",
+            "id": "GenID_ImportWLP"
+          },
+          {
+            "header": "导入地震数据(seg/segy)",
             "type": "SubMenu",
             "children": [
               {
-                "header": "根据道号范围",
-                "commandId": "Cmd_2390280",
-                "id": "GenID_2390280"
+                "header": "导入地震原始数据",
+                "commandId": "Cmd_ImportSeismicRaw",
+                "id": "GenID_ImportSeismicRaw"
               },
               {
-                "header": "从工区平面图选择",
-                "commandId": "Cmd_7750331",
-                "id": "GenID_7750331"
+                "header": "导入地震属性体数据",
+                "commandId": "Cmd_ImportSeismicAttr",
+                "id": "GenID_ImportSeismicAttr"
               }
             ],
-            "id": "GenID_14087812"
+            "id": "GenID_ImportSeismic"
           },
-            {
-                "header": "沉积相智能推理",
-                "type": "SubMenu",
-                "children": [
-                    {
-                        "header": "根据道号范围",
-                        "commandId": "Cmd_2390280",
-                        "id": "GenID_2390280"
-                    },
-                    {
-                        "header": "从工区平面图选择",
-                        "commandId": "Cmd_7750331",
-                        "id": "GenID_7750331"
-                    }
-                ],
-                "id": "GenID_14087811"
-            }
+          {
+            "header": "导入层位数据(txt/csv/xlsx)",
+            "commandId": "Cmd_ImportHorizon",
+            "id": "GenID_ImportHorizon"
+          },
+          {
+            "header": "导入时深关系(txt/csv/xlsx)",
+            "commandId": "Cmd_ImportTDR",
+            "id": "GenID_ImportTDR"
+          },
+          {
+            "header": "导入钻井完井报告(pdf/word)",
+            "commandId": "Cmd_ImportDrillingReport",
+            "id": "GenID_ImportDrillingReport"
+          },
+          {
+            "header": "导入地理数据(shp/tif)",
+            "commandId": "Cmd_ImportGeoData",
+            "id": "GenID_ImportGeoData"
+          },
+          {
+            "header": "导入岩心/薄片/(xlsx/png/jpg)",
+            "commandId": "Cmd_ImportCoreThinSection",
+            "id": "GenID_ImportCoreThinSection"
+          },
+          {
+            "header": "导入录井文字描述(word/pdf)",
+            "commandId": "Cmd_ImportMudLog",
+            "id": "GenID_ImportMudLog"
+          }
         ],
-        "Module_Mapping": [
-            {
-                "header": "编图层位选择",
-                "commandId": "Cmd_3190397",
-                "id": "GenID_3190397"
-            },
-            {
-                "header": "编图精度选择(相/亚相/微相)",
-                "commandId": "Cmd_13071655",
-                "id": "GenID_13071655"
-            },
-            {
-                "header": "添加编图数据",
+        "id": "GenID_DataMgr_Import"
+      },
+      {
+        "header": "连接数据湖",
+        "commandId": "Cmd_ConnectDataLake",
+        "id": "GenID_ConnectDataLake"
+      },
+      {
+        "type": "Separator"
+      },
+      {
+        "header": "已标注数据",
+        "type": "SubMenu",
+        "children": [
+          {
+            "header": "已标注测井曲线",
+            "commandId": "Cmd_AnnotatedLog",
+            "id": "GenID_AnnotatedLog"
+          },
+          {
+            "header": "已标注地震剖面",
+            "commandId": "Cmd_AnnotatedSeismic",
+            "id": "GenID_AnnotatedSeismic"
+          },
+          {
+            "header": "已标注井旁地震相沉积相",
+            "commandId": "Cmd_AnnotatedWellSeismicFacies",
+            "id": "GenID_AnnotatedWellSeismicFacies"
+          }
+        ],
+        "id": "GenID_AnnotatedData"
+      },
+      {
+        "header": "智能模型库",
+        "type": "SubMenu",
+        "children": [
+          {
+            "header": "单井相预测模型v1",
+            "commandId": "Cmd_SingleWellFaciesPredV1",
+            "id": "GenID_SingleWellFaciesPredV1"
+          },
+          {
+            "header": "单井相预测模型v2",
+            "commandId": "Cmd_SingleWellFaciesPredV2",
+            "id": "GenID_SingleWellFaciesPredV2"
+          },
+          {
+            "header": "地震相预测模型v1",
+            "commandId": "Cmd_SeismicFaciesPredV1",
+            "id": "GenID_SeismicFaciesPredV1"
+          }
+        ],
+        "id": "GenID_AIModelLib"
+      },
+      {
+        "header": "导出",
+        "type": "SubMenu",
+        "children": [
+          {
+            "header": "导出（数据类型）",
+            "type": "SubMenu",
+            "children": [
+              {
+                "header": "导出（具体格式）",
+                "commandId": "Cmd_ExportFormatSpecific",
+                "id": "GenID_ExportFormatSpecific"
+              }
+            ],
+            "commandId": "Cmd_ExportDataType",
+            "id": "GenID_ExportDataType"
+          }
+        ],
+        "id": "GenID_DataMgr_Export"
+      },
+      {
+        "header": "符号、样式与图例",
+        "type": "SubMenu",
+        "children": [
+          {
+            "header": "点样式库",
+            "commandId": "Cmd_PointStyleLib",
+            "id": "GenID_PointStyleLib"
+          },
+          {
+            "header": "线样式库",
+            "commandId": "Cmd_LineStyleLib",
+            "id": "GenID_LineStyleLib"
+          },
+          {
+            "header": "面样式库",
+            "type": "SubMenu",
+            "children": [
+              {
+                "header": "填充方案",
+                "commandId": "Cmd_FillStyle",
+                "id": "GenID_FillStyle"
+              },
+              {
+                "header": "描边方案",
+                "commandId": "Cmd_StrokeStyle",
+                "id": "GenID_StrokeStyle"
+              }
+            ],
+            "id": "GenID_PolygonStyleLib"
+          },
+          {
+            "header": "颜色方案(色带)库",
+            "commandId": "Cmd_ColorRampLib",
+            "id": "GenID_ColorRampLib"
+          }
+        ],
+        "id": "GenID_SymbolStyleLib"
+      },
+      {
+        "header": "坐标系管理与转换",
+        "commandId": "Cmd_CoordSysManage",
+        "id": "GenID_CoordSysManage"
+      }
+    ],
+    "Module_Strat": [
+      {
+        "header": "新建联井剖面",
+        "type": "SubMenu",
+        "children": [
+          {
+            "header": "从井列表选择",
+            "commandId": "Cmd_CrossSectionFromList",
+            "id": "GenID_CrossSectionFromList"
+          },
+          {
+            "header": "从井位平面图选择",
+            "commandId": "Cmd_CrossSectionFromMap",
+            "id": "GenID_CrossSectionFromMap"
+          }
+        ],
+        "id": "GenID_NewCrossSection"
+      },
+      {
+        "type": "Separator"
+      },
+      {
+        "header": "导入层位数据",
+        "type": "SubMenu",
+        "children": [
+          {
+            "header": "导入井地层数据",
+            "commandId": "Cmd_ImportWellStrat",
+            "id": "GenID_ImportWellStrat"
+          },
+          {
+            "header": "导入地震层位数据",
+            "commandId": "Cmd_ImportSeismicHorizon",
+            "id": "GenID_ImportSeismicHorizon"
+          }
+        ],
+        "id": "GenID_ImportHorizonData"
+      },
+      {
+        "header": "添加井旁地震剖面",
+        "commandId": "Cmd_AddWellSeismicSection",
+        "id": "GenID_AddWellSeismicSection"
+      },
+      {
+        "header": "导入时深关系",
+        "commandId": "Cmd_ImportTDRelation",
+        "id": "GenID_ImportTDRelation"
+      },
+      {
+        "type": "Separator"
+      },
+      {
+        "header": "对比方案管理",
+        "type": "SubMenu",
+        "children": [
+          {
+            "header": "对比方案导入",
+            "commandId": "Cmd_ImportCorrScheme",
+            "id": "GenID_ImportCorrScheme"
+          },
+          {
+            "header": "对比方案修改",
+            "commandId": "Cmd_ModifyCorrScheme",
+            "id": "GenID_ModifyCorrScheme"
+          },
+          {
+            "header": "对比方案删除",
+            "commandId": "Cmd_DeleteCorrScheme",
+            "id": "GenID_DeleteCorrScheme"
+          }
+        ],
+        "id": "GenID_CorrSchemeMgmt"
+      },
+      {
+        "type": "Separator"
+      },
+      {
+        "header": "层拉平",
+        "commandId": "Cmd_LayerFlattening",
+        "id": "GenID_LayerFlattening"
+      },
+      {
+        "header": "导出对比结果",
+        "commandId": "Cmd_ExportCorrResult",
+        "id": "GenID_ExportCorrResult"
+      }
+    ],
+    "Module_SingleWell": [
+      {
+        "header": "导入本地数据",
+        "type": "SubMenu",
+        "children": [
+          {
+            "header": "导入单井数据",
+            "commandId": "Cmd_ImportSingleWell",
+            "id": "GenID_ImportSingleWell"
+          },
+          {
+            "header": "导入联井数据",
+            "commandId": "Cmd_ImportMultiWell",
+            "id": "GenID_ImportMultiWell"
+          },
+          {
+            "header": "导入测井数据",
+            "commandId": "Cmd_ImportLogData",
+            "id": "GenID_ImportLogData"
+          }
+        ],
+        "id": "GenID_SingleWell_Import"
+      },
+      {
+        "header": "连接数据湖",
+        "commandId": "Cmd_ConnectDataLake_Well",
+        "id": "GenID_ConnectDataLake_Well"
+      },
+      {
+        "type": "Separator"
+      },
+      {
+        "header": "新建单井柱状图",
+        "type": "SubMenu",
+        "children": [
+          {
+            "header": "新建道",
+            "type": "SubMenu",
+            "children": [
+              {
+                "header": "深度道",
+                "commandId": "Cmd_NewDepthTrack",
+                "id": "GenID_NewDepthTrack"
+              },
+              {
+                "header": "文本道",
+                "commandId": "Cmd_NewTextTrack",
+                "id": "GenID_NewTextTrack"
+              },
+              {
+                "header": "曲线道",
+                "commandId": "Cmd_NewCurveTrack",
+                "id": "GenID_NewCurveTrack"
+              },
+              {
+                "header": "解释道",
+                "commandId": "Cmd_NewInterpTrack",
+                "id": "GenID_NewInterpTrack"
+              },
+              {
+                "header": "岩性道",
                 "type": "SubMenu",
                 "children": [
-                    {
-                        "header": "从工区平面图添加",
-                        "commandId": "Cmd_8704130",
-                        "id": "GenID_8704130"
-                    },
-                    {
-                        "header": "从井列表选择",
-                        "commandId": "Cmd_9273926",
-                        "id": "GenID_9273926"
-                    }
+                  {
+                    "header": "知识图谱",
+                    "commandId": "Cmd_KnowledgeGraph",
+                    "id": "GenID_KnowledgeGraph"
+                  }
                 ],
-                "id": "GenID_532707"
-            },
-            {
-                "header": "添加单因素图",
-                "type": "SubMenu",
-                "children": [
-                    {
-                        "header": "批量添加单因素图",
-                        "commandId": "Cmd_11338877",
-                        "id": "GenID_11338877"
-                    },
-                    {
-                        "header": "添加地层厚度图",
-                        "commandId": "Cmd_7159001",
-                        "id": "GenID_7159001"
-                    },
-                    {
-                        "header": "添加古地貌图",
-                        "commandId": "Cmd_2140942",
-                        "id": "GenID_2140942"
-                    },
-                    {
-                        "header": "添加砂体厚度图",
-                        "commandId": "Cmd_10794837",
-                        "id": "GenID_10794837"
-                    },
-                    {
-                        "header": "添加砂地比图",
-                        "commandId": "Cmd_14089291",
-                        "id": "GenID_14089291"
-                    },
-                    {
-                        "header": "添加碳酸盐含量图",
-                        "commandId": "Cmd_6932396",
-                        "id": "GenID_6932396"
-                    }
-                ],
-                "id": "GenID_3210711"
-            },
-            {
-                "header": "智能制图工具",
-                "type": "SubMenu",
-                "children": [
-                    {
-                        "header": "边界智能生成",
-                        "commandId": "Cmd_5093700",
-                        "id": "GenID_5093700"
-                    },
-                    {
-                        "header": "花纹智能充填",
-                        "commandId": "Cmd_3982713",
-                        "id": "GenID_3982713"
-                    },
-                    {
-                        "header": "颜色智能充填",
-                        "commandId": "Cmd_11369614",
-                        "id": "GenID_11369614"
-                    },
-                    {
-                        "header": "边界平滑",
-                        "commandId": "Cmd_4784860",
-                        "id": "GenID_4784860"
-                    }
-                ],
-                "id": "GenID_8739012"
-            },
-            {
-                "header": "空间分析工具",
-                "commandId": "Cmd_6768280",
-                "id": "GenID_6768280"
-            },
-            {
-                "header": "绘图工具",
-                "commandId": "Cmd_6373979",
-                "id": "GenID_6373979"
-            },
-            {
-                "header": "样式与可视化",
-                "type": "SubMenu",
-                "children": [
-                    {
-                        "header": "分组可视化",
-                        "commandId": "Cmd_10961862",
-                        "id": "GenID_10961862"
-                    },
-                    {
-                        "header": "唯一值可视化",
-                        "commandId": "Cmd_8301418",
-                        "id": "GenID_8301418"
-                    },
-                    {
-                        "header": "图例设置",
-                        "commandId": "Cmd_2031836",
-                        "id": "GenID_2031836"
-                    }
-                ],
-                "id": "GenID_14138686"
-            },
-            {
-                "header": "导出",
-                "type": "SubMenu",
-                "children": [
-                    {
-                        "header": "导出单因素图",
-                        "commandId": "Cmd_7754755",
-                        "id": "GenID_7754755"
-                    },
-                    {
-                        "header": "导出岩相古地理图",
-                        "commandId": "Cmd_10425107",
-                        "id": "GenID_10425107"
-                    }
-                ],
-                "id": "GenID_10530615"
-            }
-        ]
-    }
+                "commandId": "Cmd_NewLithoTrack",
+                "id": "GenID_NewLithoTrack"
+              },
+              {
+                "header": "岩心照片道",
+                "commandId": "Cmd_NewCorePhotoTrack",
+                "id": "GenID_NewCorePhotoTrack"
+              },
+              {
+                "header": "薄片显微图道",
+                "commandId": "Cmd_NewThinSectionTrack",
+                "id": "GenID_NewThinSectionTrack"
+              }
+            ],
+            "id": "GenID_NewTrack"
+          }
+        ],
+        "id": "GenID_NewWellColumn"
+      },
+      {
+        "header": "新建联井剖面",
+        "type": "SubMenu",
+        "children": [
+          {
+            "header": "从井列表选择",
+            "commandId": "Cmd_CrossSectionFromList_Well",
+            "id": "GenID_CrossSectionFromList_Well"
+          },
+          {
+            "header": "从井位平面图选择",
+            "commandId": "Cmd_CrossSectionFromMap_Well",
+            "id": "GenID_CrossSectionFromMap_Well"
+          }
+        ],
+        "id": "GenID_NewCrossSection_Well"
+      },
+      {
+        "type": "Separator"
+      },
+      {
+        "header": "数据标注工具",
+        "type": "SubMenu",
+        "children": [
+          {
+            "header": "按矩形标注",
+            "commandId": "Cmd_RectAnnotation",
+            "id": "GenID_RectAnnotation"
+          },
+          {
+            "header": "按单元格标注",
+            "commandId": "Cmd_CellAnnotation",
+            "id": "GenID_CellAnnotation"
+          }
+        ],
+        "id": "GenID_AnnotationTool"
+      },
+      {
+        "header": "岩相智能推理",
+        "commandId": "Cmd_LithofaciesInference",
+        "id": "GenID_LithofaciesInference"
+      },
+      {
+        "header": "沉积相智能推理",
+        "commandId": "Cmd_SediFaciesInference",
+        "id": "GenID_SediFaciesInference"
+      },
+      {
+        "header": "推理结果编辑",
+        "type": "SubMenu",
+        "children": [
+          {
+            "header": "单井结果修正",
+            "commandId": "Cmd_SingleWellCorrection",
+            "id": "GenID_SingleWellCorrection"
+          },
+          {
+            "header": "批量修正工具",
+            "commandId": "Cmd_BatchCorrection",
+            "id": "GenID_BatchCorrection"
+          }
+        ],
+        "id": "GenID_InferenceEdit"
+      },
+      {
+        "type": "Separator"
+      },
+      {
+        "header": "导出",
+        "type": "SubMenu",
+        "children": [
+          {
+            "header": "单井柱状图导出",
+            "type": "SubMenu",
+            "children": [
+              {
+                "header": "勾选道",
+                "commandId": "Cmd_CheckTrack",
+                "id": "GenID_CheckTrack"
+              }
+            ],
+            "commandId": "Cmd_ExportWellColumn",
+            "id": "GenID_ExportWellColumn"
+          }
+        ],
+        "id": "GenID_SingleWell_Export"
+      }
+    ],
+    "Module_Seismic": [
+      {
+        "header": "导入本地数据",
+        "commandId": "Cmd_ImportLocalSeismic",
+        "id": "GenID_ImportLocalSeismic"
+      },
+      {
+        "header": "连接数据湖",
+        "commandId": "Cmd_ConnectDataLake_Seismic",
+        "id": "GenID_ConnectDataLake_Seismic"
+      },
+      {
+        "type": "Separator"
+      },
+      {
+        "header": "新建二维地震剖面",
+        "commandId": "Cmd_New2DSeismic",
+        "id": "GenID_New2DSeismic"
+      },
+      {
+        "header": "新建三维视图",
+        "commandId": "Cmd_New3DView",
+        "id": "GenID_New3DView"
+      },
+      {
+        "header": "新建井震联合视图",
+        "commandId": "Cmd_NewWellSeismicView",
+        "id": "GenID_NewWellSeismicView"
+      },
+      {
+        "type": "Separator"
+      },
+      {
+        "header": "层位解释",
+        "type": "SubMenu",
+        "children": [
+          {
+            "header": "导入地震层位",
+            "commandId": "Cmd_ImportSeismicHorizon_Seismic",
+            "id": "GenID_ImportSeismicHorizon_Seismic"
+          },
+          {
+            "header": "手动层位追踪",
+            "commandId": "Cmd_ManualHorizonPicking",
+            "id": "GenID_ManualHorizonPicking"
+          }
+        ],
+        "id": "GenID_HorizonInterp"
+      },
+      {
+        "type": "Separator"
+      },
+      {
+        "header": "地震数据标注",
+        "type": "SubMenu",
+        "children": [
+          {
+            "header": "井旁地震相标注",
+            "commandId": "Cmd_WellSeismicFaciesAnnot",
+            "id": "GenID_WellSeismicFaciesAnnot"
+          },
+          {
+            "header": "已标注地震相",
+            "commandId": "Cmd_AnnotatedSeismicFacies",
+            "id": "GenID_AnnotatedSeismicFacies"
+          }
+        ],
+        "id": "GenID_SeismicAnnotation"
+      },
+      {
+        "header": "地震相智能推理",
+        "type": "SubMenu",
+        "children": [
+          {
+            "header": "根据道号范围",
+            "commandId": "Cmd_SeismicFaciesByTrace",
+            "id": "GenID_SeismicFaciesByTrace"
+          },
+          {
+            "header": "从工区平面图选择",
+            "commandId": "Cmd_SeismicFaciesByMap",
+            "id": "GenID_SeismicFaciesByMap"
+          }
+        ],
+        "id": "GenID_SeismicFaciesInference"
+      },
+      {
+        "header": "沉积相智能推理",
+        "type": "SubMenu",
+        "children": [
+          {
+            "header": "根据道号范围",
+            "commandId": "Cmd_SediFaciesByTrace",
+            "id": "GenID_SediFaciesByTrace"
+          },
+          {
+            "header": "从工区平面图选择",
+            "commandId": "Cmd_SediFaciesByMap",
+            "id": "GenID_SediFaciesByMap"
+          }
+        ],
+        "id": "GenID_SeismicSediFaciesInference"
+      },
+      {
+        "header": "导出",
+        "type": "SubMenu",
+        "children": [
+          {
+            "header": "推理结果导出",
+            "commandId": "Cmd_ExportSeismicInference",
+            "id": "GenID_ExportSeismicInference"
+          },
+          {
+            "header": "导出地震数据",
+            "commandId": "Cmd_ExportSeismicData",
+            "id": "GenID_ExportSeismicData"
+          }
+        ],
+        "id": "GenID_Seismic_Export"
+      }
+    ],
+    "Module_Mapping": [
+      {
+        "header": "编图层位选择",
+        "commandId": "Cmd_SelectMappingHorizon",
+        "id": "GenID_SelectMappingHorizon"
+      },
+      {
+        "header": "时间切片管理",
+        "type": "SubMenu",
+        "children": [
+          {
+            "header": "新建时间切片",
+            "commandId": "Cmd_NewTimeSlice",
+            "id": "GenID_NewTimeSlice"
+          },
+          {
+            "header": "切片顺序调整",
+            "commandId": "Cmd_AdjustSliceOrder",
+            "id": "GenID_AdjustSliceOrder"
+          }
+        ],
+        "id": "GenID_TimeSliceMgmt"
+      },
+      {
+        "type": "Separator"
+      },
+      {
+        "header": "添加编图数据",
+        "type": "SubMenu",
+        "children": [
+          {
+            "header": "从工区平面图添加",
+            "commandId": "Cmd_AddDataFromMap",
+            "id": "GenID_AddDataFromMap"
+          },
+          {
+            "header": "从井列表选择",
+            "commandId": "Cmd_AddDataFromList",
+            "id": "GenID_AddDataFromList"
+          }
+        ],
+        "id": "GenID_AddMappingData"
+      },
+      {
+        "header": "添加单因素图",
+        "type": "SubMenu",
+        "children": [
+          {
+            "header": "批量添加单因素图",
+            "commandId": "Cmd_BatchAddSingleFactor",
+            "id": "GenID_BatchAddSingleFactor"
+          },
+          {
+            "header": "添加地层厚度图",
+            "commandId": "Cmd_AddThicknessMap",
+            "id": "GenID_AddThicknessMap"
+          },
+          {
+            "header": "添加古地貌图",
+            "commandId": "Cmd_AddPaleogeomorphMap",
+            "id": "GenID_AddPaleogeomorphMap"
+          },
+          {
+            "header": "添加砂体厚度图",
+            "commandId": "Cmd_AddSandThicknessMap",
+            "id": "GenID_AddSandThicknessMap"
+          },
+          {
+            "header": "添加砂地比图",
+            "commandId": "Cmd_AddNTGMap",
+            "id": "GenID_AddNTGMap"
+          },
+          {
+            "header": "添加碳酸盐含量图",
+            "commandId": "Cmd_AddCarbonateMap",
+            "id": "GenID_AddCarbonateMap"
+          },
+          {
+            "header": "添加孔隙度等值线图",
+            "commandId": "Cmd_AddPorosityContour",
+            "id": "GenID_AddPorosityContour"
+          },
+          {
+            "header": "添加渗透率等值线图",
+            "commandId": "Cmd_AddPermContour",
+            "id": "GenID_AddPermContour"
+          },
+          {
+            "header": "添加地震属性切片图",
+            "commandId": "Cmd_AddSeismicAttrSlice",
+            "id": "GenID_AddSeismicAttrSlice"
+          }
+        ],
+        "id": "GenID_AddSingleFactorMap"
+      },
+      {
+        "header": "添加沉积模式",
+        "type": "SubMenu",
+        "children": [
+          {
+            "header": "识别沉积体系",
+            "commandId": "Cmd_IdentifyDepSys",
+            "id": "GenID_IdentifyDepSys"
+          },
+          {
+            "header": "选择沉积相模式",
+            "type": "SubMenu",
+            "children": [
+              {
+                "header": "冲积扇体系",
+                "commandId": "Cmd_AlluvialFan",
+                "id": "GenID_AlluvialFan"
+              },
+              {
+                "header": "河流体系",
+                "commandId": "Cmd_Fluvial",
+                "id": "GenID_Fluvial"
+              },
+              {
+                "header": "三角洲体系",
+                "commandId": "Cmd_Delta",
+                "id": "GenID_Delta"
+              },
+              {
+                "header": "海底扇体系",
+                "commandId": "Cmd_SubmarineFan",
+                "id": "GenID_SubmarineFan"
+              },
+              {
+                "header": "碳酸盐岩台地体系",
+                "commandId": "Cmd_CarbonatePlatform",
+                "id": "GenID_CarbonatePlatform"
+              }
+            ],
+            "id": "GenID_SelectSediPattern"
+          }
+        ],
+        "id": "GenID_AddSediPattern"
+      },
+      {
+        "type": "Separator"
+      },
+      {
+        "header": "智能制图工具",
+        "type": "SubMenu",
+        "children": [
+          {
+            "header": "边界智能生成",
+            "commandId": "Cmd_SmartBoundary",
+            "id": "GenID_SmartBoundary"
+          },
+          {
+            "header": "花纹智能充填",
+            "commandId": "Cmd_SmartPatternFill",
+            "id": "GenID_SmartPatternFill"
+          },
+          {
+            "header": "颜色智能充填",
+            "commandId": "Cmd_SmartColorFill",
+            "id": "GenID_SmartColorFill"
+          },
+          {
+            "header": "边界平滑",
+            "commandId": "Cmd_BoundarySmooth",
+            "id": "GenID_BoundarySmooth"
+          },
+          {
+            "header": "网格化与插值算法",
+            "type": "SubMenu",
+            "children": [
+              {
+                "header": "克里金 Kriging",
+                "commandId": "Cmd_Kriging",
+                "id": "GenID_Kriging"
+              },
+              {
+                "header": "反距离加权 IDW",
+                "commandId": "Cmd_IDW",
+                "id": "GenID_IDW"
+              },
+              {
+                "header": "最小曲率法",
+                "commandId": "Cmd_MinCurvature",
+                "id": "GenID_MinCurvature"
+              }
+            ],
+            "id": "GenID_GridInterp"
+          }
+        ],
+        "id": "GenID_SmartMappingTool"
+      },
+      {
+        "header": "空间分析工具",
+        "commandId": "Cmd_SpatialAnalysis",
+        "id": "GenID_SpatialAnalysis"
+      },
+      {
+        "header": "绘图工具",
+        "type": "SubMenu",
+        "children": [
+          {
+            "header": "添加文本",
+            "commandId": "Cmd_AddText",
+            "id": "GenID_AddText"
+          },
+          {
+            "header": "添加箭头",
+            "commandId": "Cmd_AddArrow",
+            "id": "GenID_AddArrow"
+          },
+          {
+            "header": "添加图框",
+            "commandId": "Cmd_AddFrame",
+            "id": "GenID_AddFrame"
+          },
+          {
+            "header": "添加点\\线\\面",
+            "commandId": "Cmd_AddGeometry",
+            "id": "GenID_AddGeometry"
+          }
+        ],
+        "id": "GenID_DrawingTool"
+      },
+      {
+        "header": "样式与可视化",
+        "type": "SubMenu",
+        "children": [
+          {
+            "header": "分组可视化",
+            "commandId": "Cmd_GroupVis",
+            "id": "GenID_GroupVis"
+          },
+          {
+            "header": "唯一值可视化",
+            "commandId": "Cmd_UniqueValueVis",
+            "id": "GenID_UniqueValueVis"
+          },
+          {
+            "header": "图例设置",
+            "type": "SubMenu",
+            "children": [
+              {
+                "header": "标准图例库管理",
+                "commandId": "Cmd_LegendLibMgr",
+                "id": "GenID_LegendLibMgr"
+              }
+            ],
+            "id": "GenID_LegendSettings"
+          }
+        ],
+        "id": "GenID_StyleAndVis"
+      },
+      {
+        "type": "Separator"
+      },
+      {
+        "header": "导出",
+        "type": "SubMenu",
+        "children": [
+          {
+            "header": "导出单因素图",
+            "commandId": "Cmd_ExportSingleFactor",
+            "id": "GenID_ExportSingleFactor"
+          },
+          {
+            "header": "导出岩相古地理图",
+            "commandId": "Cmd_ExportPaleoMap",
+            "id": "GenID_ExportPaleoMap"
+          },
+          {
+            "header": "导出时间序列演化图",
+            "commandId": "Cmd_ExportTimeSeq",
+            "id": "GenID_ExportTimeSeq"
+          }
+        ],
+        "id": "GenID_Mapping_Export"
+      }
+    ]
+  }
 }

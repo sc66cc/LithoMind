@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.IO;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Avalonia.Media.Imaging;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -109,6 +111,58 @@ namespace DeepTime.LithoMind.Desktop.ViewModels.Pages
 		[ObservableProperty]
 		private ObservableCollection<InferenceResult> _inferenceResults = new();
 
+		#region 标注功能相关属性
+
+		/// <summary>
+		/// 是否启用标注模式
+		/// </summary>
+		[ObservableProperty]
+		private bool _isAnnotationMode;
+
+		/// <summary>
+		/// 是否正在绘制矩形
+		/// </summary>
+		[ObservableProperty]
+		private bool _isDrawingAnnotation;
+
+		/// <summary>
+		/// 标注列表
+		/// </summary>
+		[ObservableProperty]
+		private ObservableCollection<WellAnnotation> _annotations = new();
+
+		/// <summary>
+		/// 当前选中的标注
+		/// </summary>
+		[ObservableProperty]
+		private WellAnnotation? _selectedAnnotation;
+
+		/// <summary>
+		/// 当前绘制中的标注（临时）
+		/// </summary>
+		[ObservableProperty]
+		private WellAnnotation? _currentDrawingAnnotation;
+
+		/// <summary>
+		/// 标注模式状态文本
+		/// </summary>
+		[ObservableProperty]
+		private string _annotationModeText = "标注模式: 关闭";
+
+		/// <summary>
+		/// 图片实际高度（用于深度换算）
+		/// </summary>
+		[ObservableProperty]
+		private double _imageActualHeight;
+
+		/// <summary>
+		/// 图片实际宽度
+		/// </summary>
+		[ObservableProperty]
+		private double _imageActualWidth;
+
+		#endregion
+
 		/// <summary>
 		/// 深度段选择事件 - 通知属性窗口更新
 		/// </summary>
@@ -123,6 +177,16 @@ namespace DeepTime.LithoMind.Desktop.ViewModels.Pages
 		/// 道添加事件 - 用于通知UI更新
 		/// </summary>
 		public event Action<WellLogTrack>? TrackAdded;
+
+		/// <summary>
+		/// 标注更新事件 - 通知属性面板更新标注列表
+		/// </summary>
+		public event Action<string, ObservableCollection<WellAnnotation>>? AnnotationsChanged;
+
+		/// <summary>
+		/// 标注选中事件 - 通知属性面板选中某个标注
+		/// </summary>
+		public event Action<WellAnnotation?>? AnnotationSelected;
 
 		public WellColumnViewModel()
 		{
@@ -452,6 +516,259 @@ namespace DeepTime.LithoMind.Desktop.ViewModels.Pages
 				SedimentaryFacies = "潮坪相",
 				Confidence = 0.85
 			});
+		}
+
+		#endregion
+
+		#region 矩形标注功能
+
+		/// <summary>
+		/// 切换标注模式
+		/// </summary>
+		[RelayCommand]
+		public void ToggleAnnotationMode()
+		{
+			IsAnnotationMode = !IsAnnotationMode;
+			AnnotationModeText = IsAnnotationMode ? "标注模式: 开启 (拖拽绘制矩形)" : "标注模式: 关闭";
+
+			if (!IsAnnotationMode)
+			{
+				IsDrawingAnnotation = false;
+				CurrentDrawingAnnotation = null;
+			}
+		}
+
+		/// <summary>
+		/// 启用标注模式（从菜单调用）
+		/// </summary>
+		[RelayCommand]
+		public void EnableAnnotationMode()
+		{
+			IsAnnotationMode = true;
+			AnnotationModeText = "标注模式: 开启 (拖拽绘制矩形)";
+
+			// 通知属性面板切换到标注模式
+			AnnotationsChanged?.Invoke(WellName, Annotations);
+		}
+
+		/// <summary>
+		/// 开始绘制标注矩形
+		/// </summary>
+		public void StartDrawingAnnotation(double x, double y)
+		{
+			if (!IsAnnotationMode) return;
+
+			IsDrawingAnnotation = true;
+			CurrentDrawingAnnotation = new WellAnnotation
+			{
+				CanvasLeft = x,
+				CanvasTop = y,
+				CanvasWidth = 0,
+				CanvasHeight = 0,
+				Color = GetNextAnnotationColor()
+			};
+		}
+
+		/// <summary>
+		/// 更新绘制中的矩形
+		/// </summary>
+		public void UpdateDrawingAnnotation(double x, double y)
+		{
+			if (!IsDrawingAnnotation || CurrentDrawingAnnotation == null) return;
+
+			double startX = CurrentDrawingAnnotation.CanvasLeft;
+			double startY = CurrentDrawingAnnotation.CanvasTop;
+
+			// 计算矩形位置和尺寸（支持任意方向拖拽）
+			double left = Math.Min(startX, x);
+			double top = Math.Min(startY, y);
+			double width = Math.Abs(x - startX);
+			double height = Math.Abs(y - startY);
+
+			CurrentDrawingAnnotation.CanvasLeft = left;
+			CurrentDrawingAnnotation.CanvasTop = top;
+			CurrentDrawingAnnotation.CanvasWidth = width;
+			CurrentDrawingAnnotation.CanvasHeight = height;
+		}
+
+		/// <summary>
+		/// 完成绘制标注矩形
+		/// </summary>
+		public void FinishDrawingAnnotation()
+		{
+			if (!IsDrawingAnnotation || CurrentDrawingAnnotation == null) return;
+
+			// 只有矩形足够大才添加
+			if (CurrentDrawingAnnotation.CanvasWidth > 10 && CurrentDrawingAnnotation.CanvasHeight > 10)
+			{
+				// 根据画布位置计算深度
+				CalculateDepthFromCanvas(CurrentDrawingAnnotation);
+
+				Annotations.Add(CurrentDrawingAnnotation);
+				SelectedAnnotation = CurrentDrawingAnnotation;
+
+				// 通知属性面板更新
+				AnnotationsChanged?.Invoke(WellName, Annotations);
+				AnnotationSelected?.Invoke(CurrentDrawingAnnotation);
+			}
+
+			IsDrawingAnnotation = false;
+			CurrentDrawingAnnotation = null;
+		}
+
+		/// <summary>
+		/// 根据画布位置计算深度
+		/// </summary>
+		private void CalculateDepthFromCanvas(WellAnnotation annotation)
+		{
+			if (ImageActualHeight <= 0) return;
+
+			double depthRange = DepthEnd - DepthStart;
+			double pixelPerMeter = ImageActualHeight / depthRange;
+
+			// 从画布Y坐标换算为深度
+			annotation.DepthTop = DepthStart + (annotation.CanvasTop / pixelPerMeter);
+			annotation.DepthBottom = DepthStart + ((annotation.CanvasTop + annotation.CanvasHeight) / pixelPerMeter);
+
+			// 确保顶部深度小于底部深度
+			if (annotation.DepthTop > annotation.DepthBottom)
+			{
+				(annotation.DepthTop, annotation.DepthBottom) = (annotation.DepthBottom, annotation.DepthTop);
+			}
+		}
+
+		/// <summary>
+		/// 选中标注
+		/// </summary>
+		[RelayCommand]
+		public void SelectAnnotation(WellAnnotation? annotation)
+		{
+			// 取消之前选中的
+			if (SelectedAnnotation != null)
+			{
+				SelectedAnnotation.IsSelected = false;
+			}
+
+			SelectedAnnotation = annotation;
+
+			if (annotation != null)
+			{
+				annotation.IsSelected = true;
+			}
+
+			AnnotationSelected?.Invoke(annotation);
+		}
+
+		/// <summary>
+		/// 删除标注
+		/// </summary>
+		[RelayCommand]
+		public void DeleteAnnotation(WellAnnotation? annotation)
+		{
+			if (annotation == null) return;
+
+			Annotations.Remove(annotation);
+
+			if (SelectedAnnotation == annotation)
+			{
+				SelectedAnnotation = null;
+			}
+
+			AnnotationsChanged?.Invoke(WellName, Annotations);
+		}
+
+		/// <summary>
+		/// 删除选中的标注
+		/// </summary>
+		[RelayCommand]
+		public void DeleteSelectedAnnotation()
+		{
+			if (SelectedAnnotation != null)
+			{
+				DeleteAnnotation(SelectedAnnotation);
+			}
+		}
+
+		/// <summary>
+		/// 清除所有标注
+		/// </summary>
+		[RelayCommand]
+		public void ClearAllAnnotations()
+		{
+			Annotations.Clear();
+			SelectedAnnotation = null;
+			AnnotationsChanged?.Invoke(WellName, Annotations);
+		}
+
+		/// <summary>
+		/// 导出标注为JSON
+		/// </summary>
+		[RelayCommand]
+		public async Task ExportAnnotationsToJson()
+		{
+			if (Annotations.Count == 0) return;
+
+			var exportData = new AnnotationExportData
+			{
+				WellName = WellName,
+				ExportTime = DateTime.Now,
+				TotalAnnotations = Annotations.Count,
+				Annotations = new ObservableCollection<AnnotationExportItem>()
+			};
+
+			foreach (var ann in Annotations)
+			{
+				exportData.Annotations.Add(new AnnotationExportItem
+				{
+					Id = ann.Id,
+					DepthTop = ann.DepthTop,
+					DepthBottom = ann.DepthBottom,
+					HorizonName = ann.HorizonName,
+					SedimentaryFacies = WellAnnotation.GetSedimentaryFaciesName(ann.SedimentaryFacies),
+					LogFacies = WellAnnotation.GetLogFaciesName(ann.LogFacies),
+					Description = ann.Description,
+					CreatedTime = ann.CreatedTime
+				});
+			}
+
+			var options = new JsonSerializerOptions
+			{
+				WriteIndented = true,
+				Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping
+			};
+
+			string json = JsonSerializer.Serialize(exportData, options);
+
+			// 保存到文件
+			string fileName = $"Annotations_{WellName}_{DateTime.Now:yyyyMMdd_HHmmss}.json";
+			string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+			string filePath = Path.Combine(documentsPath, "LithoMind", fileName);
+
+			// 确保目录存在
+			Directory.CreateDirectory(Path.GetDirectoryName(filePath)!);
+
+			await File.WriteAllTextAsync(filePath, json);
+
+			// 可以在这里添加一个通知
+			System.Diagnostics.Debug.WriteLine($"标注已导出到: {filePath}");
+		}
+
+		/// <summary>
+		/// 获取下一个标注的颜色
+		/// </summary>
+		private string GetNextAnnotationColor()
+		{
+			string[] colors = { "#3498DB", "#E74C3C", "#27AE60", "#F39C12", "#9B59B6", "#1ABC9C", "#E67E22", "#2ECC71" };
+			return colors[Annotations.Count % colors.Length];
+		}
+
+		/// <summary>
+		/// 更新标注信息
+		/// </summary>
+		public void UpdateAnnotation(WellAnnotation annotation)
+		{
+			// 触发属性更新通知
+			AnnotationsChanged?.Invoke(WellName, Annotations);
 		}
 
 		#endregion

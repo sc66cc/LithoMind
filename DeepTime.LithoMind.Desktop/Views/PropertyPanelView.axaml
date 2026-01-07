@@ -1,40 +1,41 @@
-<UserControl xmlns="https://github.com/avaloniaui"
+﻿<UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:vm="using:DeepTime.LithoMind.Desktop.ViewModels.Pages"
              x:Class="DeepTime.LithoMind.Desktop.Views.PropertyPanelView"
              x:DataType="vm:PropertyPanelViewModel">
-    
+
     <Grid RowDefinitions="Auto,*,Auto">
         <!-- 顶部标题栏 -->
         <Border Grid.Row="0" Background="#2C3E50" Padding="8">
             <Grid ColumnDefinitions="*,Auto,Auto">
                 <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="8">
-                    <TextBlock Text="📋" FontSize="16" VerticalAlignment="Center"/>
                     <TextBlock Text="属性窗口" FontSize="14" Foreground="White" FontWeight="Bold" VerticalAlignment="Center"/>
                 </StackPanel>
                 <!-- 刷新按钮 -->
-                <Button Grid.Column="1" 
-                        Content="🔄" 
+                <Button Grid.Column="1"
+                        Content="刷新"
                         ToolTip.Tip="刷新数据"
                         Command="{Binding RefreshDataCommand}"
                         Background="Transparent"
                         Foreground="White"
                         BorderThickness="0"
                         Padding="5"
+                        FontSize="11"
                         Cursor="Hand"/>
                 <!-- 清除按钮 -->
-                <Button Grid.Column="2" 
-                        Content="🗑️" 
+                <Button Grid.Column="2"
+                        Content="清除"
                         ToolTip.Tip="清除数据"
                         Command="{Binding ClearDataCommand}"
                         Background="Transparent"
                         Foreground="White"
                         BorderThickness="0"
                         Padding="5"
+                        FontSize="11"
                         Cursor="Hand"/>
             </Grid>
         </Border>
-        
+
         <!-- 主内容区 -->
         <Border Grid.Row="1" Background="#FAFAFA">
             <Grid>
@@ -42,35 +43,34 @@
                 <StackPanel IsVisible="{Binding !HasData}"
                             VerticalAlignment="Center"
                             HorizontalAlignment="Center">
-                    <TextBlock Text="📭" FontSize="48" HorizontalAlignment="Center"/>
-                    <TextBlock Text="暂无属性数据" 
-                               FontSize="14" 
+                    <TextBlock Text="暂无属性数据"
+                               FontSize="14"
                                Foreground="#7F8C8D"
                                Margin="0,10,0,0"/>
-                    <TextBlock Text="请在综合柱状图中选择深度段" 
-                               FontSize="12" 
+                    <TextBlock Text="请在综合柱状图中选择深度段"
+                               FontSize="12"
                                Foreground="#95A5A6"
                                Margin="0,5,0,0"/>
                 </StackPanel>
-                
+
                 <!-- 数据显示区域 -->
-                <Grid IsVisible="{Binding HasData}" 
+                <Grid IsVisible="{Binding HasData}"
                       RowDefinitions="Auto,*,Auto">
-                    
+
                     <!-- 井信息头部 -->
                     <Border Grid.Row="0" Background="#ECF0F1" Padding="10">
                         <StackPanel Spacing="5">
                             <StackPanel Orientation="Horizontal" Spacing="8">
-                                <TextBlock Text="🛢️" FontSize="14"/>
-                                <TextBlock Text="{Binding CurrentWellName}" 
-                                           FontSize="14" 
-                                           FontWeight="Bold" 
+                                <TextBlock Text="井:" FontSize="12"/>
+                                <TextBlock Text="{Binding CurrentWellName}"
+                                           FontSize="14"
+                                           FontWeight="Bold"
                                            Foreground="#2C3E50"/>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal" Spacing="8">
-                                <TextBlock Text="📏" FontSize="12"/>
-                                <TextBlock Text="{Binding CurrentDepthRange}" 
-                                           FontSize="12" 
+                                <TextBlock Text="深度:" FontSize="10"/>
+                                <TextBlock Text="{Binding CurrentDepthRange}"
+                                           FontSize="12"
                                            Foreground="#7F8C8D"/>
                             </StackPanel>
                             <!-- 推理结果标记 -->
@@ -81,7 +81,6 @@
                                     HorizontalAlignment="Left"
                                     Margin="0,3,0,0">
                                 <StackPanel Orientation="Horizontal" Spacing="5">
-                                    <TextBlock Text="🧠" FontSize="11" Foreground="White"/>
                                     <TextBlock Text="AI智能推理结果" FontSize="11" Foreground="White" FontWeight="SemiBold"/>
                                 </StackPanel>
                             </Border>
@@ -93,21 +92,337 @@
                                     HorizontalAlignment="Left"
                                     Margin="0,3,0,0">
                                 <StackPanel Orientation="Horizontal" Spacing="5">
-                                    <TextBlock Text="🌊" FontSize="11" Foreground="White"/>
                                     <TextBlock Text="地震相AI推理结果" FontSize="11" Foreground="White" FontWeight="SemiBold"/>
+                                </StackPanel>
+                            </Border>
+                            <!-- 标注模式标记 -->
+                            <Border IsVisible="{Binding ShowAnnotationMode}"
+                                    Background="#E74C3C"
+                                    CornerRadius="4"
+                                    Padding="6,3"
+                                    HorizontalAlignment="Left"
+                                    Margin="0,3,0,0">
+                                <StackPanel Orientation="Horizontal" Spacing="5">
+                                    <TextBlock Text="[] 标注编辑模式" FontSize="11" Foreground="White" FontWeight="SemiBold"/>
+                                </StackPanel>
+                            </Border>
+                            <!-- 地震标注模式标记 -->
+                            <Border IsVisible="{Binding ShowSeismicAnnotationMode}"
+                                    Background="#9B59B6"
+                                    CornerRadius="4"
+                                    Padding="6,3"
+                                    HorizontalAlignment="Left"
+                                    Margin="0,3,0,0">
+                                <StackPanel Orientation="Horizontal" Spacing="5">
+                                    <TextBlock Text="地震标注模式" FontSize="11" Foreground="White" FontWeight="SemiBold"/>
                                 </StackPanel>
                             </Border>
                         </StackPanel>
                     </Border>
-                    
-                    <!-- 深度段属性列表 - 可编辑 -->
+
+                    <!-- 标注列表 - 仅在标注模式下显示 -->
+                    <ScrollViewer Grid.Row="1" Padding="5" IsVisible="{Binding ShowAnnotationMode}">
+                        <ItemsControl ItemsSource="{Binding Annotations}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate x:DataType="vm:WellAnnotation">
+                                    <Border Background="White"
+                                            CornerRadius="6"
+                                            Padding="10"
+                                            Margin="5"
+                                            BorderThickness="2">
+                                        <Border.BorderBrush>
+                                            <SolidColorBrush Color="{Binding Color}"/>
+                                        </Border.BorderBrush>
+                                        <Grid>
+                                            <!-- 右上角删除按钮 -->
+                                            <Button HorizontalAlignment="Right"
+                                                    VerticalAlignment="Top"
+                                                    Margin="0,0,0,0"
+                                                    Width="30"
+                                                    Height="22"
+                                                    Padding="0"
+                                                    CornerRadius="11"
+                                                    Background="White"
+                                                    Foreground="Red"
+                                                    FontSize="12"
+                                                    FontWeight="Bold"
+                                                    Content="删除"
+                                                    Cursor="Hand"
+                                                    ToolTip.Tip="删除此标注"
+                                                    Command="{Binding $parent[UserControl].((vm:PropertyPanelViewModel)DataContext).DeleteAnnotationCommand}"
+                                                    CommandParameter="{Binding}"
+                                                    ZIndex="10"/>
+
+                                            <StackPanel Spacing="8" Margin="0,0,15,0">
+                                                <!-- 深度范围标题 -->
+                                                <Border CornerRadius="4" Padding="8,4">
+                                                    <Border.Background>
+                                                        <SolidColorBrush Color="{Binding Color}"/>
+                                                    </Border.Background>
+                                                    <Grid ColumnDefinitions="Auto,*,Auto,10,Auto,*,Auto">
+                                                        <TextBlock Grid.Column="0" Text="顶:" FontSize="11" Foreground="White" VerticalAlignment="Center"/>
+                                                        <TextBox Grid.Column="1"
+                                                                 Text="{Binding DepthTop, Mode=TwoWay, StringFormat={}{0:F1}}"
+                                                                 FontSize="11"
+                                                                 Background="White"
+                                                                 Padding="4,2"
+                                                                 MinWidth="50"
+                                                                 HorizontalAlignment="Stretch"/>
+                                                        <TextBlock Grid.Column="2" Text="m" FontSize="11" Foreground="White" VerticalAlignment="Center" Margin="4,0"/>
+                                                        <TextBlock Grid.Column="4" Text="底:" FontSize="11" Foreground="White" VerticalAlignment="Center"/>
+                                                        <TextBox Grid.Column="5"
+                                                                 Text="{Binding DepthBottom, Mode=TwoWay, StringFormat={}{0:F1}}"
+                                                                 FontSize="11"
+                                                                 Background="White"
+                                                                 Padding="4,2"
+                                                                 MinWidth="50"
+                                                                 HorizontalAlignment="Stretch"/>
+                                                        <TextBlock Grid.Column="6" Text="m" FontSize="11" Foreground="White" VerticalAlignment="Center" Margin="4,0"/>
+                                                    </Grid>
+                                                </Border>
+
+                                                <!-- 层位 - 单选下拉框 -->
+                                                <Grid ColumnDefinitions="70,*">
+                                                    <TextBlock Grid.Column="0"
+                                                               Text="层位:"
+                                                               FontSize="12"
+                                                               Foreground="#7F8C8D"
+                                                               VerticalAlignment="Center"/>
+                                                    <ComboBox Grid.Column="1"
+                                                              ItemsSource="{Binding $parent[UserControl].((vm:PropertyPanelViewModel)DataContext).HorizonOptionsList}"
+                                                              SelectedValue="{Binding Horizon, Mode=TwoWay}"
+                                                              SelectedValueBinding="{Binding Type}"
+                                                              DisplayMemberBinding="{Binding DisplayName}"
+                                                              FontSize="12"
+                                                              MinHeight="28"
+                                                              HorizontalAlignment="Stretch"/>
+                                                </Grid>
+
+                                                <!-- 沉积相 - 单选下拉框 -->
+                                                <Grid ColumnDefinitions="70,*">
+                                                    <TextBlock Grid.Column="0"
+                                                               Text="沉积相:"
+                                                               FontSize="12"
+                                                               Foreground="#7F8C8D"
+                                                               VerticalAlignment="Center"/>
+                                                    <ComboBox Grid.Column="1"
+                                                              ItemsSource="{Binding $parent[UserControl].((vm:PropertyPanelViewModel)DataContext).SedimentaryFaciesOptions}"
+                                                              SelectedValue="{Binding SedimentaryFacies, Mode=TwoWay}"
+                                                              SelectedValueBinding="{Binding Type}"
+                                                              DisplayMemberBinding="{Binding DisplayName}"
+                                                              FontSize="12"
+                                                              MinHeight="28"
+                                                              HorizontalAlignment="Stretch"/>
+                                                </Grid>
+
+                                                <!-- 测井相 - 单选下拉框 -->
+                                                <Grid ColumnDefinitions="70,*">
+                                                    <TextBlock Grid.Column="0"
+                                                               Text="测井相:"
+                                                               FontSize="12"
+                                                               Foreground="#7F8C8D"
+                                                               VerticalAlignment="Center"/>
+                                                    <ComboBox Grid.Column="1"
+                                                              ItemsSource="{Binding $parent[UserControl].((vm:PropertyPanelViewModel)DataContext).LogFaciesOptions}"
+                                                              SelectedValue="{Binding LogFacies, Mode=TwoWay}"
+                                                              SelectedValueBinding="{Binding Type}"
+                                                              DisplayMemberBinding="{Binding DisplayName}"
+                                                              FontSize="12"
+                                                              MinHeight="28"
+                                                              HorizontalAlignment="Stretch"/>
+                                                </Grid>
+
+                                                <!-- 描述 -->
+                                                <Grid ColumnDefinitions="70,*">
+                                                    <TextBlock Grid.Column="0"
+                                                               Text="描述:"
+                                                               FontSize="12"
+                                                               Foreground="#7F8C8D"
+                                                               VerticalAlignment="Top"
+                                                               Margin="0,5,0,0"/>
+                                                    <TextBox Grid.Column="1"
+                                                             Text="{Binding Description, Mode=TwoWay}"
+                                                             FontSize="11"
+                                                             AcceptsReturn="True"
+                                                             TextWrapping="Wrap"
+                                                             MinHeight="50"
+                                                             MaxHeight="80"
+                                                             Watermark="输入描述信息..."/>
+                                                </Grid>
+
+                                                <!-- 标注ID和时间 -->
+                                                <Border Background="#F5F5F5" CornerRadius="4" Padding="6">
+                                                    <StackPanel Orientation="Horizontal" Spacing="15">
+                                                        <TextBlock Text="{Binding Id, StringFormat='ID: {0}'}" FontSize="9" Foreground="#95A5A6"/>
+                                                        <TextBlock Text="{Binding CreatedTime, StringFormat='创建: {0:MM-dd HH:mm}'}" FontSize="9" Foreground="#95A5A6"/>
+                                                    </StackPanel>
+                                                </Border>
+                                            </StackPanel>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+
+                    <!-- 地震标注列表 - 仅在地震标注模式下显示 -->
+                    <ScrollViewer Grid.Row="1" Padding="5" IsVisible="{Binding ShowSeismicAnnotationMode}">
+                        <ItemsControl ItemsSource="{Binding SeismicAnnotations}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate x:DataType="vm:SeismicPolygonAnnotation">
+                                    <Border Background="White"
+                                            CornerRadius="6"
+                                            Padding="10"
+                                            Margin="5"
+                                            BorderThickness="2">
+                                        <Border.BorderBrush>
+                                            <SolidColorBrush Color="{Binding Color}"/>
+                                        </Border.BorderBrush>
+                                        <Grid>
+                                            <!-- 右上角删除按钮 -->
+                                            <Button HorizontalAlignment="Right"
+                                                    VerticalAlignment="Top"
+                                                    Margin="0,0,0,0"
+                                                    Width="30"
+                                                    Height="22"
+                                                    Padding="0"
+                                                    CornerRadius="11"
+                                                    Background="White"
+                                                    Foreground="Red"
+                                                    FontSize="12"
+                                                    FontWeight="Bold"
+                                                    Content="删除"
+                                                    Cursor="Hand"
+                                                    ToolTip.Tip="删除此标注"
+                                                    Command="{Binding $parent[UserControl].((vm:PropertyPanelViewModel)DataContext).DeleteSeismicAnnotationCommand}"
+                                                    CommandParameter="{Binding}"
+                                                    ZIndex="10"/>
+
+                                            <StackPanel Spacing="8" Margin="0,0,15,0">
+                                                <!-- 时间范围标题 -->
+                                                <Border CornerRadius="4" Padding="8,4">
+                                                    <Border.Background>
+                                                        <SolidColorBrush Color="{Binding Color}"/>
+                                                    </Border.Background>
+                                                    <Grid ColumnDefinitions="Auto,*,Auto,10,Auto,*,Auto">
+                                                        <TextBlock Grid.Column="0" Text="起始:" FontSize="11" Foreground="White" VerticalAlignment="Center"/>
+                                                        <TextBox Grid.Column="1"
+                                                                 Text="{Binding TimeStart, Mode=TwoWay, StringFormat={}{0:F0}}"
+                                                                 FontSize="11"
+                                                                 Background="White"
+                                                                 Padding="4,2"
+                                                                 MinWidth="50"
+                                                                 HorizontalAlignment="Stretch"/>
+                                                        <TextBlock Grid.Column="2" Text="ms" FontSize="11" Foreground="White" VerticalAlignment="Center" Margin="4,0"/>
+                                                        <TextBlock Grid.Column="4" Text="结束:" FontSize="11" Foreground="White" VerticalAlignment="Center"/>
+                                                        <TextBox Grid.Column="5"
+                                                                 Text="{Binding TimeEnd, Mode=TwoWay, StringFormat={}{0:F0}}"
+                                                                 FontSize="11"
+                                                                 Background="White"
+                                                                 Padding="4,2"
+                                                                 MinWidth="50"
+                                                                 HorizontalAlignment="Stretch"/>
+                                                        <TextBlock Grid.Column="6" Text="ms" FontSize="11" Foreground="White" VerticalAlignment="Center" Margin="4,0"/>
+                                                    </Grid>
+                                                </Border>
+
+                                                <!-- 地震相 - 单选下拉框 -->
+                                                <Grid ColumnDefinitions="70,*">
+                                                    <TextBlock Grid.Column="0"
+                                                               Text="地震相:"
+                                                               FontSize="12"
+                                                               Foreground="#7F8C8D"
+                                                               VerticalAlignment="Center"/>
+                                                    <ComboBox Grid.Column="1"
+                                                              ItemsSource="{Binding $parent[UserControl].((vm:PropertyPanelViewModel)DataContext).SeismicFaciesOptions}"
+                                                              SelectedValue="{Binding SeismicFacies, Mode=TwoWay}"
+                                                              SelectedValueBinding="{Binding Type}"
+                                                              DisplayMemberBinding="{Binding DisplayName}"
+                                                              FontSize="12"
+                                                              MinHeight="28"
+                                                              HorizontalAlignment="Stretch"/>
+                                                </Grid>
+
+                                                <!-- 沉积相 - 多选复选框 -->
+                                                <Grid ColumnDefinitions="70,*">
+                                                    <TextBlock Grid.Column="0"
+                                                               Text="沉积相:"
+                                                               FontSize="12"
+                                                               Foreground="#7F8C8D"
+                                                               VerticalAlignment="Top"
+                                                               Margin="0,5,0,0"/>
+                                                    <Border Grid.Column="1"
+                                                            Background="#F8F9FA"
+                                                            CornerRadius="4"
+                                                            Padding="5"
+                                                            BorderBrush="#E0E0E0"
+                                                            BorderThickness="1">
+                                                        <ItemsControl ItemsSource="{Binding SedimentaryFaciesOptions}">
+                                                            <ItemsControl.ItemsPanel>
+                                                                <ItemsPanelTemplate>
+                                                                    <WrapPanel Orientation="Horizontal"/>
+                                                                </ItemsPanelTemplate>
+                                                            </ItemsControl.ItemsPanel>
+                                                            <ItemsControl.ItemTemplate>
+                                                                <DataTemplate x:DataType="vm:SedimentaryFaciesCheckOption">
+                                                                    <CheckBox Content="{Binding DisplayName}"
+                                                                              IsChecked="{Binding IsSelected, Mode=TwoWay}"
+                                                                              FontSize="11"
+                                                                              Margin="2"
+                                                                              Padding="3,0"/>
+                                                                </DataTemplate>
+                                                            </ItemsControl.ItemTemplate>
+                                                        </ItemsControl>
+                                                    </Border>
+                                                </Grid>
+
+                                                <!-- 描述 -->
+                                                <Grid ColumnDefinitions="70,*">
+                                                    <TextBlock Grid.Column="0"
+                                                               Text="描述:"
+                                                               FontSize="12"
+                                                               Foreground="#7F8C8D"
+                                                               VerticalAlignment="Top"
+                                                               Margin="0,5,0,0"/>
+                                                    <TextBox Grid.Column="1"
+                                                             Text="{Binding Description, Mode=TwoWay}"
+                                                             FontSize="11"
+                                                             AcceptsReturn="True"
+                                                             TextWrapping="Wrap"
+                                                             MinHeight="50"
+                                                             MaxHeight="80"
+                                                             Watermark="输入描述信息..."/>
+                                                </Grid>
+
+                                                <!-- 标注ID和时间 -->
+                                                <Border Background="#F5F5F5" CornerRadius="4" Padding="6">
+                                                    <StackPanel Orientation="Horizontal" Spacing="15">
+                                                        <TextBlock Text="{Binding Id, StringFormat='ID: {0}'}" FontSize="9" Foreground="#95A5A6"/>
+                                                        <TextBlock Text="{Binding CreatedTime, StringFormat='创建: {0:MM-dd HH:mm}'}" FontSize="9" Foreground="#95A5A6"/>
+                                                    </StackPanel>
+                                                </Border>
+                                            </StackPanel>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+
+                    <!-- 深度段属性列表 - 非标注模式且非地震标注模式下显示 -->
                     <ScrollViewer Grid.Row="1" Padding="5">
+                        <ScrollViewer.IsVisible>
+                            <MultiBinding Converter="{x:Static BoolConverters.And}">
+                                <Binding Path="!ShowAnnotationMode"/>
+                                <Binding Path="!ShowSeismicAnnotationMode"/>
+                            </MultiBinding>
+                        </ScrollViewer.IsVisible>
                         <ItemsControl ItemsSource="{Binding DepthProperties}">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <Border Background="White" 
-                                            CornerRadius="6" 
-                                            Padding="10" 
+                                    <Border Background="White"
+                                            CornerRadius="6"
+                                            Padding="10"
                                             Margin="5"
                                             BorderBrush="#E0E0E0"
                                             BorderThickness="1">
@@ -116,8 +431,8 @@
                                             <Border Background="#3498DB" CornerRadius="4" Padding="8,4">
                                                 <Grid ColumnDefinitions="Auto,*,Auto,10,Auto,*,Auto">
                                                     <TextBlock Grid.Column="0" Text="起始:" FontSize="11" Foreground="White" VerticalAlignment="Center"/>
-                                                    <TextBox Grid.Column="1" 
-                                                             Text="{Binding DepthStart, Mode=TwoWay}" 
+                                                    <TextBox Grid.Column="1"
+                                                             Text="{Binding DepthStart, Mode=TwoWay}"
                                                              FontSize="11"
                                                              Background="White"
                                                              Padding="4,2"
@@ -125,8 +440,8 @@
                                                              HorizontalAlignment="Stretch"/>
                                                     <TextBlock Grid.Column="2" Text="m" FontSize="11" Foreground="White" VerticalAlignment="Center" Margin="4,0"/>
                                                     <TextBlock Grid.Column="4" Text="终止:" FontSize="11" Foreground="White" VerticalAlignment="Center"/>
-                                                    <TextBox Grid.Column="5" 
-                                                             Text="{Binding DepthEnd, Mode=TwoWay}" 
+                                                    <TextBox Grid.Column="5"
+                                                             Text="{Binding DepthEnd, Mode=TwoWay}"
                                                              FontSize="11"
                                                              Background="White"
                                                              Padding="4,2"
@@ -135,74 +450,73 @@
                                                     <TextBlock Grid.Column="6" Text="m" FontSize="11" Foreground="White" VerticalAlignment="Center" Margin="4,0"/>
                                                 </Grid>
                                             </Border>
-                                            
-                                            <!-- 岩性/地震相 - 下拉选择+自定义输入 -->
+
+                                            <!-- 岩性/地震相 -->
                                             <Grid ColumnDefinitions="80,*">
-                                                <!-- 动态标签：地震相时显示"地震相:"，否则显示"岩性:" -->
-                                                <TextBlock Grid.Column="0" 
-                                                           FontSize="12" 
+                                                <TextBlock Grid.Column="0"
+                                                           FontSize="12"
                                                            Foreground="#7F8C8D"
                                                            VerticalAlignment="Center"
                                                            IsVisible="{Binding !$parent[UserControl].((vm:PropertyPanelViewModel)DataContext).ShowSeismicInferenceResults}"
                                                            Text="岩性:"/>
-                                                <TextBlock Grid.Column="0" 
-                                                           FontSize="12" 
+                                                <TextBlock Grid.Column="0"
+                                                           FontSize="12"
                                                            Foreground="#7F8C8D"
                                                            VerticalAlignment="Center"
                                                            IsVisible="{Binding $parent[UserControl].((vm:PropertyPanelViewModel)DataContext).ShowSeismicInferenceResults}"
                                                            Text="地震相:"/>
-                                                <AutoCompleteBox Grid.Column="1" 
-                                                                 Text="{Binding Lithology, Mode=TwoWay}" 
+                                                <AutoCompleteBox Grid.Column="1"
+                                                                 Text="{Binding Lithology, Mode=TwoWay}"
                                                                  ItemsSource="{Binding $parent[UserControl].((vm:PropertyPanelViewModel)DataContext).LithologyOptions}"
                                                                  FilterMode="Contains"
                                                                  FontSize="12"
                                                                  Watermark="选择或输入岩性..."
                                                                  MinHeight="28"/>
                                             </Grid>
-                                            
-                                            <!-- 沉积相 - 下拉选择+自定义输入 -->
+
+                                            <!-- 沉积相 -->
                                             <Grid ColumnDefinitions="80,*">
-                                                <TextBlock Grid.Column="0" 
-                                                           Text="沉积相:" 
-                                                           FontSize="12" 
+                                                <TextBlock Grid.Column="0"
+                                                           Text="沉积相:"
+                                                           FontSize="12"
                                                            Foreground="#7F8C8D"
                                                            VerticalAlignment="Center"/>
-                                                <AutoCompleteBox Grid.Column="1" 
-                                                                 Text="{Binding SedimentaryFacies, Mode=TwoWay}" 
-                                                                 ItemsSource="{Binding $parent[UserControl].((vm:PropertyPanelViewModel)DataContext).SedimentaryFaciesOptions}"
+                                                <AutoCompleteBox Grid.Column="1"
+                                                                 Text="{Binding SedimentaryFacies, Mode=TwoWay}"
+                                                                 ItemsSource="{Binding $parent[UserControl].((vm:PropertyPanelViewModel)DataContext).SedimentaryFaciesTextOptions}"
                                                                  FilterMode="Contains"
                                                                  FontSize="12"
                                                                  Watermark="选择或输入沉积相..."
                                                                  MinHeight="28"/>
                                             </Grid>
-                                            
-                                            <!-- 地质描述 - 可编辑文本框 -->
+
+                                            <!-- 地质描述 -->
                                             <Grid ColumnDefinitions="80,*">
-                                                <TextBlock Grid.Column="0" 
-                                                           Text="描述:" 
-                                                           FontSize="12" 
+                                                <TextBlock Grid.Column="0"
+                                                           Text="描述:"
+                                                           FontSize="12"
                                                            Foreground="#7F8C8D"
                                                            VerticalAlignment="Top"
                                                            Margin="0,5,0,0"/>
-                                                <TextBox Grid.Column="1" 
-                                                         Text="{Binding GeologicalDescription, Mode=TwoWay}" 
-                                                         FontSize="11" 
+                                                <TextBox Grid.Column="1"
+                                                         Text="{Binding GeologicalDescription, Mode=TwoWay}"
+                                                         FontSize="11"
                                                          AcceptsReturn="True"
                                                          TextWrapping="Wrap"
                                                          MinHeight="50"
                                                          MaxHeight="100"/>
                                             </Grid>
-                                            
-                                            <!-- 置信度 - 仅在推理结果时显示 -->
+
+                                            <!-- 置信度 -->
                                             <Border IsVisible="{Binding $parent[UserControl].((vm:PropertyPanelViewModel)DataContext).ShowInferenceResults}"
                                                     Background="#F0F8FF"
                                                     CornerRadius="4"
                                                     Padding="8"
                                                     Margin="0,5,0,0">
                                                 <Grid ColumnDefinitions="Auto,*,Auto">
-                                                    <TextBlock Grid.Column="0" 
-                                                               Text="🎯 置信度:" 
-                                                               FontSize="12" 
+                                                    <TextBlock Grid.Column="0"
+                                                               Text="置信度:"
+                                                               FontSize="12"
                                                                Foreground="#2C3E50"
                                                                FontWeight="SemiBold"
                                                                VerticalAlignment="Center"/>
@@ -228,15 +542,15 @@
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
                     </ScrollViewer>
-                    
+
                     <!-- JSON视图切换 -->
-                    <Expander Grid.Row="2" Header="📄 JSON 数据视图" Padding="5">
+                    <Expander Grid.Row="2" Header="JSON 数据视图" Padding="5">
                         <Border Background="#2C3E50" CornerRadius="4" Padding="10">
-                            <ScrollViewer MaxHeight="200" 
+                            <ScrollViewer MaxHeight="200"
                                           HorizontalScrollBarVisibility="Auto">
-                                <TextBlock Text="{Binding JsonContent}" 
+                                <TextBlock Text="{Binding JsonContent}"
                                            FontFamily="Consolas, Courier New, monospace"
-                                           FontSize="11" 
+                                           FontSize="11"
                                            Foreground="#ECF0F1"
                                            TextWrapping="NoWrap"/>
                             </ScrollViewer>
@@ -245,18 +559,38 @@
                 </Grid>
             </Grid>
         </Border>
-        
+
         <!-- 底部状态栏 -->
         <Border Grid.Row="2" Background="#ECF0F1" Padding="8,6">
             <StackPanel Orientation="Horizontal" Spacing="10">
-                <TextBlock Text="{Binding PropertyTitle}" 
-                           FontSize="11" 
+                <TextBlock Text="{Binding PropertyTitle}"
+                           FontSize="11"
                            Foreground="#7F8C8D"/>
                 <TextBlock Text="|" Foreground="#BDC3C7" FontSize="11"/>
                 <TextBlock FontSize="11" Foreground="#95A5A6">
+                    <TextBlock.IsVisible>
+                        <MultiBinding Converter="{x:Static BoolConverters.And}">
+                            <Binding Path="!ShowAnnotationMode"/>
+                            <Binding Path="!ShowSeismicAnnotationMode"/>
+                        </MultiBinding>
+                    </TextBlock.IsVisible>
                     <TextBlock.Text>
                         <MultiBinding StringFormat="共 {0} 个深度段">
                             <Binding Path="DepthProperties.Count"/>
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
+                <TextBlock FontSize="11" Foreground="#E74C3C" IsVisible="{Binding ShowAnnotationMode}">
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat="共 {0} 个标注">
+                            <Binding Path="Annotations.Count"/>
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
+                <TextBlock FontSize="11" Foreground="#9B59B6" IsVisible="{Binding ShowSeismicAnnotationMode}">
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat="共 {0} 个地震标注">
+                            <Binding Path="SeismicAnnotations.Count"/>
                         </MultiBinding>
                     </TextBlock.Text>
                 </TextBlock>

@@ -27,14 +27,24 @@
             <Setter Property="ItemsSource" Value="{Binding Children}" />
             <Setter Property="Command" Value="{Binding $parent[Window].((vm:MainViewModel)DataContext).ExecuteMenuCommand}" />
             <Setter Property="CommandParameter" Value="{Binding CommandId}" />
+            <Setter Property="Classes.separator" Value="{Binding IsSeparator}" />
             <!-- 移除 InputGesture 绑定，避免类型转换错误 -->
         </Style>
         
-        <!-- 分隔符样式 -->
-        <Style Selector="MenuItem[Tag='Separator']">
+        <!-- 分隔符样式：参考全局菜单与场景菜单之间的分隔线 -->
+        <Style Selector="MenuItem.separator">
+            <Setter Property="IsEnabled" Value="False"/>
+            <Setter Property="IsHitTestVisible" Value="False"/>
+            <Setter Property="Focusable" Value="False"/>
+            <Setter Property="MinHeight" Value="9"/>
+            <Setter Property="Height" Value="9"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Margin" Value="0"/>
             <Setter Property="Template">
                 <ControlTemplate>
-                    <Separator Margin="2,4"/>
+                    <Border Height="9" Background="Transparent">
+                        <Border Height="1" Background="#D0D0D0" VerticalAlignment="Center" Margin="8,0"/>
+                    </Border>
                 </ControlTemplate>
             </Setter>
         </Style>
