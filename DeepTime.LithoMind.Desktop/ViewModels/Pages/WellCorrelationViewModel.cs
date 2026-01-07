@@ -78,6 +78,12 @@ namespace DeepTime.LithoMind.Desktop.ViewModels.Pages
 		[ObservableProperty]
 		private bool _showWellSelector;
 
+		/// <summary>
+		/// 当前是否显示原始图片（true）还是沉积相推理结果图片（false）
+		/// </summary>
+		[ObservableProperty]
+		private bool _isShowingOriginalImage = true;
+
 		public WellCorrelationViewModel()
 		{
 			Id = "WellCorrelation";
@@ -112,8 +118,9 @@ namespace DeepTime.LithoMind.Desktop.ViewModels.Pages
 		{
 			try
 			{
-				// 尝试加载联井剖面图
-				var uri = new Uri("avares://DeepTime.LithoMind.Desktop/Assets/Pics/联井层序剖面.jpg");
+				// 根据当前状态加载原始图片或沉积相推理结果图片
+				string imageName = IsShowingOriginalImage ? "联井层序剖面.jpg" : "联井沉积相.jpg";
+				var uri = new Uri($"avares://DeepTime.LithoMind.Desktop/Assets/Pics/{imageName}");
 				var assets = Avalonia.Platform.AssetLoader.Open(uri);
 				SectionImage = new Bitmap(assets);
 				HasImage = true;
@@ -122,6 +129,29 @@ namespace DeepTime.LithoMind.Desktop.ViewModels.Pages
 			{
 				HasImage = false;
 			}
+		}
+
+		/// <summary>
+		/// 执行沉积相智能推理 - 切换到沉积相结果图片
+		/// </summary>
+		[RelayCommand]
+		public void RunSedimentaryFaciesInference()
+		{
+			// 切换到沉积相推理结果图片
+			IsShowingOriginalImage = false;
+			LoadSampleImage();
+			Title = "联井剖面图 - 沉积相推理结果";
+		}
+
+		/// <summary>
+		/// 重置为原始图片
+		/// </summary>
+		[RelayCommand]
+		public void ResetToOriginalImage()
+		{
+			IsShowingOriginalImage = true;
+			LoadSampleImage();
+			Title = "联井剖面图";
 		}
 
 		/// <summary>

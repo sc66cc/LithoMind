@@ -1061,5 +1061,41 @@ namespace DeepTime.LithoMind.Desktop.Layouts
 				wellColumnVM.EnableAnnotationModeCommand.Execute(null);
 			}
 		}
+
+		/// <summary>
+		/// 执行岩相智能推理 - 切换单井柱状图到推理结果图片
+		/// </summary>
+		public void RunLithofaciesInference()
+		{
+			if (_rootDock == null) return;
+
+			// 激活单井柱状图标签页
+			ActivateDocumentInCurrentLayout("WellColumn");
+
+			// 查找WellColumnViewModel并执行推理
+			var wellColumnVM = FindDocumentRecursive(_rootDock, "WellColumn") as WellColumnViewModel;
+			if (wellColumnVM != null)
+			{
+				wellColumnVM.StartInferenceCommand.Execute(null);
+			}
+		}
+
+		/// <summary>
+		/// 执行沉积相智能推理 - 切换联井剖面图到沉积相结果图片
+		/// </summary>
+		public void RunSedimentaryFaciesInference()
+		{
+			if (_rootDock == null) return;
+
+			// 激活联井剖面图标签页
+			ActivateDocumentInCurrentLayout("WellCorrelation");
+
+			// 查找WellCorrelationViewModel并执行沉积相推理
+			var wellCorrelationVM = FindDocumentRecursive(_rootDock, "WellCorrelation") as WellCorrelationViewModel;
+			if (wellCorrelationVM != null)
+			{
+				wellCorrelationVM.RunSedimentaryFaciesInferenceCommand.Execute(null);
+			}
+		}
 	}
 }

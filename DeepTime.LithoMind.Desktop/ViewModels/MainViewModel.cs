@@ -367,6 +367,16 @@ namespace DeepTime.LithoMind.Desktop.ViewModels
 					_factory.EnableRectangleAnnotationMode();
 					break;
 
+				case "Cmd_LithofaciesInference":
+					// 岩相智能推理 - 切换单井柱状图到推理结果图片 (A5-1-res.jpg)
+					_factory.RunLithofaciesInference();
+					break;
+
+				case "Cmd_SediFaciesInference":
+					// 沉积相智能推理 - 切换联井剖面图到沉积相结果图片 (联井沉积相.jpg)
+					_factory.RunSedimentaryFaciesInference();
+					break;
+
 				default:
 					// 其他命令暂未实现
 					break;
