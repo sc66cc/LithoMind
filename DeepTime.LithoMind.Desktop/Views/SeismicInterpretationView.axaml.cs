@@ -42,6 +42,21 @@ namespace DeepTime.LithoMind.Desktop.Views
 		private void OnPointerPressed(object? sender, PointerPressedEventArgs e)
 		{
 			var props = e.GetCurrentPoint(this).Properties;
+			if (DataContext is SeismicInterpretationViewModel vm && vm.IsAnnotationMode)
+			{
+				var position = e.GetPosition(this);
+				vm.AddAnnotationPoint(position);
+
+				// 双击完成多边形
+				if (e.ClickCount >= 2)
+				{
+					vm.CompleteCurrentAnnotation();
+				}
+
+				e.Handled = true;
+				return;
+			}
+
 			if (props.IsLeftButtonPressed)
 			{
 				_isPanning = true;
@@ -56,7 +71,17 @@ namespace DeepTime.LithoMind.Desktop.Views
 		/// </summary>
 		private void OnPointerMoved(object? sender, PointerEventArgs e)
 		{
-			if (_isPanning && DataContext is SeismicInterpretationViewModel vm)
+			var vm = DataContext as SeismicInterpretationViewModel;
+			if (vm == null)
+				return;
+
+			if (vm.IsAnnotationMode)
+			{
+				// 标注模式下不进行平移
+				return;
+			}
+
+			if (_isPanning)
 			{
 				var currentPosition = e.GetPosition(this);
 				var deltaX = currentPosition.X - _lastPanPosition.X;

@@ -139,6 +139,12 @@ namespace DeepTime.LithoMind.Desktop.ViewModels
 			
 			try
 			{
+				// 切换到地震模块时默认关闭属性窗口，等待标注再显式打开
+				if (factoryId == "Seismic")
+				{
+					_factory.HideSeismicPropertyPane();
+				}
+
 				await UpdateDockLayoutAsync(factoryId, cancellationToken);
 			}
 			catch (System.Threading.Tasks.TaskCanceledException)
@@ -343,6 +349,12 @@ namespace DeepTime.LithoMind.Desktop.ViewModels
 				case "Cmd_InferCompare":
 					// 沉积相智能推理 - 不同模型结果对比
 					_factory.ShowModelComparisonDialog();
+					break;
+
+				// 地震数据标注 - 井旁地震相标注
+				case "Cmd_WellSeismicFaciesAnnot":
+					_factory.ActivateDocumentInCurrentLayout("SeismicInterpretation");
+					_factory.StartSeismicAnnotationMode();
 					break;
 
 				case "Cmd_AIModelLib":

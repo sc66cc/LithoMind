@@ -407,7 +407,7 @@
             "id": "GenID_AnnotatedSeismic"
           },
           {
-            "header": "已标注井旁地震相沉积相",
+            "header": "已标注井旁地震相与沉积相",
             "commandId": "Cmd_AnnotatedWellSeismicFacies",
             "id": "GenID_AnnotatedWellSeismicFacies"
           }

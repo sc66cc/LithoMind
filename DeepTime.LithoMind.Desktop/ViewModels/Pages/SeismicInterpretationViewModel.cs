@@ -1,6 +1,7 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using Avalonia;
 using Avalonia.Media.Imaging;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -49,6 +50,24 @@ namespace DeepTime.LithoMind.Desktop.ViewModels.Pages
 		/// </summary>
 		[ObservableProperty]
 		private string _zoomLevelText = "100%";
+
+		/// <summary>
+		/// 是否处于标注模式
+		/// </summary>
+		[ObservableProperty]
+		private bool _isAnnotationMode;
+
+		/// <summary>
+		/// 当前多边形标注
+		/// </summary>
+		[ObservableProperty]
+		private SeismicPolygonAnnotation? _currentAnnotation;
+
+		/// <summary>
+		/// 标注集合
+		/// </summary>
+		[ObservableProperty]
+		private ObservableCollection<SeismicPolygonAnnotation> _seismicAnnotations = new();
 
 		/// <summary>
 		/// 平移偏移X
@@ -132,6 +151,11 @@ namespace DeepTime.LithoMind.Desktop.ViewModels.Pages
 		/// 智能推理完成事件 - 通知属性面板更新
 		/// </summary>
 		public event Action<string, ObservableCollection<SeismicFaciesInferenceResult>>? SeismicInferenceCompleted;
+
+		/// <summary>
+		/// 地震标注变化事件 - 通知属性面板更新
+		/// </summary>
+		public event Action<string, ObservableCollection<SeismicPolygonAnnotation>>? SeismicAnnotationsChanged;
 
 		public SeismicInterpretationViewModel()
 		{
@@ -242,6 +266,77 @@ namespace DeepTime.LithoMind.Desktop.ViewModels.Pages
 			SectionPosition = $"{sectionType} {sectionName}";
 			LoadSectionImage();
 		}
+
+		#region 标注模式
+
+		/// <summary>
+		/// 启动标注模式，创建新的多边形标注
+		/// </summary>
+		public void StartAnnotationMode()
+		{
+			IsAnnotationMode = true;
+			var annotation = new SeismicPolygonAnnotation();
+			annotation.InitializeSedimentaryFaciesOptions();
+			CurrentAnnotation = annotation;
+			if (SeismicAnnotations.Count == 0 || SeismicAnnotations[^1] != annotation)
+			{
+				SeismicAnnotations.Add(annotation);
+			}
+			SeismicAnnotationsChanged?.Invoke(SectionName, SeismicAnnotations);
+		}
+
+		/// <summary>
+		/// 添加标注点（鼠标点击时调用）
+		/// </summary>
+		public void AddAnnotationPoint(Point point)
+		{
+			if (!IsAnnotationMode || CurrentAnnotation == null)
+				return;
+
+			CurrentAnnotation.Points.Add(point);
+			if (CurrentAnnotation.Points.Count == 1)
+			{
+				CurrentAnnotation.TimeStart = point.Y;
+				CurrentAnnotation.TimeEnd = point.Y;
+			}
+			else
+			{
+				CurrentAnnotation.TimeEnd = point.Y;
+			}
+			SeismicAnnotationsChanged?.Invoke(SectionName, SeismicAnnotations);
+		}
+
+		/// <summary>
+		/// 结束当前多边形标注
+		/// </summary>
+		public void CompleteCurrentAnnotation()
+		{
+			if (CurrentAnnotation == null)
+				return;
+
+			CurrentAnnotation.IsClosed = true;
+			IsAnnotationMode = false;
+			SeismicAnnotationsChanged?.Invoke(SectionName, SeismicAnnotations);
+		}
+
+		/// <summary>
+		/// 删除指定标注
+		/// </summary>
+		public void DeleteAnnotation(SeismicPolygonAnnotation annotation)
+		{
+			if (SeismicAnnotations.Contains(annotation))
+			{
+				SeismicAnnotations.Remove(annotation);
+				if (CurrentAnnotation == annotation)
+				{
+					CurrentAnnotation = null;
+					IsAnnotationMode = false;
+				}
+				SeismicAnnotationsChanged?.Invoke(SectionName, SeismicAnnotations);
+			}
+		}
+
+		#endregion
 
 		#region 智能推理功能
 

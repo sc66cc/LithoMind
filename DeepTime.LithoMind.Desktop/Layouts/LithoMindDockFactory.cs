@@ -22,6 +22,7 @@ namespace DeepTime.LithoMind.Desktop.Layouts
 		private ToolDock? _seismicPropertyDock;
 		private PropertyPanelViewModel? _seismicPropertyPanelVM;
 		private ProportionalDock? _seismicMainLayout;
+		private ProportionalDockSplitter? _seismicPropertySplitter;
 		private bool _seismicPropertyVisible;
 
 		// ViewModel缓存：按模块ID和ViewModel ID缓存，避免重复创建
@@ -182,6 +183,79 @@ namespace DeepTime.LithoMind.Desktop.Layouts
 			{
 				_layoutCache.Remove(moduleId);
 			}
+		}
+
+		/// <summary>
+		/// 隐藏地震属性窗口（切换到地震模块时默认关闭）
+		/// </summary>
+		public void HideSeismicPropertyPane()
+		{
+			if (!_seismicPropertyVisible && _seismicPropertyDock == null)
+				return;
+
+			_seismicPropertyVisible = false;
+			if (_seismicMainLayout?.VisibleDockables == null || _seismicPropertyDock == null)
+				return;
+
+			var docks = _seismicMainLayout.VisibleDockables;
+			if (docks.Contains(_seismicPropertyDock))
+			{
+				docks.Remove(_seismicPropertyDock);
+			}
+			if (_seismicPropertySplitter != null && docks.Contains(_seismicPropertySplitter))
+			{
+				docks.Remove(_seismicPropertySplitter);
+			}
+		}
+
+		/// <summary>
+		/// 显示地震属性窗口（标注模式时打开）
+		/// </summary>
+		public void ShowSeismicPropertyPane()
+		{
+			if (_seismicPropertyVisible)
+				return;
+
+			if (_seismicMainLayout == null || _seismicPropertyDock == null)
+				return;
+
+			var docks = _seismicMainLayout.VisibleDockables ?? CreateList<IDockable>();
+			_seismicMainLayout.VisibleDockables = docks;
+
+			if (_seismicPropertySplitter == null)
+			{
+				_seismicPropertySplitter = new ProportionalDockSplitter
+				{
+					Id = "SeismicSplitterProperty",
+					Title = "Splitter"
+				};
+			}
+
+			if (!docks.Contains(_seismicPropertySplitter))
+			{
+				docks.Add(_seismicPropertySplitter);
+			}
+			if (!docks.Contains(_seismicPropertyDock))
+			{
+				docks.Add(_seismicPropertyDock);
+			}
+
+			_seismicPropertyVisible = true;
+		}
+
+		/// <summary>
+		/// 启动地震标注模式：打开属性窗并同步到标注列表
+		/// </summary>
+		public void StartSeismicAnnotationMode()
+		{
+			var seismicInterpretationVM = GetOrCreateViewModel("Seismic", "SeismicInterpretation", () => new SeismicInterpretationViewModel());
+			var propertyPanelVM = _seismicPropertyPanelVM ?? GetOrCreateViewModel("Seismic", "SeismicProperty", () => new PropertyPanelViewModel());
+
+			propertyPanelVM.SwitchToSeismicMode(seismicInterpretationVM.SectionName);
+			seismicInterpretationVM.StartAnnotationMode();
+			propertyPanelVM.SetSeismicAnnotations(seismicInterpretationVM.SectionName, seismicInterpretationVM.SeismicAnnotations);
+
+			ShowSeismicPropertyPane();
 		}
 
 		/// <summary>
@@ -425,6 +499,7 @@ namespace DeepTime.LithoMind.Desktop.Layouts
 				seismicInterpretationVM.SeismicAnnotationsChanged += (sectionName, annotations) =>
 				{
 					propertyPanelVM.SetSeismicAnnotations(sectionName, annotations);
+					ShowSeismicPropertyPane();
 				};
 			}
 
@@ -476,6 +551,11 @@ namespace DeepTime.LithoMind.Desktop.Layouts
 				Id = "SeismicSplitter1",
 				Title = "Splitter"
 			};
+			var splitter2 = new ProportionalDockSplitter
+			{
+				Id = "SeismicSplitter2",
+				Title = "Splitter"
+			};
 
 			// 水平布局：左侧工程目录 + 中间文档区（默认不显示属性窗口）
 			var layout = new ProportionalDock
@@ -491,6 +571,8 @@ namespace DeepTime.LithoMind.Desktop.Layouts
 
 			// 保存布局引用，用于后续添加属性窗口
 			_seismicMainLayout = layout;
+			_seismicPropertySplitter = splitter2;
+			_seismicPropertyVisible = false;
 
 			return layout;
 		}
