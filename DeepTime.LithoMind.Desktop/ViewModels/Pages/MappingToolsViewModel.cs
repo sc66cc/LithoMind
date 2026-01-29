@@ -52,7 +52,7 @@ namespace DeepTime.LithoMind.Desktop.ViewModels.Pages
 	}
 
 	/// <summary>
-	/// 编图制图 - GIS工具栏和属性窗口
+	/// 岩相古地理智能编图 - GIS工具栏和属性窗口
 	/// </summary>
 	public partial class MappingToolsViewModel : PageViewModelBase
 	{

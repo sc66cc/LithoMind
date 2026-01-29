@@ -7,7 +7,7 @@ namespace DeepTime.LithoMind.Desktop.ViewModels.Pages
 		public DataManagerViewModel()
 		{
 			Id = "DataManager";
-			Title = "数据管理";
+			Title = "多源数据解析与融合";
 			IconKey = "📂";
 			Order = 1;
 		}

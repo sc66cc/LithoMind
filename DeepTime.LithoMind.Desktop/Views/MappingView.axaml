@@ -7,7 +7,7 @@
     <Grid Background="White">
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="20">
             <TextBlock Text="📂" FontSize="60" HorizontalAlignment="Center"/>
-            <TextBlock Text="这里是【编图制图】工作区" FontSize="24" Foreground="Black" HorizontalAlignment="Center"/>
+            <TextBlock Text="这里是【岩相古地理智能编图】工作区" FontSize="24" Foreground="Black" HorizontalAlignment="Center"/>
         </StackPanel>
     </Grid>
 </UserControl>

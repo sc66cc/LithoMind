@@ -88,19 +88,19 @@
         <Border Grid.Row="0" Background="#EEEEEE" BorderBrush="#D0D0D0" BorderThickness="0,0,0,1" Padding="0,5">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Spacing="5" Margin="10,0,0,0">
 
-                <RadioButton Classes="NavBtn" GroupName="Mods" Content="数据资源管理" Tag="📂"
+                <RadioButton Classes="NavBtn" GroupName="Mods" Content="多源数据解析与融合" Tag="📂"
                              Command="{Binding SwitchModuleCommand}" CommandParameter="Module_DataMgr" IsChecked="True"/>
 
-                <RadioButton Classes="NavBtn" GroupName="Mods" Content="地层对比" Tag="🧱"
+                <RadioButton Classes="NavBtn" GroupName="Mods" Content="地层智能对比" Tag="🧱"
                              Command="{Binding SwitchModuleCommand}" CommandParameter="Module_Strat"/>
 
-                <RadioButton Classes="NavBtn" GroupName="Mods" Content="井综合分析" Tag="📊"
+                <RadioButton Classes="NavBtn" GroupName="Mods" Content="单井相智能分析" Tag="📊"
                              Command="{Binding SwitchModuleCommand}" CommandParameter="Module_SingleWell"/>
 
-                <RadioButton Classes="NavBtn" GroupName="Mods" Content="地震综合分析" Tag="🥓"
+                <RadioButton Classes="NavBtn" GroupName="Mods" Content="地震相智能分析" Tag="🥓"
                              Command="{Binding SwitchModuleCommand}" CommandParameter="Module_Seismic"/>
 
-                <RadioButton Classes="NavBtn" GroupName="Mods" Content="编图制图" Tag="🗺️"
+                <RadioButton Classes="NavBtn" GroupName="Mods" Content="岩相古地理智能编图" Tag="🗺️"
                              Command="{Binding SwitchModuleCommand}" CommandParameter="Module_Mapping"/>
             </StackPanel>
         </Border>

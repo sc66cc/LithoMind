@@ -7,7 +7,7 @@ namespace DeepTime.LithoMind.Desktop.ViewModels.Pages
 		public SingleWellViewModel ()
 		{
 			Id = "Wells";
-			Title = "井数据综合";
+			Title = "单井相智能分析";
 			IconKey = "📊";
 			Order = 2;
 		}

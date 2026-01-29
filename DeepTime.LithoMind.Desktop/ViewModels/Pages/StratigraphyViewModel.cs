@@ -8,7 +8,7 @@ using DeepTime.LithoMind.Desktop.ViewModels.Base;
 namespace DeepTime.LithoMind.Desktop.ViewModels.Pages 
 {
 	/// <summary>
-	/// 地层对比视图模型
+	/// 地层智能对比视图模型
 	/// </summary>
 	public partial class StratigraphyViewModel : PageViewModelBase
 	{
@@ -69,7 +69,7 @@ namespace DeepTime.LithoMind.Desktop.ViewModels.Pages
 		public StratigraphyViewModel()
 		{
 			Id = "Stratigraphy";
-			Title = "地层对比";
+			Title = "地层智能对比";
 			IconKey = "\U0001f9f1";
 			Order = 2;
 

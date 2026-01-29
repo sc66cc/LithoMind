@@ -128,7 +128,7 @@ namespace DeepTime.LithoMind.Desktop.ViewModels.Pages
 	}
 
 	/// <summary>
-	/// 编图制图 - 图层管理器ViewModel（类似ArcGIS）
+	/// 岩相古地理智能编图 - 图层管理器ViewModel（类似ArcGIS）
 	/// </summary>
 	public partial class MappingLayerViewModel : PageViewModelBase
 	{

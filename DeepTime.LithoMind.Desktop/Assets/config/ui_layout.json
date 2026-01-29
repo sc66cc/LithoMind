@@ -397,19 +397,24 @@
         "type": "SubMenu",
         "children": [
           {
-            "header": "已标注测井曲线",
-            "commandId": "Cmd_AnnotatedLog",
-            "id": "GenID_AnnotatedLog"
-          },
-          {
             "header": "已标注地震剖面",
             "commandId": "Cmd_AnnotatedSeismic",
             "id": "GenID_AnnotatedSeismic"
           },
           {
-            "header": "已标注井旁地震相与沉积相",
+            "header": "已标注地震层位",
+            "commandId": "Cmd_AnnotatedSeismicHorizon",
+            "id": "GenID_AnnotatedSeismicHorizon"
+          },
+          {
+            "header": "已标注井旁地震相沉积相",
             "commandId": "Cmd_AnnotatedWellSeismicFacies",
             "id": "GenID_AnnotatedWellSeismicFacies"
+          },
+          {
+            "header": "已标注测井曲线",
+            "commandId": "Cmd_AnnotatedLog",
+            "id": "GenID_AnnotatedLog"
           }
         ],
         "id": "GenID_AnnotatedData"
@@ -503,18 +508,23 @@
     ],
     "Module_Strat": [
       {
+        "header": "标准/参考井管理",
+        "commandId": "Cmd_RefWellManagement",
+        "id": "GenID_RefWellManagement"
+      },
+      {
         "header": "新建联井剖面",
         "type": "SubMenu",
         "children": [
           {
-            "header": "从井列表选择",
-            "commandId": "Cmd_CrossSectionFromList",
-            "id": "GenID_CrossSectionFromList"
-          },
-          {
             "header": "从井位平面图选择",
             "commandId": "Cmd_CrossSectionFromMap",
             "id": "GenID_CrossSectionFromMap"
+          },
+          {
+            "header": "从井列表选择",
+            "commandId": "Cmd_CrossSectionFromList",
+            "id": "GenID_CrossSectionFromList"
           }
         ],
         "id": "GenID_NewCrossSection"
@@ -523,21 +533,26 @@
         "type": "Separator"
       },
       {
-        "header": "导入层位数据",
+        "header": "导入数据",
         "type": "SubMenu",
         "children": [
+          {
+            "header": "导入地震层位数据",
+            "commandId": "Cmd_ImportSeismicHorizon",
+            "id": "GenID_ImportSeismicHorizon"
+          },
           {
             "header": "导入井地层数据",
             "commandId": "Cmd_ImportWellStrat",
             "id": "GenID_ImportWellStrat"
           },
           {
-            "header": "导入地震层位数据",
-            "commandId": "Cmd_ImportSeismicHorizon",
-            "id": "GenID_ImportSeismicHorizon"
+            "header": "导入时深关系",
+            "commandId": "Cmd_ImportTDRelation",
+            "id": "GenID_ImportTDRelation"
           }
         ],
-        "id": "GenID_ImportHorizonData"
+        "id": "GenID_ImportData"
       },
       {
         "header": "添加井旁地震剖面",
@@ -545,34 +560,63 @@
         "id": "GenID_AddWellSeismicSection"
       },
       {
-        "header": "导入时深关系",
-        "commandId": "Cmd_ImportTDRelation",
-        "id": "GenID_ImportTDRelation"
-      },
-      {
         "type": "Separator"
       },
       {
-        "header": "对比方案管理",
+        "header": "标志层识别",
         "type": "SubMenu",
         "children": [
           {
-            "header": "对比方案导入",
-            "commandId": "Cmd_ImportCorrScheme",
-            "id": "GenID_ImportCorrScheme"
+            "header": "自动识别标志层",
+            "commandId": "Cmd_AutoMarkerIdentify",
+            "id": "GenID_AutoMarkerIdentify"
           },
           {
-            "header": "对比方案修改",
-            "commandId": "Cmd_ModifyCorrScheme",
-            "id": "GenID_ModifyCorrScheme"
-          },
-          {
-            "header": "对比方案删除",
-            "commandId": "Cmd_DeleteCorrScheme",
-            "id": "GenID_DeleteCorrScheme"
+            "header": "手动识别标志层",
+            "commandId": "Cmd_ManualMarkerIdentify",
+            "id": "GenID_ManualMarkerIdentify"
           }
         ],
-        "id": "GenID_CorrSchemeMgmt"
+        "id": "GenID_MarkerIdentify"
+      },
+      {
+        "header": "地层对比",
+        "type": "SubMenu",
+        "children": [
+          {
+            "header": "自动地层对比",
+            "commandId": "Cmd_AutoCorrelation",
+            "id": "GenID_AutoCorrelation"
+          },
+          {
+            "header": "手动地层对比",
+            "commandId": "Cmd_ManualCorrelation",
+            "id": "GenID_ManualCorrelation"
+          },
+          {
+            "header": "对比方案管理",
+            "commandId": "Cmd_CorrSchemeMgmt",
+            "id": "GenID_CorrSchemeMgmt"
+          }
+        ],
+        "id": "GenID_StratCorrelation"
+      },
+      {
+        "header": "评估层位置信度",
+        "type": "SubMenu",
+        "children": [
+          {
+            "header": "概率化显示",
+            "commandId": "Cmd_ProbabilityDisplay",
+            "id": "GenID_ProbabilityDisplay"
+          },
+          {
+            "header": "对比置信度评估",
+            "commandId": "Cmd_ConfidenceAssessment",
+            "id": "GenID_ConfidenceAssessment"
+          }
+        ],
+        "id": "GenID_HorizonConfidence"
       },
       {
         "type": "Separator"
@@ -581,6 +625,11 @@
         "header": "层拉平",
         "commandId": "Cmd_LayerFlattening",
         "id": "GenID_LayerFlattening"
+      },
+      {
+        "header": "旋回/层序划分",
+        "commandId": "Cmd_CycleSequenceDivision",
+        "id": "GenID_CycleSequenceDivision"
       },
       {
         "header": "导出对比结果",
@@ -697,18 +746,40 @@
         "type": "Separator"
       },
       {
+        "header": "测井解释",
+        "type": "SubMenu",
+        "children": [
+          {
+            "header": "岩性识别",
+            "commandId": "Cmd_LithologyIdentification",
+            "id": "GenID_LithologyIdentification"
+          },
+          {
+            "header": "储层参数计算",
+            "commandId": "Cmd_ReservoirParamCalc",
+            "id": "GenID_ReservoirParamCalc"
+          },
+          {
+            "header": "流体识别",
+            "commandId": "Cmd_FluidIdentification",
+            "id": "GenID_FluidIdentification"
+          }
+        ],
+        "id": "GenID_LogInterpretation"
+      },
+      {
         "header": "数据标注工具",
         "type": "SubMenu",
         "children": [
           {
-            "header": "按矩形标注",
-            "commandId": "Cmd_RectAnnotation",
-            "id": "GenID_RectAnnotation"
-          },
-          {
             "header": "按单元格标注",
             "commandId": "Cmd_CellAnnotation",
             "id": "GenID_CellAnnotation"
+          },
+          {
+            "header": "按矩形标注",
+            "commandId": "Cmd_RectAnnotation",
+            "id": "GenID_RectAnnotation"
           }
         ],
         "id": "GenID_AnnotationTool"
@@ -748,17 +819,19 @@
         "type": "SubMenu",
         "children": [
           {
+            "header": "标注数据导出",
+            "commandId": "Cmd_ExportAnnotationData",
+            "id": "GenID_ExportAnnotationData"
+          },
+          {
             "header": "单井柱状图导出",
-            "type": "SubMenu",
-            "children": [
-              {
-                "header": "勾选道",
-                "commandId": "Cmd_CheckTrack",
-                "id": "GenID_CheckTrack"
-              }
-            ],
             "commandId": "Cmd_ExportWellColumn",
             "id": "GenID_ExportWellColumn"
+          },
+          {
+            "header": "推理结果导出",
+            "commandId": "Cmd_ExportInferenceResult",
+            "id": "GenID_ExportInferenceResult"
           }
         ],
         "id": "GenID_SingleWell_Export"
@@ -797,6 +870,11 @@
         "type": "Separator"
       },
       {
+        "header": "显示地震数据频谱图",
+        "commandId": "Cmd_ShowSeismicSpectrum",
+        "id": "GenID_ShowSeismicSpectrum"
+      },
+      {
         "header": "层位解释",
         "type": "SubMenu",
         "children": [
@@ -812,6 +890,67 @@
           }
         ],
         "id": "GenID_HorizonInterp"
+      },
+      {
+        "type": "Separator"
+      },
+      {
+        "header": "地震属性提取与分析",
+        "type": "SubMenu",
+        "children": [
+          {
+            "header": "基础属性",
+            "type": "SubMenu",
+            "children": [
+              {
+                "header": "RMS 振幅计算",
+                "commandId": "Cmd_RMSAmplitude",
+                "id": "GenID_RMSAmplitude"
+              },
+              {
+                "header": "瞬时频率/相位",
+                "commandId": "Cmd_InstantFreqPhase",
+                "id": "GenID_InstantFreqPhase"
+              }
+            ],
+            "id": "GenID_BasicAttributes"
+          },
+          {
+            "header": "岩性指示属性",
+            "type": "SubMenu",
+            "children": [
+              {
+                "header": "波阻抗反演",
+                "commandId": "Cmd_ImpedanceInversion",
+                "id": "GenID_ImpedanceInversion"
+              },
+              {
+                "header": "甜点属性",
+                "commandId": "Cmd_SweetSpotAttr",
+                "id": "GenID_SweetSpotAttr"
+              }
+            ],
+            "id": "GenID_LithoAttributes"
+          },
+          {
+            "header": "几何属性",
+            "type": "SubMenu",
+            "children": [
+              {
+                "header": "相干体计算",
+                "commandId": "Cmd_CoherenceCalc",
+                "id": "GenID_CoherenceCalc"
+              },
+              {
+                "header": "体曲率计算",
+                "commandId": "Cmd_CurvatureCalc",
+                "id": "GenID_CurvatureCalc"
+              }
+            ],
+            "id": "GenID_GeomAttributes"
+          }
+        ],
+        "id": "GenID_SeismicAttrAnalysis"
       },
       {
         "type": "Separator"
@@ -875,11 +1014,6 @@
             "header": "推理结果导出",
             "commandId": "Cmd_ExportSeismicInference",
             "id": "GenID_ExportSeismicInference"
-          },
-          {
-            "header": "导出地震数据",
-            "commandId": "Cmd_ExportSeismicData",
-            "id": "GenID_ExportSeismicData"
           }
         ],
         "id": "GenID_Seismic_Export"
@@ -890,6 +1024,28 @@
         "header": "编图层位选择",
         "commandId": "Cmd_SelectMappingHorizon",
         "id": "GenID_SelectMappingHorizon"
+      },
+      {
+        "header": "编图精度选择(相/亚相/微相)",
+        "type": "SubMenu",
+        "children": [
+          {
+            "header": "微相",
+            "commandId": "Cmd_MicrofaciesLevel",
+            "id": "GenID_MicrofaciesLevel"
+          },
+          {
+            "header": "亚相",
+            "commandId": "Cmd_SubfaciesLevel",
+            "id": "GenID_SubfaciesLevel"
+          },
+          {
+            "header": "相",
+            "commandId": "Cmd_FaciesLevel",
+            "id": "GenID_FaciesLevel"
+          }
+        ],
+        "id": "GenID_MappingPrecision"
       },
       {
         "header": "时间切片管理",
@@ -916,14 +1072,24 @@
         "type": "SubMenu",
         "children": [
           {
+            "header": "从井列表选择",
+            "commandId": "Cmd_AddDataFromList",
+            "id": "GenID_AddDataFromList"
+          },
+          {
             "header": "从工区平面图添加",
             "commandId": "Cmd_AddDataFromMap",
             "id": "GenID_AddDataFromMap"
           },
           {
-            "header": "从井列表选择",
-            "commandId": "Cmd_AddDataFromList",
-            "id": "GenID_AddDataFromList"
+            "header": "按深度范围添加",
+            "commandId": "Cmd_AddDataByDepthRange",
+            "id": "GenID_AddDataByDepthRange"
+          },
+          {
+            "header": "按层位范围添加",
+            "commandId": "Cmd_AddDataByHorizonRange",
+            "id": "GenID_AddDataByHorizonRange"
           }
         ],
         "id": "GenID_AddMappingData"
@@ -985,6 +1151,11 @@
         "type": "SubMenu",
         "children": [
           {
+            "header": "体系域划分",
+            "commandId": "Cmd_SystemTractDivision",
+            "id": "GenID_SystemTractDivision"
+          },
+          {
             "header": "识别沉积体系",
             "commandId": "Cmd_IdentifyDepSys",
             "id": "GenID_IdentifyDepSys"
@@ -994,14 +1165,9 @@
             "type": "SubMenu",
             "children": [
               {
-                "header": "冲积扇体系",
-                "commandId": "Cmd_AlluvialFan",
-                "id": "GenID_AlluvialFan"
-              },
-              {
-                "header": "河流体系",
-                "commandId": "Cmd_Fluvial",
-                "id": "GenID_Fluvial"
+                "header": "海底扇体系",
+                "commandId": "Cmd_SubmarineFan",
+                "id": "GenID_SubmarineFan"
               },
               {
                 "header": "三角洲体系",
@@ -1009,9 +1175,14 @@
                 "id": "GenID_Delta"
               },
               {
-                "header": "海底扇体系",
-                "commandId": "Cmd_SubmarineFan",
-                "id": "GenID_SubmarineFan"
+                "header": "河流体系",
+                "commandId": "Cmd_Fluvial",
+                "id": "GenID_Fluvial"
+              },
+              {
+                "header": "冲积扇体系",
+                "commandId": "Cmd_AlluvialFan",
+                "id": "GenID_AlluvialFan"
               },
               {
                 "header": "碳酸盐岩台地体系",

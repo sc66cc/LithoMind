@@ -446,7 +446,7 @@ namespace DeepTime.LithoMind.Desktop.Layouts
 		}
 
 		/// <summary>
-		/// 地震综合布局
+		/// 地震相智能分析布局
 		/// 左侧: 地震工程结构目录 (15%)
 		/// 中间: 地震体数据、地震解释剖面标签页
 		/// 右侧: 层位信息属性窗口（默认隐藏，标注模式时显示）
@@ -578,7 +578,7 @@ namespace DeepTime.LithoMind.Desktop.Layouts
 		}
 
 		/// <summary>
-		/// 井综合数据布局
+		/// 单井相智能分析布局
 		/// 左侧: 工程结构目录 (1/3)
 		/// 中间: 单井综合柱状图、联井剖面图等标签页
 		/// 右侧: 属性窗口 (JSON数据显示)
@@ -717,7 +717,7 @@ namespace DeepTime.LithoMind.Desktop.Layouts
 		}
 
 		/// <summary>
-		/// 编图制图布局
+		/// 岩相古地理智能编图布局
 		/// 左侧: 图层管理器 (15%)
 		/// 中间: 砂体等厚图/砂地比图/碳酸盐岩含量图/岩相古地理图
 		/// 右侧: GIS工具栏和属性窗口 (15%)

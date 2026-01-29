@@ -7,7 +7,7 @@ namespace DeepTime.LithoMind.Desktop.ViewModels.Pages
 		public MappingViewModel()
 		{
 			Id = "Mapping";
-			Title = "编图制图";
+			Title = "岩相古地理智能编图";
 			IconKey = "📊";
 			Order = 6;
 		}

@@ -303,13 +303,13 @@ namespace DeepTime.LithoMind.Desktop.ViewModels
 			// 根据命令ID执行相应操作
 			switch (commandId)
 			{
-				// 数据资源管理模块命令
+				// 多源数据解析与融合模块命令
 				case "Cmd_PrevAll":
 					// 预览所有已加载数据 - 切换到工区平面图
 					_factory.ActivateDocumentInCurrentLayout("WorkAreaMap");
 					break;
-		
-				// 井综合分析模块命令
+
+				// 单井相智能分析模块命令
 				case "Cmd_SectList":
 					// 从单井列表拉剖面 - 显示井选择对话框并切换到联井剖面
 					_factory.ShowWellSelectionAndActivateCorrelation();
@@ -329,8 +329,8 @@ namespace DeepTime.LithoMind.Desktop.ViewModels
 					// 岩相/沉积相智能推理 - 从工区平面图选择
 					_factory.ShowMapBasedInferenceDialog();
 					break;
-		
-				// 地震综合分析模块命令
+
+				// 地震相智能分析模块命令
 				case "Cmd_View3D":
 					// 三维地震体视图 - 切换到地震体数据标签页
 					_factory.ActivateDocumentInCurrentLayout("SeismicBody");

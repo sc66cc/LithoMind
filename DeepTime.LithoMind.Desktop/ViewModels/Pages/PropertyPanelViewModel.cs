@@ -674,7 +674,7 @@ namespace DeepTime.LithoMind.Desktop.ViewModels.Pages
 		}
 
 		/// <summary>
-		/// 切换到地震标注模式（用于地震综合分析场景）
+		/// 切换到地震标注模式（用于地震相智能分析场景）
 		/// </summary>
 		public void SwitchToSeismicMode(string sectionName = "地震剖面")
 		{

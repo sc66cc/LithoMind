@@ -8,7 +8,7 @@ namespace DeepTime.LithoMind.Desktop.ViewModels.Pages
 		public SeismicViewModel()
 		{
 			Id = "Seismic";
-			Title = "地震综合";
+			Title = "地震相智能分析";
 			IconKey = "\U0001f953";
 			Order = 4;
 		}
