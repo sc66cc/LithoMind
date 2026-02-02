@@ -66,7 +66,7 @@ namespace DeepTime.LithoMind.Desktop.ViewModels
 			// 预创建所有模块的布局（后台执行，提升首次切换速度）
 			_ = PreloadLayoutsAsync();
 
-			_ = SwitchModule("Module_DataMgr");
+			_ = SwitchModule("Module_Home");
 		}
 
 		/// <summary>
@@ -287,12 +287,13 @@ namespace DeepTime.LithoMind.Desktop.ViewModels
 
 		private string MapJsonIdToFactoryId(string jsonId)
 		{
+			if (jsonId.Contains("Home")) return "Home";
 			if (jsonId.Contains("DataMgr")) return "DataManager";
 			if (jsonId.Contains("SingleWell")) return "SingleWell";
 			if (jsonId.Contains("Seismic")) return "Seismic";
 			if (jsonId.Contains("Strat")) return "Stratigraphy";
 			if (jsonId.Contains("Mapping")) return "Mapping";
-			return "DataManager";
+			return "Home";
 		}
 
 		[RelayCommand]

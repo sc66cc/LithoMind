@@ -88,8 +88,11 @@
         <Border Grid.Row="0" Background="#EEEEEE" BorderBrush="#D0D0D0" BorderThickness="0,0,0,1" Padding="0,5">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Spacing="5" Margin="10,0,0,0">
 
+                <RadioButton Classes="NavBtn" GroupName="Mods" Content="首页" Tag="🏠"
+                             Command="{Binding SwitchModuleCommand}" CommandParameter="Module_Home" IsChecked="True"/>
+
                 <RadioButton Classes="NavBtn" GroupName="Mods" Content="多源数据解析与融合" Tag="📂"
-                             Command="{Binding SwitchModuleCommand}" CommandParameter="Module_DataMgr" IsChecked="True"/>
+                             Command="{Binding SwitchModuleCommand}" CommandParameter="Module_DataMgr"/>
 
                 <RadioButton Classes="NavBtn" GroupName="Mods" Content="地层智能对比" Tag="🧱"
                              Command="{Binding SwitchModuleCommand}" CommandParameter="Module_Strat"/>

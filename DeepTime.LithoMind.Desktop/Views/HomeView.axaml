@@ -1,0 +1,225 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:DeepTime.LithoMind.Desktop.ViewModels.Pages"
+             mc:Ignorable="d" d:DesignWidth="1200" d:DesignHeight="800"
+             x:Class="DeepTime.LithoMind.Desktop.Views.HomeView"
+             x:DataType="vm:HomeViewModel">
+
+    <UserControl.Styles>
+        <!-- 快捷访问卡片样式 -->
+        <Style Selector="Border.QuickAccessCard">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="#E0E0E0"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Padding" Value="15"/>
+            <Setter Property="Margin" Value="8"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+
+        <Style Selector="Border.QuickAccessCard:pointerover">
+            <Setter Property="Background" Value="#F5F5F5"/>
+            <Setter Property="BorderBrush" Value="#2196F3"/>
+        </Style>
+
+        <!-- 自定义视窗卡片样式 -->
+        <Style Selector="Border.WidgetCard">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="#E0E0E0"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Padding" Value="15"/>
+            <Setter Property="Margin" Value="8"/>
+        </Style>
+
+        <!-- 区域标题样式 -->
+        <Style Selector="TextBlock.SectionTitle">
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Foreground" Value="#333333"/>
+            <Setter Property="Margin" Value="10,15,10,10"/>
+        </Style>
+    </UserControl.Styles>
+
+    <ScrollViewer Background="#F8F9FA">
+        <StackPanel Margin="20" Spacing="20">
+
+            <!-- 欢迎区域 -->
+            <Border IsVisible="{Binding ShowWelcome}"
+                    Background="White"
+                    BorderBrush="#E0E0E0"
+                    BorderThickness="1"
+                    CornerRadius="8"
+                    Padding="30">
+                <StackPanel Spacing="15">
+                    <TextBlock Text="🏠" FontSize="48" HorizontalAlignment="Center"/>
+                    <TextBlock Text="{Binding WelcomeMessage}"
+                               FontSize="24"
+                               FontWeight="Bold"
+                               Foreground="#2196F3"
+                               HorizontalAlignment="Center"/>
+                    <TextBlock Text="开始您的地质数据分析之旅"
+                               FontSize="14"
+                               Foreground="#666666"
+                               HorizontalAlignment="Center"/>
+                </StackPanel>
+            </Border>
+
+            <!-- 二级导航栏 -->
+            <Border Background="White"
+                    BorderBrush="#E0E0E0"
+                    BorderThickness="1"
+                    CornerRadius="8"
+                    Padding="15">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="页面布局设置" Classes="SectionTitle"/>
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <Button Content="显示/隐藏欢迎信息"
+                                Command="{Binding ToggleWelcomeCommand}"
+                                Padding="10,5"/>
+                        <Button Content="显示/隐藏快捷面板"
+                                Command="{Binding ToggleQuickAccessCommand}"
+                                Padding="10,5"/>
+                        <Button Content="显示/隐藏自定义视窗"
+                                Command="{Binding ToggleCustomWidgetsCommand}"
+                                Padding="10,5"/>
+                        <Button Content="➕ 添加视窗"
+                                Command="{Binding AddCustomWidgetCommand}"
+                                Padding="10,5"
+                                Background="#4CAF50"
+                                Foreground="White"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- 快捷访问面板 -->
+            <Border IsVisible="{Binding ShowQuickAccess}"
+                    Background="Transparent">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="📌 快捷访问" Classes="SectionTitle"/>
+                    <ItemsControl ItemsSource="{Binding QuickAccessItems}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border Classes="QuickAccessCard"
+                                        Width="250"
+                                        Height="100">
+                                    <StackPanel Spacing="8">
+                                        <StackPanel Orientation="Horizontal" Spacing="10">
+                                            <TextBlock Text="{Binding Icon}"
+                                                       FontSize="24"
+                                                       VerticalAlignment="Center"/>
+                                            <TextBlock Text="{Binding Title}"
+                                                       FontSize="16"
+                                                       FontWeight="SemiBold"
+                                                       Foreground="#333333"
+                                                       VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                        <TextBlock Text="{Binding Description}"
+                                                   FontSize="12"
+                                                   Foreground="#666666"
+                                                   TextWrapping="Wrap"/>
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </Border>
+
+            <!-- 自定义视窗区域 -->
+            <Border IsVisible="{Binding ShowCustomWidgets}"
+                    Background="Transparent">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="🎨 自定义视窗" Classes="SectionTitle"/>
+                    <Grid RowDefinitions="Auto,Auto" ColumnDefinitions="*,*">
+                        <ItemsControl ItemsSource="{Binding CustomWidgets}"
+                                      Grid.Row="0"
+                                      Grid.ColumnSpan="2">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel Orientation="Horizontal"/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Classes="WidgetCard"
+                                            Width="380"
+                                            Height="200">
+                                        <Grid RowDefinitions="Auto,*,Auto">
+                                            <!-- 视窗标题栏 -->
+                                            <Border Grid.Row="0"
+                                                    Background="#F5F5F5"
+                                                    Padding="10,5"
+                                                    CornerRadius="4,4,0,0"
+                                                    Margin="-15,-15,-15,10">
+                                                <Grid ColumnDefinitions="*,Auto">
+                                                    <TextBlock Text="{Binding Title}"
+                                                               FontWeight="SemiBold"
+                                                               VerticalAlignment="Center"/>
+                                                    <Button Grid.Column="1"
+                                                            Content="❌"
+                                                            FontSize="12"
+                                                            Padding="5,2"
+                                                            Background="Transparent"
+                                                            BorderThickness="0"
+                                                            Command="{Binding $parent[UserControl].((vm:HomeViewModel)DataContext).RemoveCustomWidgetCommand}"
+                                                            CommandParameter="{Binding}"/>
+                                                </Grid>
+                                            </Border>
+
+                                            <!-- 视窗内容区域 -->
+                                            <Border Grid.Row="1"
+                                                    Background="#FAFAFA"
+                                                    CornerRadius="4"
+                                                    Padding="15">
+                                                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="10">
+                                                    <TextBlock Text="📊"
+                                                               FontSize="32"
+                                                               HorizontalAlignment="Center"/>
+                                                    <TextBlock Text="{Binding WidgetType}"
+                                                               FontSize="14"
+                                                               Foreground="#666666"
+                                                               HorizontalAlignment="Center"/>
+                                                    <TextBlock Text="(此处可添加自定义内容)"
+                                                               FontSize="12"
+                                                               Foreground="#999999"
+                                                               HorizontalAlignment="Center"/>
+                                                </StackPanel>
+                                            </Border>
+
+                                            <!-- 视窗操作栏 -->
+                                            <StackPanel Grid.Row="2"
+                                                        Orientation="Horizontal"
+                                                        Spacing="5"
+                                                        Margin="0,10,0,0">
+                                                <TextBlock Text="{Binding WidgetType, StringFormat='类型: {0}'}"
+                                                           FontSize="11"
+                                                           Foreground="#999999"
+                                                           VerticalAlignment="Center"/>
+                                                <TextBlock Text=" | "
+                                                           FontSize="11"
+                                                           Foreground="#CCCCCC"
+                                                           VerticalAlignment="Center"/>
+                                                <CheckBox Content="可见"
+                                                          IsChecked="{Binding IsVisible}"
+                                                          FontSize="11"/>
+                                            </StackPanel>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </Grid>
+                </StackPanel>
+            </Border>
+
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

@@ -314,6 +314,7 @@
     }
   ],
   "contextToolbars": {
+    "Module_Home": [],
     "Module_DataMgr": [
       {
         "header": "导入本地数据",

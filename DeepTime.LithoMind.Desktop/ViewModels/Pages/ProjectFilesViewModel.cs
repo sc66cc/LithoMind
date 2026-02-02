@@ -158,30 +158,52 @@ namespace DeepTime.LithoMind.Desktop.ViewModels.Pages
 			wellLogsFolder.Children.Add(CreateFile("综合测井曲线.txt", "WellLogs/综合测井曲线.txt", ".txt", "45 KB"));
 			projectRoot.Children.Add(wellLogsFolder);
 
-			// 2. 地震数据文件夹
+			// 2. 录井数据文件夹（新增）
+			var mudLogsFolder = CreateFolder("录井数据", "MudLogs", "📋");
+			mudLogsFolder.Children.Add(CreateFile("Well_A1_录井岩性.txt", "MudLogs/Well_A1_录井岩性.txt", ".txt", "28 KB"));
+			mudLogsFolder.Children.Add(CreateFile("Well_A2_录井岩性.xlsx", "MudLogs/Well_A2_录井岩性.xlsx", ".xlsx", "156 KB"));
+			mudLogsFolder.Children.Add(CreateFile("Well_B1_岩性描述.docx", "MudLogs/Well_B1_岩性描述.docx", ".docx", "892 KB"));
+			mudLogsFolder.Children.Add(CreateFile("综合录井数据.xlsx", "MudLogs/综合录井数据.xlsx", ".xlsx", "2.3 MB"));
+			mudLogsFolder.Children.Add(CreateFile("岩性柱状图.pdf", "MudLogs/岩性柱状图.pdf", ".pdf", "4.5 MB"));
+			projectRoot.Children.Add(mudLogsFolder);
+
+			// 3. 岩心资料文件夹（新增）
+			var coreDataFolder = CreateFolder("岩心资料", "CoreData", "🧪");
+			coreDataFolder.Children.Add(CreateFile("Well_A1_岩心照片.jpg", "CoreData/Well_A1_岩心照片.jpg", ".jpg", "12.3 MB"));
+			coreDataFolder.Children.Add(CreateFile("Well_A2_岩心描述.docx", "CoreData/Well_A2_岩心描述.docx", ".docx", "3.2 MB"));
+			coreDataFolder.Children.Add(CreateFile("薄片分析报告.pdf", "CoreData/薄片分析报告.pdf", ".pdf", "8.7 MB"));
+			coreDataFolder.Children.Add(CreateFile("岩心物性数据.xlsx", "CoreData/岩心物性数据.xlsx", ".xlsx", "567 KB"));
+			coreDataFolder.Children.Add(CreateFile("铸体薄片图集.pdf", "CoreData/铸体薄片图集.pdf", ".pdf", "25.4 MB"));
+			projectRoot.Children.Add(coreDataFolder);
+
+			// 4. 地震数据文件夹
 			var seismicFolder = CreateFolder("地震数据", "Seismic", "🥓");
 			seismicFolder.Children.Add(CreateFile("3D_Survey_Area1.sgy", "Seismic/3D_Survey_Area1.sgy", ".sgy", "2.3 GB"));
 			seismicFolder.Children.Add(CreateFile("2D_Line_001.segy", "Seismic/2D_Line_001.segy", ".segy", "856 MB"));
 			seismicFolder.Children.Add(CreateFile("地震剖面说明.txt", "Seismic/地震剖面说明.txt", ".txt", "12 KB"));
 			projectRoot.Children.Add(seismicFolder);
 
-			// 3. 地质图件文件夹
+			// 5. 地质图件文件夹
 			var mapsFolder = CreateFolder("地质图件", "Maps", "🗺️");
 			mapsFolder.Children.Add(CreateFile("构造图.shp", "Maps/构造图.shp", ".shp", "2.1 MB"));
 			mapsFolder.Children.Add(CreateFile("沉积相图.shp", "Maps/沉积相图.shp", ".shp", "1.8 MB"));
 			mapsFolder.Children.Add(CreateFile("储层分布图.shp", "Maps/储层分布图.shp", ".shp", "4.5 MB"));
 			mapsFolder.Children.Add(CreateFile("地层对比图.wlp", "Maps/地层对比图.wlp", ".wlp", "890 KB"));
+			mapsFolder.Children.Add(CreateFile("古地貌图.shp", "Maps/古地貌图.shp", ".shp", "3.2 MB"));
+			mapsFolder.Children.Add(CreateFile("水系图.shp", "Maps/水系图.shp", ".shp", "1.5 MB"));
+			mapsFolder.Children.Add(CreateFile("物源区岩性分布图.shp", "Maps/物源区岩性分布图.shp", ".shp", "2.8 MB"));
 			projectRoot.Children.Add(mapsFolder);
 
-			// 4. 文档资料文件夹
+			// 6. 文档资料文件夹
 			var docsFolder = CreateFolder("文档资料", "Documents", "📚");
 			docsFolder.Children.Add(CreateFile("项目报告.pdf", "Documents/项目报告.pdf", ".pdf", "5.6 MB"));
 			docsFolder.Children.Add(CreateFile("技术方案.docx", "Documents/技术方案.docx", ".docx", "2.3 MB"));
 			docsFolder.Children.Add(CreateFile("数据统计表.xlsx", "Documents/数据统计表.xlsx", ".xlsx", "1.2 MB"));
 			docsFolder.Children.Add(CreateFile("工作日志.txt", "Documents/工作日志.txt", ".txt", "28 KB"));
+			docsFolder.Children.Add(CreateFile("分析测试报告.pdf", "Documents/分析测试报告.pdf", ".pdf", "6.8 MB"));
 			projectRoot.Children.Add(docsFolder);
 
-			// 5. 分析结果文件夹
+			// 7. 分析结果文件夹
 			var resultsFolder = CreateFolder("分析结果", "Results", "📈");
 			resultsFolder.Children.Add(CreateFile("岩性分析结果.txt", "Results/岩性分析结果.txt", ".txt", "34 KB"));
 			resultsFolder.Children.Add(CreateFile("储层预测图.png", "Results/储层预测图.png", ".png", "3.2 MB"));
@@ -190,7 +212,7 @@ namespace DeepTime.LithoMind.Desktop.ViewModels.Pages
 
 			projectRoot.Children.Add(resultsFolder);
 
-			// 6. 项目配置文件
+			// 8. 项目配置文件
 			projectRoot.Children.Add(CreateFile("工程文件说明.txt", "工程文件说明.txt", ".txt", "2 KB"));
 
 			RootNodes.Add(projectRoot);

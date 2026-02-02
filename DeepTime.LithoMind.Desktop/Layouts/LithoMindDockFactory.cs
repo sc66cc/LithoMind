@@ -92,7 +92,7 @@ namespace DeepTime.LithoMind.Desktop.Layouts
 		// 默认布局（可以是空的，或者指向第一个模块）
 		public override IRootDock CreateLayout()
 		{
-			return CreateLayoutForModule("DataManager");
+			return CreateLayoutForModule("Home");
 		}
 
 		// 🔥 核心：根据模块ID创建不同的布局（带缓存优化）
@@ -110,6 +110,10 @@ namespace DeepTime.LithoMind.Desktop.Layouts
 			// 根据不同模块创建不同的布局结构
 			switch (moduleId)
 			{
+				case "Home":
+					mainLayout = CreateHomeLayout();
+					break;
+
 				case "DataManager":
 					mainLayout = CreateDataManagerLayout();
 					break;
@@ -131,7 +135,7 @@ namespace DeepTime.LithoMind.Desktop.Layouts
 					break;
 
 				default:
-					mainLayout = CreateDataManagerLayout();
+					mainLayout = CreateHomeLayout();
 					break;
 			}
 
@@ -160,7 +164,7 @@ namespace DeepTime.LithoMind.Desktop.Layouts
 		/// </summary>
 		public void PreloadAllLayouts()
 		{
-			var moduleIds = new[] { "DataManager", "SingleWell", "Seismic", "Mapping", "Stratigraphy" };
+			var moduleIds = new[] { "Home", "DataManager", "SingleWell", "Seismic", "Mapping", "Stratigraphy" };
 			foreach (var moduleId in moduleIds)
 			{
 				if (!_layoutCache.ContainsKey(moduleId))
@@ -297,6 +301,44 @@ namespace DeepTime.LithoMind.Desktop.Layouts
 				// 非 RootDock 类型，直接调用基类方法
 				base.InitLayout(layout);
 			}
+		}
+
+		/// <summary>
+		/// 首页布局
+		/// 单页面布局：只显示首页视图
+		/// </summary>
+		private ProportionalDock CreateHomeLayout()
+		{
+			const string moduleId = "Home";
+
+			// 创建首页ViewModel
+			var homeVM = GetOrCreateViewModel(moduleId, "Home", () => new HomeViewModel());
+
+			// 创建文档区域（只包含首页）
+			var documentDock = new DocumentDock
+			{
+				Id = "HomeDocuments",
+				Title = "首页",
+				IsCollapsable = false,
+				CanFloat = false,
+				CanPin = false,
+				CanClose = false,
+				VisibleDockables = CreateList<IDockable>(homeVM),
+				ActiveDockable = homeVM
+			};
+
+			// 创建简单的单页布局
+			var layout = new ProportionalDock
+			{
+				Id = moduleId + "Layout",
+				Proportion = double.NaN,
+				Orientation = Orientation.Horizontal,
+				IsCollapsable = false,
+				ActiveDockable = null,
+				VisibleDockables = CreateList<IDockable>(documentDock)
+			};
+
+			return layout;
 		}
 
 		private ProportionalDock CreateDataManagerLayout()
