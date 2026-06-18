@@ -2,4 +2,5 @@
   <Project Path="DeepTime.LithoMind.Desktop/DeepTime.LithoMind.Desktop.csproj" />
   <Project Path="LithoMind.Core/LithoMind.Core.csproj" />
   <Project Path="LithoMind.Infrastructure/LithoMind.Infrastructure.csproj" />
+  <Project Path="LithoMind.Tests/LithoMind.Tests.csproj" />
 </Solution>

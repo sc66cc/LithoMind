@@ -1,0 +1,13 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:DeepTime.LithoMind.Desktop.ViewModels.Workbench"
+             x:Class="DeepTime.LithoMind.Desktop.Views.Workbench.WorkbenchProjectExplorerView"
+             x:DataType="vm:WorkbenchProjectExplorerViewModel">
+    <Border Background="#FAFAFA" Padding="10">
+        <StackPanel Spacing="8">
+            <TextBlock Text="图层与数据目录" FontWeight="SemiBold" FontSize="14"/>
+            <TextBlock Text="Wells / Stratigraphy / Seismic / Maps / Exports" Foreground="#666" TextWrapping="Wrap"/>
+            <TextBlock Text="正式图层、数据、工程对象目录将在 M1 接入本地工程与 SQLite。" Foreground="#888" TextWrapping="Wrap"/>
+        </StackPanel>
+    </Border>
+</UserControl>

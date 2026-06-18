@@ -320,9 +320,10 @@ namespace DeepTime.LithoMind.Desktop.Layouts
 				Id = "HomeDocuments",
 				Title = "首页",
 				IsCollapsable = false,
-				CanFloat = false,
-				CanPin = false,
-				CanClose = false,
+				CanFloat = true,
+				CanPin = true,
+				CanClose = true,
+				CanCreateDocument = true,
 				VisibleDockables = CreateList<IDockable>(homeVM),
 				ActiveDockable = homeVM
 			};
@@ -374,7 +375,7 @@ namespace DeepTime.LithoMind.Desktop.Layouts
 				GripMode = GripMode.Visible,
 				CanFloat = true,
 				CanPin = true,
-				CanClose = false,  // 本地文件面板不允许关闭
+				CanClose = true,
 				IsCollapsable = true
 			};
 			
@@ -415,7 +416,7 @@ namespace DeepTime.LithoMind.Desktop.Layouts
 				GripMode = GripMode.Visible,
 				CanFloat = true,
 				CanPin = true,
-				CanClose = false,  // 工程目录面板不允许关闭
+				CanClose = true,
 				IsCollapsable = true
 			};
 			
@@ -474,7 +475,11 @@ namespace DeepTime.LithoMind.Desktop.Layouts
 				Title = "主工作区",
 				Proportion = double.NaN,
 				ActiveDockable = viewModel,
-				VisibleDockables = CreateList<IDockable>(viewModel)
+				VisibleDockables = CreateList<IDockable>(viewModel),
+				CanFloat = true,
+				CanPin = true,
+				CanClose = true,
+				CanCreateDocument = true
 			};
 
 			var layout = new ProportionalDock
@@ -511,7 +516,7 @@ namespace DeepTime.LithoMind.Desktop.Layouts
 				GripMode = GripMode.Visible,
 				CanFloat = true,
 				CanPin = true,
-				CanClose = false,
+				CanClose = true,
 				IsCollapsable = true
 			};
 
@@ -643,7 +648,7 @@ namespace DeepTime.LithoMind.Desktop.Layouts
 				GripMode = GripMode.Visible,
 				CanFloat = true,
 				CanPin = true,
-				CanClose = false,
+				CanClose = true,
 				IsCollapsable = true
 			};
 
@@ -725,7 +730,7 @@ namespace DeepTime.LithoMind.Desktop.Layouts
 				GripMode = GripMode.Visible,
 				CanFloat = true,
 				CanPin = true,
-				CanClose = false,
+				CanClose = true,
 				IsCollapsable = true
 			};
 
@@ -782,7 +787,7 @@ namespace DeepTime.LithoMind.Desktop.Layouts
 				GripMode = GripMode.Visible,
 				CanFloat = true,
 				CanPin = true,
-				CanClose = false,
+				CanClose = true,
 				IsCollapsable = true
 			};
 
@@ -833,7 +838,7 @@ namespace DeepTime.LithoMind.Desktop.Layouts
 				GripMode = GripMode.Visible,
 				CanFloat = true,
 				CanPin = true,
-				CanClose = false,
+				CanClose = true,
 				IsCollapsable = true
 			};
 

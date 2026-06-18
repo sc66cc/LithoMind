@@ -154,7 +154,7 @@ namespace DeepTime.LithoMind.Desktop.ViewModels.Pages
 				new QuickAccessItem
 				{
 					Title = "地层对比",
-					Description = "地层智能对比分析",
+					Description = "等时地层格架构建",
 					Icon = "🧱",
 					CommandId = "Module_Strat"
 				},

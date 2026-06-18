@@ -10,8 +10,11 @@
 	<ItemGroup>
 		<Folder Include="Bootstrappers\" />
 		<Folder Include="Converters\" />
+		<Folder Include="DOCS\月报\" />
+		<Folder Include="DOCS\正式开发\" />
 		<Folder Include="Handlers\" />
 		<Folder Include="Styles\" />
+		<Folder Include="TestData\" />
 	</ItemGroup>
 
 	<ItemGroup>

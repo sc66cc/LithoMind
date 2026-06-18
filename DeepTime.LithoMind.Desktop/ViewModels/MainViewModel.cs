@@ -10,7 +10,9 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using DeepTime.LithoMind.Desktop.Layouts;
 using DeepTime.LithoMind.Desktop.ViewModels.Base;
+using DeepTime.LithoMind.Desktop.ViewModels.Pages;
 using DeepTime.LithoMind.Desktop.Views;
+using DeepTime.LithoMind.Desktop.Workbench.Docking;
 using Dock.Model.Core;
 using Dock.Model.Controls;
 using Dock.Model.Mvvm.Core;
@@ -21,6 +23,7 @@ namespace DeepTime.LithoMind.Desktop.ViewModels
 	public partial class MainViewModel : ViewModelBase
 	{
 		private readonly LithoMindDockFactory _factory;
+		private readonly WorkbenchLayoutService _layoutService;
 		private UiLayoutConfig? _uiConfig;
 		private const string LayoutConfigPath = "dock_layout.json";
 		
@@ -60,6 +63,7 @@ namespace DeepTime.LithoMind.Desktop.ViewModels
 		public MainViewModel()
 		{
 			_factory = new LithoMindDockFactory(this);
+			_layoutService = new WorkbenchLayoutService(_factory);
 
 			LoadUiConfig();
 
@@ -164,14 +168,14 @@ namespace DeepTime.LithoMind.Desktop.ViewModels
 				cancellationToken.ThrowIfCancellationRequested();
 
 				// 获取新布局（由于缓存机制，这个操作非常快）
-				var newLayout = _factory.CreateLayoutForModule(factoryId);
+				var newLayout = _layoutService.CreateDefaultWorkbenchLayout(factoryId);
 
 				if (newLayout != null)
 				{
 					cancellationToken.ThrowIfCancellationRequested();
 
 					// 初始化并设置布局（全部在UI线程执行，避免跨线程问题）
-					_factory.InitLayout(newLayout);
+					_layoutService.InitializeLayout(newLayout);
 
 					// 尝试加载保存的布局配置
 					if (!TryLoadLayoutFromFile(factoryId))
@@ -270,10 +274,10 @@ namespace DeepTime.LithoMind.Desktop.ViewModels
 					Layout.Close.Execute(null);
 				}
 
-				var newLayout = _factory.CreateLayoutForModule(currentModuleId);
+				var newLayout = _layoutService.CreateDefaultWorkbenchLayout(currentModuleId);
 				if (newLayout != null)
 				{
-					_factory.InitLayout(newLayout);
+					_layoutService.InitializeLayout(newLayout);
 					Layout = newLayout;
 				}
 			}
@@ -296,6 +300,49 @@ namespace DeepTime.LithoMind.Desktop.ViewModels
 			return "Home";
 		}
 
+		/// <summary>
+		/// 显示全局搜索窗口
+		/// </summary>
+		[RelayCommand]
+		public void ShowGlobalSearch()
+		{
+			if (Application.Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop
+				&& desktop.MainWindow != null)
+			{
+				var searchViewModel = new GlobalSearchViewModel();
+				var searchWindow = new GlobalSearchView
+				{
+					DataContext = searchViewModel
+				};
+
+				// 订阅搜索结果选择事件
+				searchViewModel.ResultSelected += (result) =>
+				{
+					// 根据结果类型执行相应操作
+					switch (result.Type)
+					{
+						case SearchResultType.Module:
+							// 切换到对应模块
+							_ = SwitchModule(result.CommandId);
+							break;
+
+						case SearchResultType.Function:
+							// 执行对应功能命令
+							ExecuteMenu(result.CommandId);
+							break;
+
+						case SearchResultType.File:
+						case SearchResultType.Data:
+						case SearchResultType.Layer:
+							// TODO: 实现文件/数据/图层的导航逻辑
+							break;
+					}
+				};
+
+				searchWindow.ShowDialog(desktop.MainWindow);
+			}
+		}
+
 		[RelayCommand]
 		public void ExecuteMenu(string? commandId)
 		{
@@ -304,6 +351,11 @@ namespace DeepTime.LithoMind.Desktop.ViewModels
 			// 根据命令ID执行相应操作
 			switch (commandId)
 			{
+				// 全局搜索
+				case "Cmd_GlobalSearch":
+					ShowGlobalSearch();
+					break;
+
 				// 多源数据解析与融合模块命令
 				case "Cmd_PrevAll":
 					// 预览所有已加载数据 - 切换到工区平面图

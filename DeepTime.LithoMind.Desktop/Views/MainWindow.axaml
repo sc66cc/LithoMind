@@ -7,7 +7,7 @@
         x:DataType="vm:MainViewModel"
         x:Name="RootWindow"
         Icon="/Assets/avalonia-logo.ico"
-        Title="岩相古地理数智化重建系统原型 v2 版"
+        Title="岩相古地理数智化重建系统原型 v3 版"
         HorizontalAlignment="Center"
         VerticalAlignment="Center"
         WindowStartupLocation="CenterScreen"
@@ -19,6 +19,11 @@
             <TextBlock Text="{Binding Header}" VerticalAlignment="Center"/>
         </TreeDataTemplate>
     </Window.DataTemplates>
+
+    <Window.KeyBindings>
+        <!-- 全局搜索快捷键: Ctrl+Shift+F -->
+        <KeyBinding Gesture="Ctrl+Shift+F" Command="{Binding ShowGlobalSearchCommand}" />
+    </Window.KeyBindings>
 
     <Window.Styles>
         <!-- 菜单项样式: 自动绑定命令 -->
@@ -91,10 +96,10 @@
                 <RadioButton Classes="NavBtn" GroupName="Mods" Content="首页" Tag="🏠"
                              Command="{Binding SwitchModuleCommand}" CommandParameter="Module_Home" IsChecked="True"/>
 
-                <RadioButton Classes="NavBtn" GroupName="Mods" Content="多源数据解析与融合" Tag="📂"
+                <RadioButton Classes="NavBtn" GroupName="Mods" Content="多源数据管理" Tag="📂"
                              Command="{Binding SwitchModuleCommand}" CommandParameter="Module_DataMgr"/>
 
-                <RadioButton Classes="NavBtn" GroupName="Mods" Content="地层智能对比" Tag="🧱"
+                <RadioButton Classes="NavBtn" GroupName="Mods" Content="等时地层格架构建" Tag="🧱"
                              Command="{Binding SwitchModuleCommand}" CommandParameter="Module_Strat"/>
 
                 <RadioButton Classes="NavBtn" GroupName="Mods" Content="单井相智能分析" Tag="📊"

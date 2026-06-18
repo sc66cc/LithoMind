@@ -91,6 +91,15 @@
       "children": [
         {
           "header": "全局搜索",
+          "commandId": "Cmd_GlobalSearch",
+          "id": "GenID_GlobalSearch_Main",
+          "inputGesture": "Ctrl+Shift+F"
+        },
+        {
+          "type": "Separator"
+        },
+        {
+          "header": "全局搜索",
           "type": "SubMenu",
           "children": [
             {
@@ -386,9 +395,22 @@
         "id": "GenID_DataMgr_Import"
       },
       {
-        "header": "连接数据湖",
+        "header": "从数据湖导入",
         "commandId": "Cmd_ConnectDataLake",
         "id": "GenID_ConnectDataLake"
+      },
+      {
+        "header": "VDB 导入",
+        "commandId": "Cmd_VDBImport",
+        "id": "GenID_VDBImport"
+      },
+      {
+        "type": "Separator"
+      },
+      {
+        "header": "多模块混合检索",
+        "commandId": "Cmd_AIzhili",
+        "id": "GenID_AIzhili"
       },
       {
         "type": "Separator"
@@ -853,27 +875,28 @@
         "type": "Separator"
       },
       {
-        "header": "新建二维地震剖面",
-        "commandId": "Cmd_New2DSeismic",
-        "id": "GenID_New2DSeismic"
-      },
-      {
-        "header": "新建三维视图",
-        "commandId": "Cmd_New3DView",
-        "id": "GenID_New3DView"
-      },
-      {
-        "header": "新建井震联合视图",
-        "commandId": "Cmd_NewWellSeismicView",
-        "id": "GenID_NewWellSeismicView"
+        "header": "新建地震剖面视图",
+        "children": [
+          {
+            "header": "新建二维地震剖面",
+            "commandId": "Cmd_New2DSeismic",
+            "id": "GenID_New2DSeismic"
+          },
+          {
+            "header": "新建三维视图",
+            "commandId": "Cmd_New3DView",
+            "id": "GenID_New3DView"
+          },
+          {
+            "header": "新建井震联合视图",
+            "commandId": "Cmd_NewWellSeismicView",
+            "id": "GenID_NewWellSeismicView"
+          }
+        ],
+        "id": "GenID_NewSeismicPannel"
       },
       {
         "type": "Separator"
-      },
-      {
-        "header": "显示地震数据频谱图",
-        "commandId": "Cmd_ShowSeismicSpectrum",
-        "id": "GenID_ShowSeismicSpectrum"
       },
       {
         "header": "层位解释",

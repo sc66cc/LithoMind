@@ -1,0 +1,12 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:DeepTime.LithoMind.Desktop.ViewModels.Workbench"
+             x:Class="DeepTime.LithoMind.Desktop.Views.Workbench.WorkbenchPropertiesView"
+             x:DataType="vm:WorkbenchPropertiesViewModel">
+    <Border Background="#FFFFFF" Padding="10">
+        <StackPanel Spacing="8">
+            <TextBlock Text="属性展示与参数调整区" FontWeight="SemiBold" FontSize="14"/>
+            <TextBlock Text="当前选中对象的属性、参数、样式和质控问题将在此显示。" Foreground="#666" TextWrapping="Wrap"/>
+        </StackPanel>
+    </Border>
+</UserControl>

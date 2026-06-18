@@ -16,7 +16,7 @@
                         Content="🔄" 
                         ToolTip.Tip="刷新驱动器列表"
                         Command="{Binding RefreshDrivesCommand}"
-                        Background="Transparent"
+                        Background="Transparent" 
                         BorderThickness="0"
                         Padding="5"
                         Cursor="Hand"/>

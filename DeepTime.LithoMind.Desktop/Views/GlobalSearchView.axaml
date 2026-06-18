@@ -1,0 +1,257 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="using:DeepTime.LithoMind.Desktop.ViewModels.Pages"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600"
+        x:Class="DeepTime.LithoMind.Desktop.Views.GlobalSearchView"
+        x:DataType="vm:GlobalSearchViewModel"
+        Title="全局搜索"
+        Width="800"
+        Height="600"
+        MinWidth="600"
+        MinHeight="400"
+        WindowStartupLocation="CenterOwner"
+        CanResize="True"
+        Background="#F5F5F5">
+
+	<Window.Styles>
+		<!-- 搜索框样式 -->
+		<Style Selector="TextBox.SearchBox">
+			<Setter Property="FontSize" Value="16"/>
+			<Setter Property="Padding" Value="12,10"/>
+			<Setter Property="Background" Value="White"/>
+			<Setter Property="BorderBrush" Value="#E0E0E0"/>
+			<Setter Property="BorderThickness" Value="1"/>
+			<Setter Property="CornerRadius" Value="6"/>
+		</Style>
+
+		<!-- 过滤按钮样式 -->
+		<Style Selector="Button.FilterBtn">
+			<Setter Property="Padding" Value="12,6"/>
+			<Setter Property="Margin" Value="0,0,8,0"/>
+			<Setter Property="Background" Value="White"/>
+			<Setter Property="BorderBrush" Value="#E0E0E0"/>
+			<Setter Property="BorderThickness" Value="1"/>
+			<Setter Property="CornerRadius" Value="4"/>
+			<Setter Property="Cursor" Value="Hand"/>
+		</Style>
+		<Style Selector="Button.FilterBtn:pointerover">
+			<Setter Property="Background" Value="#F0F0F0"/>
+		</Style>
+		<Style Selector="Button.FilterBtn:pressed">
+			<Setter Property="Background" Value="#E0E0E0"/>
+		</Style>
+
+		<!-- 搜索结果项样式 -->
+		<Style Selector="Border.ResultItem">
+			<Setter Property="Padding" Value="12,10"/>
+			<Setter Property="Background" Value="White"/>
+			<Setter Property="BorderBrush" Value="Transparent"/>
+			<Setter Property="BorderThickness" Value="0,0,0,1"/>
+			<Setter Property="Cursor" Value="Hand"/>
+		</Style>
+		<Style Selector="Border.ResultItem:pointerover">
+			<Setter Property="Background" Value="#F0F7FF"/>
+		</Style>
+
+		<!-- 结果标题样式 -->
+		<Style Selector="TextBlock.ResultTitle">
+			<Setter Property="FontSize" Value="14"/>
+			<Setter Property="FontWeight" Value="SemiBold"/>
+			<Setter Property="Foreground" Value="#333333"/>
+		</Style>
+
+		<!-- 结果描述样式 -->
+		<Style Selector="TextBlock.ResultDesc">
+			<Setter Property="FontSize" Value="12"/>
+			<Setter Property="Foreground" Value="#666666"/>
+			<Setter Property="Margin" Value="0,2,0,0"/>
+		</Style>
+
+		<!-- 结果路径样式 -->
+		<Style Selector="TextBlock.ResultPath">
+			<Setter Property="FontSize" Value="11"/>
+			<Setter Property="Foreground" Value="#999999"/>
+			<Setter Property="Margin" Value="0,2,0,0"/>
+		</Style>
+
+		<!-- 结果类型标签样式 -->
+		<Style Selector="Border.TypeBadge">
+			<Setter Property="Padding" Value="6,2"/>
+			<Setter Property="Background" Value="#E3F2FD"/>
+			<Setter Property="CornerRadius" Value="3"/>
+			<Setter Property="Margin" Value="0,0,8,0"/>
+		</Style>
+
+		<Style Selector="TextBlock.TypeText">
+			<Setter Property="FontSize" Value="11"/>
+			<Setter Property="Foreground" Value="#1976D2"/>
+		</Style>
+	</Window.Styles>
+
+	<Grid RowDefinitions="Auto,Auto,*,Auto">
+		<!-- 搜索框区域 -->
+		<Border Grid.Row="0"
+		        Background="White"
+		        Padding="20,16"
+		        BorderBrush="#E0E0E0"
+		        BorderThickness="0,0,0,1">
+			<DockPanel>
+				<TextBlock DockPanel.Dock="Left"
+				           Text="🔍"
+				           FontSize="20"
+				           VerticalAlignment="Center"
+				           Margin="0,0,12,0"/>
+				<Button DockPanel.Dock="Right"
+				        Content="✕"
+				        Command="{Binding ClearSearchCommand}"
+				        IsVisible="{Binding SearchKeyword, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
+				        Padding="8"
+				        Margin="8,0,0,0"
+				        Background="Transparent"
+				        BorderThickness="0"
+				        VerticalAlignment="Center"
+				        Cursor="Hand"/>
+				<TextBox Classes="SearchBox"
+				         Text="{Binding SearchKeyword}"
+				         Watermark="输入搜索关键词 (支持搜索井名、层位、功能、文件等)..."
+				         VerticalAlignment="Center"/>
+			</DockPanel>
+		</Border>
+
+		<!-- 过滤按钮区域 -->
+		<Border Grid.Row="1"
+		        Background="White"
+		        Padding="20,12"
+		        BorderBrush="#E0E0E0"
+		        BorderThickness="0,0,0,1">
+			<StackPanel Orientation="Horizontal" Spacing="0">
+				<TextBlock Text="筛选："
+				           VerticalAlignment="Center"
+				           Margin="0,0,12,0"
+				           Foreground="#666666"/>
+				<Button Classes="FilterBtn"
+				        Content="全部"
+				        Command="{Binding ShowAllCommand}"/>
+				<Button Classes="FilterBtn"
+				        Content="文件"
+				        Command="{Binding ShowFilesCommand}"/>
+				<Button Classes="FilterBtn"
+				        Content="功能"
+				        Command="{Binding ShowFunctionsCommand}"/>
+				<Button Classes="FilterBtn"
+				        Content="图层"
+				        Command="{Binding ShowLayersCommand}"/>
+				<TextBlock Text="{Binding ResultCount}"
+				           VerticalAlignment="Center"
+				           Margin="20,0,0,0"
+				           Foreground="#999999"/>
+			</StackPanel>
+		</Border>
+
+		<!-- 搜索结果列表 -->
+		<ScrollViewer Grid.Row="2"
+		              Background="#F5F5F5"
+		              VerticalScrollBarVisibility="Auto">
+			<ItemsControl ItemsSource="{Binding SearchResults}">
+				<ItemsControl.ItemTemplate>
+					<DataTemplate>
+						<Border Classes="ResultItem"
+						        Tapped="OnResultItemTapped">
+							<DockPanel>
+								<!-- 左侧图标 -->
+								<TextBlock DockPanel.Dock="Left"
+								           Text="{Binding Icon}"
+								           FontSize="24"
+								           VerticalAlignment="Top"
+								           Margin="0,0,12,0"/>
+
+								<!-- 右侧类型标签 -->
+								<Border DockPanel.Dock="Right"
+								        Classes="TypeBadge"
+								        VerticalAlignment="Top">
+									<TextBlock Classes="TypeText"
+									           Text="{Binding TypeText}"/>
+								</Border>
+
+								<!-- 中间内容 -->
+								<StackPanel VerticalAlignment="Top">
+									<TextBlock Classes="ResultTitle"
+									           Text="{Binding Title}"/>
+									<TextBlock Classes="ResultDesc"
+									           Text="{Binding Description}"
+									           TextWrapping="Wrap"/>
+									<TextBlock Classes="ResultPath"
+									           Text="{Binding Path}"
+									           IsVisible="{Binding Path, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
+								</StackPanel>
+							</DockPanel>
+						</Border>
+					</DataTemplate>
+				</ItemsControl.ItemTemplate>
+			</ItemsControl>
+		</ScrollViewer>
+
+		<!-- 底部提示区域 -->
+		<Border Grid.Row="3"
+		        Background="White"
+		        Padding="20,12"
+		        BorderBrush="#E0E0E0"
+		        BorderThickness="0,1,0,0">
+			<StackPanel Orientation="Horizontal" Spacing="20">
+				<TextBlock Text="💡 提示："
+				           Foreground="#666666"
+				           FontSize="12"/>
+				<TextBlock Text="点击结果项快速跳转"
+				           Foreground="#999999"
+				           FontSize="12"/>
+				<TextBlock Text="支持模糊搜索"
+				           Foreground="#999999"
+				           FontSize="12"/>
+				<TextBlock Text="ESC 关闭窗口"
+				           Foreground="#999999"
+				           FontSize="12"/>
+			</StackPanel>
+		</Border>
+
+		<!-- 无结果提示 -->
+		<StackPanel Grid.Row="2"
+		            HorizontalAlignment="Center"
+		            VerticalAlignment="Center"
+		            IsVisible="{Binding !SearchResults.Count}"
+		            Spacing="12">
+			<TextBlock Text="🔍"
+			           FontSize="48"
+			           HorizontalAlignment="Center"
+			           Opacity="0.3"/>
+			<TextBlock Text="未找到匹配结果"
+			           FontSize="16"
+			           Foreground="#999999"
+			           HorizontalAlignment="Center"/>
+			<TextBlock Text="尝试使用不同的关键词"
+			           FontSize="12"
+			           Foreground="#CCCCCC"
+			           HorizontalAlignment="Center"/>
+		</StackPanel>
+
+		<!-- 加载指示器 -->
+		<Border Grid.Row="2"
+		        Background="#80FFFFFF"
+		        IsVisible="{Binding IsSearching}"
+		        HorizontalAlignment="Stretch"
+		        VerticalAlignment="Stretch">
+			<StackPanel HorizontalAlignment="Center"
+			            VerticalAlignment="Center"
+			            Spacing="12">
+				<TextBlock Text="⏳"
+				           FontSize="32"
+				           HorizontalAlignment="Center"/>
+				<TextBlock Text="搜索中..."
+				           FontSize="14"
+				           Foreground="#666666"
+				           HorizontalAlignment="Center"/>
+			</StackPanel>
+		</Border>
+	</Grid>
+</Window>

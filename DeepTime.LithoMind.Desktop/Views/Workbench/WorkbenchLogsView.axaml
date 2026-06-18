@@ -1,0 +1,29 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:DeepTime.LithoMind.Desktop.ViewModels.Workbench"
+             x:Class="DeepTime.LithoMind.Desktop.Views.Workbench.WorkbenchLogsView"
+             x:DataType="vm:WorkbenchLogsViewModel">
+    <Border Background="#F7F7F7"
+            BorderBrush="#8C8C8C"
+            BorderThickness="0,1,0,0"
+            Padding="0">
+        <Grid Height="24" ColumnDefinitions="2*,4*,2*,Auto,Auto,Auto,Auto">
+            <Border Grid.Column="0" BorderBrush="#BDBDBD" BorderThickness="0,0,1,0" Padding="8,0">
+                <TextBlock Text="{Binding SelectedObjectText}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="12"/>
+            </Border>
+
+            <Border Grid.Column="1" BorderBrush="#BDBDBD" BorderThickness="0,0,1,0" Padding="8,0">
+                <TextBlock Text="{Binding CursorContextText}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="12"/>
+            </Border>
+
+            <Border Grid.Column="2" BorderBrush="#BDBDBD" BorderThickness="0,0,1,0" Padding="8,0">
+                <TextBlock Text="{Binding StatusTitle}" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="SemiBold" FontSize="12"/>
+            </Border>
+
+            <TextBlock Grid.Column="3" Text="{Binding MemoryUsageText}" VerticalAlignment="Center" Margin="14,0,0,0" FontSize="12"/>
+            <TextBlock Grid.Column="4" Text="{Binding CpuUsageText}" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="12"/>
+            <TextBlock Grid.Column="5" Text="{Binding GpuUsageText}" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="12"/>
+            <TextBlock Grid.Column="6" Text="{Binding ApiConnectionText}" VerticalAlignment="Center" Margin="10,0,12,0" FontSize="12"/>
+        </Grid>
+    </Border>
+</UserControl>

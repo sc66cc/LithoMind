@@ -69,7 +69,7 @@ namespace DeepTime.LithoMind.Desktop.ViewModels.Pages
 		public StratigraphyViewModel()
 		{
 			Id = "Stratigraphy";
-			Title = "地层智能对比";
+			Title = "等时地层格架构建";
 			IconKey = "\U0001f9f1";
 			Order = 2;
 

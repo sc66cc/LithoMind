@@ -70,6 +70,10 @@ namespace DeepTime.LithoMind.Desktop.ViewModels.Pages
 				".doc" or ".docx" => "Word文档",
 				".xls" or ".xlsx" => "Excel表格",
 				".png" or ".jpg" or ".jpeg" or ".gif" or ".bmp" => "图片文件",
+				".shp" => "地理空间矢量文件",
+				".wlp" => "井位布局文件",
+				".dat" => "数据文件",
+				".grd" => "网格数据文件",
 				".lmproj" => "LithoMind项目文件",
 				_ => "未知文件类型"
 			};
@@ -192,6 +196,11 @@ namespace DeepTime.LithoMind.Desktop.ViewModels.Pages
 			mapsFolder.Children.Add(CreateFile("古地貌图.shp", "Maps/古地貌图.shp", ".shp", "3.2 MB"));
 			mapsFolder.Children.Add(CreateFile("水系图.shp", "Maps/水系图.shp", ".shp", "1.5 MB"));
 			mapsFolder.Children.Add(CreateFile("物源区岩性分布图.shp", "Maps/物源区岩性分布图.shp", ".shp", "2.8 MB"));
+			mapsFolder.Children.Add(CreateFile("构造网格.shp", "Maps/构造网格.shp", ".shp", "1.2 MB"));
+			mapsFolder.Children.Add(CreateFile("断层网格.shp", "Maps/断层网格.shp", ".shp", "890 KB"));
+			mapsFolder.Children.Add(CreateFile("地震属性切片.dat", "Maps/地震属性切片.dat", ".dat", "5.6 MB"));
+			mapsFolder.Children.Add(CreateFile("孔隙度属性.grd", "Maps/孔隙度属性.grd", ".grd", "3.4 MB"));
+			mapsFolder.Children.Add(CreateFile("渗透率属性.grd", "Maps/渗透率属性.grd", ".grd", "3.2 MB"));
 			projectRoot.Children.Add(mapsFolder);
 
 			// 6. 文档资料文件夹
@@ -263,6 +272,10 @@ namespace DeepTime.LithoMind.Desktop.ViewModels.Pages
 				".doc" or ".docx" => "📘",
 				".xls" or ".xlsx" => "📗",
 				".png" or ".jpg" or ".jpeg" or ".gif" or ".bmp" => "🖼️",
+				".shp" => "🗺️",
+				".wlp" => "📐",
+				".dat" => "💾",
+				".grd" => "🌐",
 				".lmproj" => "📂",
 				_ => "📄"
 			};

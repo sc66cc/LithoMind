@@ -27,6 +27,13 @@
 *.log
 *.tmp
 
+# macOS / local scratch
+**/.DS_Store
+tmp/
+
+# local heavyweight datasets
+DeepTime.LithoMind.Desktop/TestData/
+
 
 
 /.vs/LithoFaceisStudio.slnx
